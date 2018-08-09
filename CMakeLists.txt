@@ -16,7 +16,6 @@ cmake_policy(SET CMP0037 OLD)
 project(wrapper_library)
 
 set(CEAMMC_LIB_SOURCES
-
 #    ceammc_lib/ceammc_abstractdata.cpp
 #    ceammc_lib/ceammc_atom.cpp
 #    ceammc_lib/ceammc_atomlist.cpp
@@ -42,18 +41,18 @@ set (SOURCES
     "src/_AbstractDataWrapT.hpp"
     "src/_AtomListWrapperT.hpp"
     "src/_Converters.hpp"
+    "src/_Invocations.hpp"
 
-    "src/TypeConstructor.hpp"
-    "src/TypeMethod.hpp"
+    "src/ClassConstructor.hpp"
+    "src/ClassMethod.hpp"
 
     "src/Macros.hpp"
 
-    "src/ClassWrapper.hpp"
+    "src/Wrapper.hpp"
 
 #    "src/WrapperDemo.cpp"
 
     "to_wrap/DemoClass.hpp"
-
     "to_wrap/_generated.cpp"
 )
 
@@ -63,9 +62,6 @@ set (HEADERS
     ceammc_lib/ceammc_format.h 
     ceammc_lib/ceammc_log.h 
     ceammc_lib/ceammc_property.h 
-
-
-    
 )
 
 find_package(Boost 1.47.0 REQUIRED)
@@ -99,14 +95,13 @@ set_target_properties(wrapper_library PROPERTIES SUFFIX ".pd_darwin")
 
 add_custom_target(
         always_run_target ALL
-#        DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/__header.h
+        DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/to_wrap/_generated.cpp
 )
 
 add_custom_command(
         OUTPUT
             ${CMAKE_CURRENT_SOURCE_DIR}/to_wrap/_generated.cpp
             ${CMAKE_CURRENT_SOURCE_DIR}/build/_generated.pd
-#            ${CMAKE_CURRENT_BINARY_DIR}/header.h
         DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/to_wrap/
         COMMAND /usr/local/bin/python3 ${CMAKE_CURRENT_SOURCE_DIR}/gen/convert.py
 )

@@ -3,8 +3,8 @@
 #ifndef TypeWrapper_hpp
 #define TypeWrapper_hpp
 
-#include "TypeConstructor.hpp"
-#include "TypeMethod.hpp"
+#include "ClassConstructor.hpp"
+#include "ClassMethod.hpp"
 
 #include "Macros.hpp"
 

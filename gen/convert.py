@@ -8,7 +8,7 @@ sys.path = ["../"] + sys.path
 import CppHeaderParser
 
 outputFile = open("../to_wrap/_generated.cpp","w+")
-outputFile.write("#include \"ClassWrapper.hpp\"\n")
+outputFile.write("#include \"Wrapper.hpp\"\n")
 outputFile.write("#include \"DemoClass.hpp\"\n\n")
 
 outputFile.write("extern \"C\"{\n");

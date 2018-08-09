@@ -1,8 +1,8 @@
 // creates Pd object for class
 // currently doesn't support constructor's arguments
 
-#ifndef TypeConstructor_hpp
-#define TypeConstructor_hpp
+#ifndef ClassConstructor_hpp
+#define ClassConstructor_hpp
 
 #include "ceammc_atomlist.h"
 #include "ceammc_factory.h"
@@ -13,19 +13,19 @@
 using namespace ceammc;
 
 template <typename T>
-class TypeConstructor : public ceammc::BaseObject {
+class ClassConstructor : public ceammc::BaseObject {
     AbstractDataWrapT<T> _value;// = 0;
     DataTPtr<AbstractDataWrapT<T> > _data;
 
 public:
-    TypeConstructor(PdArgs& a)
+    ClassConstructor(PdArgs& a)
         : BaseObject(a),
          _data(&_value)
         {
             createOutlet();
         };
 
-    ~TypeConstructor()
+    ~ClassConstructor()
     {
         _data = 0;
     }

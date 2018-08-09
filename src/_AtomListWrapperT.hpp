@@ -8,16 +8,12 @@
 #include "_FunctionTraits.hpp"
 
 #include "ceammc_atomlist.h"
-
 #include "ceammc_data.h"
-
 #include "ceammc_dataatom.h"
 
 #include "_Converters.hpp"
 
 // ---------------------
-
-// --
 
 template <typename T>
 void convertAtom(T& out, Atom a)
@@ -58,14 +54,10 @@ public:
 
     void operator()(const AtomList& src)
     {
-        //std::tuple_element<I, T> el;
         using el_type = decltype(std::get<I - 1>(output));
 
         auto& el = std::get<I - 1>(output);
         auto atom = src.at(I - 1);
-
-        // el_type value = convertAtom<el_type>(atom);
-        // std::get<I - 1>(output) = value;
 
         convertAtom(el, atom);
 

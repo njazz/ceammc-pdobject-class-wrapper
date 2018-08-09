@@ -13,13 +13,8 @@ template <typename T>
 class AbstractDataWrapT : public AbstractData {
 
 public:
-
     using noRefT = typename std::remove_reference<T>::type;
     noRefT value;
-
-
-    //T value;
-
 
     virtual AbstractData* clone() const override
     {
@@ -33,25 +28,20 @@ public:
         return typeid(T).name();
     }
 
-    AbstractDataWrapT(typename std::remove_reference<T>::type v)
+    AbstractDataWrapT(noRefT v)
         : value(v){
 
-    };
+        };
 
-//    AbstractDataWrapT(const T& v)
-//        : value(v){
-//    };
-
-    AbstractDataWrapT() : value() {
-
+    AbstractDataWrapT()
+        : value()
+    {
     }
 
-   static const unsigned short dataType;
+    static const unsigned short dataType;
 };
 
 template <typename T>
 const unsigned short AbstractDataWrapT<T>::dataType = (typeid(T).hash_code() % 8192);
-
-// ---
 
 #endif

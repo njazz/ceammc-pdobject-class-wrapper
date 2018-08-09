@@ -1,10 +1,13 @@
 // ----------
 
+#include "ClassMethod.hpp"
+#include "ClassConstructor.hpp"
+
 #define WRAP_CLASS(x, y)                       \
-    class _C_##x : public TypeConstructor<x> { \
+    class _C_##x : public ClassConstructor<x> { \
     public:                                    \
         _C_##x(PdArgs& a)                      \
-            : TypeConstructor<x>(a)            \
+            : ClassConstructor<x>(a)            \
         {                                      \
         }                                      \
     };                                         \
@@ -15,11 +18,11 @@
 #define WRAP_METHOD(x, y, z, m, n)                               \
     /* constexpr decltype(&x::y) _##x_method_##y = &x::y;     */ \
                                                                  \
-    class M_##m : public TypeMethod<x, n> {                      \
+    class M_##m : public ClassMethod<x, n> {                      \
                                                                 \
                                                                  \
             public : M_##m(PdArgs& a)                            \
-            : TypeMethod<x, n>(a, m)                             \
+            : ClassMethod<x, n>(a, m)                             \
         {                                                        \
         }                                                        \
     };                                                           \
