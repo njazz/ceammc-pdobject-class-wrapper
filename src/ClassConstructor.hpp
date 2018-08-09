@@ -1,5 +1,5 @@
 // creates Pd object for class
-// currently doesn't support constructor's arguments
+// currently doesn't support constructors with arguments
 
 #ifndef ClassConstructor_hpp
 #define ClassConstructor_hpp

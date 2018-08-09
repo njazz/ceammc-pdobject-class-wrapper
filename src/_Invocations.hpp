@@ -53,4 +53,49 @@ public:
 
 // ---
 
+
+template <typename R, class F, typename A>
+class _InvocationStaticMethod {
+public:
+    const F& _method;
+    const A& _arguments;
+
+    TypedAtomT<R> _return;
+
+    _InvocationStaticMethod(const F& f, const A& a)
+        :
+         _method(f)
+        , _arguments(a)
+    {
+    }
+
+    template <int... S>
+    void operator()(_sequence<S...>)
+    {
+        _return = TypedAtomT<R>((*_method)(std::get<S>(_arguments)...));
+    }
+};
+
+// void return type
+template < class F, typename A>
+class _InvocationStaticMethod<void,F, A> {
+public:
+    const F& _method;
+    const A& _arguments;
+
+    TypedAtomT<void> _return;
+
+    _InvocationStaticMethod( const F& f, const A& a)
+        :  _method(f)
+        , _arguments(a)
+    {
+    }
+
+    template <int... S>
+    void operator()(_sequence<S...>)
+    {
+        (*_method)(std::get<S>(_arguments)...);
+    }
+};
+
 #endif

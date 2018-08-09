@@ -45,6 +45,7 @@ set (SOURCES
 
     "src/ClassConstructor.hpp"
     "src/ClassMethod.hpp"
+    "src/ClassStaticMethod.hpp"
 
     "src/Macros.hpp"
 

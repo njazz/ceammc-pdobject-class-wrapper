@@ -41,6 +41,8 @@ public:
     {
         return _subClass;
     }
+
+    static void testStatic(int i){};
 };
 
 //class CustomConstructed

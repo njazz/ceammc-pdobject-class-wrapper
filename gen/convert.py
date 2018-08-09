@@ -92,22 +92,46 @@ for filename in os.listdir("../to_wrap/"):
                 if m["const"] == True:
                     continue
 
+                if m["static"] == True:
+                    methodReturn = methodReturn.replace('static ','')
+                    #continue
+
                 methodPointerName = "_M"+className+"__"+methodName+"__"+str(methodIndex)  #"_".join(methodTypeRaw)+"__"+methodReturnRaw
                 methodIndex+=1
 
-                methodPointer = methodReturn + "("+className+"::*)(" + ",".join(methodType) + ")"
-                methodPointerDeclare = methodReturn + "("+className+"::*"+methodPointerName+")(" + ",".join(methodType) + ")"
+                if m["static"] == False:
+                    methodPointer = methodReturn + "("+className+"::*)(" + ",".join(methodType) + ")"
+                else:
+                    methodPointer = methodReturn + "(*)(" + ",".join(methodType) + ")"
+
+                if m["static"] == False:
+                    methodPointerDeclare = methodReturn + "("+className+"::*"+methodPointerName+")(" + ",".join(methodType) + ")"
+                else:
+                    methodPointerDeclare = methodReturn + "("+"*"+methodPointerName+")(" + ",".join(methodType) + ")"
+
                 methodDeclare = "constexpr " + methodPointerDeclare + " "
                 methodDeclare += "" #"_"+className+"_method_"+methodName
-                methodDeclare += " = " + "static_cast<" + methodPointer + ">(&" +className+"::"+methodName+");"
 
-                typeDeclare = "using "+methodPointerName+"_type = "+ methodReturn + "("+className+"::*const)(" + ",".join(methodType) + ");\n"
+                if m["static"] == False:
+                    methodDeclare += " = " + "static_cast<" + methodPointer + ">(&" +className+"::"+methodName+");"
+                else:
+                    methodDeclare += " = " + "static_cast<" + methodPointer + ">(&" +className+"::"+methodName+");"
+
+                if m["static"] == False:
+                    typeDeclare = "using "+methodPointerName+"_type = "+ methodReturn + "("+className+"::*const)(" + ",".join(methodType) + ");\n"
+                else:
+                    typeDeclare = "using "+methodPointerName+"_type = "+ methodReturn + "(*)(" + ",".join(methodType) + ");\n"
+
                 outputFile.write(typeDeclare)
 
                 outputFile.write(""+methodDeclare +"\n")
 
                 pdObjectName = convert_name_h(c)+"."+convert_name_n(m["name"])
-                outputFile.write("WRAP_METHOD(" + className + " , " + m["name"]+" , \"" + pdObjectName+"\","+methodPointerName+","+methodPointerName+"_type);\n")
+
+                wrapName = "WRAP_METHOD"
+                if m["static"] == True:
+                    wrapName = "WRAP_STATIC_METHOD"
+                outputFile.write(wrapName+"(" + className + " , " + m["name"]+" , \"" + pdObjectName+"\","+methodPointerName+","+methodPointerName+"_type);\n")
                 patchFile.write("#X obj "+str(patchXPos)+" "+str(patchYPos)+ " "+convert_name_n(pdObjectName)+";\n")
                 objectIndex += 1
 

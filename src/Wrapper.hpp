@@ -5,6 +5,7 @@
 
 #include "ClassConstructor.hpp"
 #include "ClassMethod.hpp"
+#include "ClassStaticMethod.hpp"
 
 #include "Macros.hpp"
 

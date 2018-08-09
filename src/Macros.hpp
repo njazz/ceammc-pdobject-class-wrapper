@@ -27,3 +27,16 @@
         }                                                        \
     };                                                           \
     ObjectFactory<M_##m>(z)
+
+#define WRAP_STATIC_METHOD(x, y, z, m, n)                               \
+    /* constexpr decltype(&x::y) _##x_method_##y = &x::y;     */ \
+                                                                 \
+    class M_##m : public ClassStaticMethod<x, n> {                      \
+                                                                \
+                                                                 \
+            public : M_##m(PdArgs& a)                            \
+            : ClassStaticMethod<x, n>(a, m)                             \
+        {                                                        \
+        }                                                        \
+    };                                                           \
+    ObjectFactory<M_##m>(z)
