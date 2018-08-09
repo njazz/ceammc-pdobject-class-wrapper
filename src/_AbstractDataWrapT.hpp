@@ -1,0 +1,49 @@
+// template class to wrap class into AbstractData
+
+#ifndef AbstractDataWrapT_hpp
+#define AbstractDataWrapT_hpp
+
+#include "ceammc_abstractdata.h"
+
+#include "ceammc_data.h"
+
+using namespace ceammc;
+
+template <typename T>
+class AbstractDataWrapT : public AbstractData {
+
+public:
+    T value;
+
+
+    virtual AbstractData* clone() const override
+    {
+        return new AbstractDataWrapT(value);
+    }
+
+    virtual DataType type() const override { return typeid(T).hash_code() % 8192; }
+
+    virtual std::string toString() const override
+    {
+        return typeid(T).name();
+    }
+
+    AbstractDataWrapT(T v)
+        : value(v){
+
+    };
+
+    AbstractDataWrapT() : value() {
+
+    }
+
+//    const static unsigned short dataType;
+   static const unsigned short dataType;// = (typeid(T).hash_code() % 8192);
+};
+
+template <typename T>
+const unsigned short AbstractDataWrapT<T>::dataType = (typeid(T).hash_code() % 8192);
+
+// ---
+
+#endif
