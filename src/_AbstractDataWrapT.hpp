@@ -14,7 +14,10 @@ class AbstractDataWrapT : public AbstractData {
 
 public:
 
-   typename std::remove_reference<T>::type value;
+    using noRefT = typename std::remove_reference<T>::type;
+    noRefT value;
+
+
     //T value;
 
 
@@ -37,15 +40,13 @@ public:
 
 //    AbstractDataWrapT(const T& v)
 //        : value(v){
-
 //    };
 
     AbstractDataWrapT() : value() {
 
     }
 
-//    const static unsigned short dataType;
-   static const unsigned short dataType;// = (typeid(T).hash_code() % 8192);
+   static const unsigned short dataType;
 };
 
 template <typename T>

@@ -48,9 +48,13 @@ set (SOURCES
 
     "src/Macros.hpp"
 
-    "src/TypeWrapper.hpp"
+    "src/ClassWrapper.hpp"
 
-    "src/WrapperDemo.cpp"
+#    "src/WrapperDemo.cpp"
+
+    "to_wrap/DemoClass.hpp"
+
+    "to_wrap/_generated.cpp"
 )
 
 set (HEADERS
@@ -59,6 +63,7 @@ set (HEADERS
     ceammc_lib/ceammc_format.h 
     ceammc_lib/ceammc_log.h 
     ceammc_lib/ceammc_property.h 
+
 
     
 )
@@ -71,6 +76,8 @@ include_directories(.)
 include_directories(./src/)
 include_directories(./ceammc_lib/)
 include_directories(./pd_headers/)
+
+include_directories(./to_wrap/)
 
 
 add_library(wrapper_library SHARED
@@ -87,6 +94,22 @@ endif()
 SET_TARGET_PROPERTIES(wrapper_library PROPERTIES PREFIX "")
 set_target_properties(wrapper_library PROPERTIES SUFFIX ".pd_darwin")
 
-install(TARGETS wrapper_library LIBRARY DESTINATION $~/Documents/tilde~/Libraries/)
+#include(FindPythonInterp)
+#find_package(PythonInterp 3.6 REQUIRED)
 
+add_custom_target(
+        always_run_target ALL
+#        DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/__header.h
+)
+
+add_custom_command(
+        OUTPUT
+            ${CMAKE_CURRENT_SOURCE_DIR}/to_wrap/_generated.cpp
+            ${CMAKE_CURRENT_SOURCE_DIR}/build/_generated.pd
+#            ${CMAKE_CURRENT_BINARY_DIR}/header.h
+        DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/to_wrap/
+        COMMAND /usr/local/bin/python3 ${CMAKE_CURRENT_SOURCE_DIR}/gen/convert.py
+)
+
+install(TARGETS wrapper_library LIBRARY DESTINATION $~/Documents/tilde~/Libraries/)
 

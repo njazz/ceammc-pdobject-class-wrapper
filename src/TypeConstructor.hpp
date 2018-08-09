@@ -1,4 +1,5 @@
 // creates Pd object for class
+// currently doesn't support constructor's arguments
 
 #ifndef TypeConstructor_hpp
 #define TypeConstructor_hpp
@@ -31,11 +32,6 @@ public:
 
     virtual void onBang() override
     {
-//        post("data ptr out %p", _data.data());
-//        post("data ptr toString %s", _data.data()->toString().c_str());
-//        post("data id desc %i %i",_data.desc().id,_data.desc().type);
-
-
         dataTo(0, _data);
     }
 };

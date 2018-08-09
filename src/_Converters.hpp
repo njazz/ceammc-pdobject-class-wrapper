@@ -75,6 +75,7 @@ Atom TypedAtomT<std::string>::asAtom()
     return Atom(gensym(_d.data()->value.c_str()));
 }
 
+// ---
 // TODO: use references?
 template <>
 Atom TypedAtomT<float&>::asAtom()
