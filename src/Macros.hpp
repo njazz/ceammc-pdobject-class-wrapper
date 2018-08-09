@@ -1,14 +1,14 @@
 // ----------
 
 #define WRAP_CLASS(x, y)                                \
-    class _##xConstructor : public TypeConstructor<x> { \
+    class _C_##x : public TypeConstructor<x> { \
     public:                                             \
-        _##xConstructor(PdArgs& a)                      \
+        _C_##x(PdArgs& a)                      \
             : TypeConstructor<x>(a)                     \
         {                                               \
         }                                               \
     };                                                  \
-    ObjectFactory<_##xConstructor>(y);
+    ObjectFactory<_C_##x>(y);
 
 #define WRAP_METHOD(x, y, z)                                     \
     constexpr decltype(&x::y) _##x_method_##y = &x::y;           \

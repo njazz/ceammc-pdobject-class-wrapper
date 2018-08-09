@@ -19,11 +19,15 @@ class TypeConstructor : public ceammc::BaseObject {
 public:
     TypeConstructor(PdArgs& a)
         : BaseObject(a),
-        //_value (new AbstractDataWrapT<T>()),
          _data(&_value)
         {
             createOutlet();
         };
+
+    ~TypeConstructor()
+    {
+        _data = 0;
+    }
 
     virtual void onBang() override
     {

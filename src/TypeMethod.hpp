@@ -6,7 +6,7 @@
 #include "ceammc_object.h"
 
 #include "_AtomListWrapperT.hpp"
-#include "_functionTraits.hpp"
+#include "_FunctionTraits.hpp"
 
 #include "ceammc_atomlist.h"
 

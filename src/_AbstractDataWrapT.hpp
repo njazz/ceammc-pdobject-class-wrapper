@@ -13,7 +13,9 @@ template <typename T>
 class AbstractDataWrapT : public AbstractData {
 
 public:
-    T value;
+
+   typename std::remove_reference<T>::type value;
+    //T value;
 
 
     virtual AbstractData* clone() const override
@@ -28,10 +30,15 @@ public:
         return typeid(T).name();
     }
 
-    AbstractDataWrapT(T v)
+    AbstractDataWrapT(typename std::remove_reference<T>::type v)
         : value(v){
 
     };
+
+//    AbstractDataWrapT(const T& v)
+//        : value(v){
+
+//    };
 
     AbstractDataWrapT() : value() {
 

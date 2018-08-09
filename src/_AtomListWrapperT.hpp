@@ -5,83 +5,44 @@
 
 #include "_AbstractDataWrapT.hpp"
 #include "_SequenceT.hpp"
-#include "_functionTraits.hpp"
+#include "_FunctionTraits.hpp"
 
 #include "ceammc_atomlist.h"
 
-//#include "ceammc_abstractdata.h"
-
 #include "ceammc_data.h"
-//#include "ceammc_dataatom.h"
-//#include "ceammc_object.h"
 
-//#include <functional>
+#include "ceammc_dataatom.h"
 
-//#include "TypeConstructor.hpp"
-
-template <typename T>
-class TypedAtomT : public Atom {
-    DataTPtr<AbstractDataWrapT<T> > _d; //= DataTPtr<T>(Atom()) ;
-
-public:
-    TypedAtomT(T v)
-        : _d(new AbstractDataWrapT<T>(v))
-    {
-    }
-
-    TypedAtomT()
-        : _d(new AbstractDataWrapT<T>())
-    {
-    }
-
-    Atom asAtom()
-    {
-        return _d.toAtom();
-    }
-};
-
-template <>
-class TypedAtomT<void> : public Atom {
-public:
-    TypedAtomT(void* v = 0) {}
-    Atom asAtom() { return Atom(); }
-};
-
-//---
-
-template <>
-Atom TypedAtomT<float>::asAtom()
-{
-    if (!_d.data())
-        return Atom(gensym("<empty>"));
-
-    return Atom(_d.data()->value);
-}
-
-template <>
-Atom TypedAtomT<std::string>::asAtom()
-{
-    if (!_d.data())
-        return Atom(gensym("<empty>"));
-
-    return Atom(gensym(_d.data()->value.c_str()));
-}
+#include "_Converters.hpp"
 
 // ---------------------
 
 // --
 
 template <typename T>
-void convertAtom(T& out, Atom a);
+void convertAtom(T& out, Atom a)
+{
+    if (DataAtom(a).isData()) {
+        auto da = DataAtom(a);
+        auto o_ = da.data().as<AbstractDataWrapT<T> >();
+        out = o_->value;
+    }
+};
 
 template <>
 void convertAtom(float& out, Atom a) { out = a.asFloat(); }
+
+template <>
+void convertAtom(double& out, Atom a) { out = a.asFloat(); }
 
 template <>
 void convertAtom(std::string& out, Atom a) { out = a.asString(); }
 
 template <>
 void convertAtom(int& out, Atom a) { out = a.asInt(); }
+
+template <>
+void convertAtom(long& out, Atom a) { out = a.asInt(); }
 
 // -----
 
@@ -109,7 +70,7 @@ public:
         convertAtom(el, atom);
 
         AtomList next = src;
-        next.remove(0);
+        next.remove(next.size() - 1);
 
         tail(next);
     }

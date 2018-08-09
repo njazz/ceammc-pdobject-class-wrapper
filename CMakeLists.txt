@@ -38,9 +38,11 @@ set(CEAMMC_LIB_SOURCES
 set (SOURCES
 
     "src/_SequenceT.hpp"
-    "src/_functionTraits.hpp"
+    "src/_FunctionTraits.hpp"
     "src/_AbstractDataWrapT.hpp"
     "src/_AtomListWrapperT.hpp"
+    "src/_Converters.hpp"
+
     "src/TypeConstructor.hpp"
     "src/TypeMethod.hpp"
 
@@ -81,6 +83,7 @@ target_link_libraries(wrapper_library "-undefined dynamic_lookup")
 set(CMAKE_SHARED_LIBRARY_CREATE_CXX_FLAGS "${CMAKE_SHARED_LIBRARY_CREATE_CXX_FLAGS} -undefined dynamic_lookup")
 
 endif()
+
 SET_TARGET_PROPERTIES(wrapper_library PROPERTIES PREFIX "")
 set_target_properties(wrapper_library PROPERTIES SUFFIX ".pd_darwin")
 
