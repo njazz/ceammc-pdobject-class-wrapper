@@ -4,8 +4,8 @@
 class DemoSubClass{
     long _v = 123;
 public:
-    long& ref(){return _v;}
-    std::vector<std::string> vec(){return {"lol"};}
+    long& ref();
+    std::vector<std::string> vec();
 };
 
 class DemoClass {
@@ -29,18 +29,19 @@ public:
         return a+b;
     }
 
-    std::string getString() {return _string;}
+//    std::string getString() {return _string;}
 
-    void setString(std::string s) {_string =s;}
+//    void setString(std::string s) {_string =s;}
 
     void setDemoSubclass(DemoSubClass c)
     {
         _subClass = c;
     }
-    DemoSubClass getDemoSubclass()
-    {
-        return _subClass;
-    }
+
+//    DemoSubClass getDemoSubclass()
+//    {
+//        return _subClass;
+//    }
 
     static void testStatic(int i){};
 };

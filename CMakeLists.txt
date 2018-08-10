@@ -57,13 +57,16 @@ set (SOURCES
     "to_wrap/_generated.cpp"
 )
 
+file (GLOB WRAP_SOURCES
+    "${PROJECT_SOURCE_DIR}/to_wrap/*.cpp"
+    )
+
 set (HEADERS
     ceammc_lib/ceammc_object.h 
     ceammc_lib/ceammc_message.h 
     ceammc_lib/ceammc_format.h 
     ceammc_lib/ceammc_log.h 
     ceammc_lib/ceammc_property.h 
-    to_wrap
 )
 
 find_package(Boost 1.47.0 REQUIRED)
@@ -80,6 +83,7 @@ include_directories(./to_wrap/)
 
 add_library(wrapper_library SHARED
     ${CEAMMC_LIB_SOURCES}
+    ${WRAP_SOURCES}
     ${SOURCES} )
 
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
@@ -108,5 +112,4 @@ add_custom_command(
         COMMAND /usr/local/bin/python3 ${CMAKE_CURRENT_SOURCE_DIR}/gen/convert.py
 )
 
-install(TARGETS wrapper_library LIBRARY DESTINATION $~/Documents/tilde~/Libraries/)
 
