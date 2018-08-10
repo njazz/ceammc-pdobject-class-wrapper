@@ -47,9 +47,9 @@ public:
 
 // currently this doesn't work:
 
-//class CustomConstructed
-//{
-//public:
-//    CustomConstructed(float f = 0)
-//    {}
-//};
+class WithConstructor
+{
+public:
+    WithConstructor(float f)
+    {}
+};

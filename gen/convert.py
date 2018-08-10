@@ -63,10 +63,33 @@ for filename in os.listdir("../to_wrap/"):
             patchYPos += 30
 
             outputFile.write("//\n")
-            outputFile.write("WRAP_CLASS("+className+" , \""+convert_name_h(c)+"\");\n")
-            patchFile.write("#X obj "+str(patchXPos-75)+" "+str(patchYPos-30)+ " ui.bang;\n")
-            patchFile.write("#X obj "+str(patchXPos-75)+" "+str(patchYPos)+ " "+convert_name_h(c)+";\n")
-            patchFile.write("#X obj "+str(patchXPos-75)+" "+str(patchYPos+25)+ " ui.display;\n")
+
+
+
+            hasDefaultConstructor = False
+            hasConstructor = False
+            for m in cppHeader.classes[c]["methods"]["public"]:
+                if m["constructor"]:
+                    hasConstructor = True
+                    methodType = [t["type"] for t in m["parameters"]]
+                    if methodType == "":
+                        hasDefaultConstructor = True
+                        continue
+            #implicit
+            if (not hasConstructor) and (not hasDefaultConstructor):
+                hasDefaultConstructor = True
+
+            if hasDefaultConstructor:
+                outputFile.write("WRAP_CLASS("+className+" , \""+convert_name_h(c)+"\");\n")
+
+                patchFile.write("#X obj "+str(patchXPos-75)+" "+str(patchYPos-30)+ " ui.bang;\n")
+                patchFile.write("#X obj "+str(patchXPos-75)+" "+str(patchYPos)+ " "+convert_name_h(c)+";\n")
+                patchFile.write("#X obj "+str(patchXPos-75)+" "+str(patchYPos+25)+ " ui.display;\n")
+            else:
+                patchFile.write("#X text "+str(patchXPos-75)+" "+str(patchYPos)+ " class with custom constructor;\n")
+                patchFile.write("#X text "+str(patchXPos-75)+" "+str(patchYPos + 25)+ " \ ;\n")
+                patchFile.write("#X text "+str(patchXPos-75)+" "+str(patchYPos + 25)+ " \ ;\n")
+
 
             classObjectIndex = objectIndex+2
             patchFile.write("#X connect "+str(objectIndex+1)+" 0 "+str(objectIndex+2)+" 0;")
@@ -87,9 +110,15 @@ for filename in os.listdir("../to_wrap/"):
                 methodReturn = m["rtnType"]
                 # methodReturnRaw = m["rtnType"][0:3] #LOL
 
-                # exclude constructors now:
+                wrapName = "WRAP_METHOD"
+                customConstructor = False;
                 if methodName == className:
-                    continue
+                    #exclude default
+                    if methodType == "":
+                        continue
+                    wrapName = "WRAP_CUSTOM_CLASS"
+                    customConstructor = True
+
 
                 # exclude operators now:
                 if methodName.startswith("operator"):
@@ -132,11 +161,11 @@ for filename in os.listdir("../to_wrap/"):
                     typeDeclare = "using "+methodPointerName+"_type = "+ methodReturn + "(*)(" + ",".join(methodType) + ");\n"
 
                 outputFile.write(typeDeclare)
-                outputFile.write(""+methodDeclare +"\n")
+                if customConstructor == False:
+                    outputFile.write(""+methodDeclare +"\n")
 
                 pdObjectName = convert_name_h(c)+"."+convert_name_n(m["name"])
 
-                wrapName = "WRAP_METHOD"
                 if m["static"] == True:
                     wrapName = "WRAP_STATIC_METHOD"
 

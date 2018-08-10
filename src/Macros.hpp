@@ -3,15 +3,16 @@
 #include "ClassConstructor.hpp"
 #include "ClassMethod.hpp"
 
-#define WRAP_CLASS(x, y)                        \
-  /*  class _C_##x : public ClassConstructor<x> { \
-    public:                                     \
-        _C_##x(PdArgs& a)                       \
-            : ClassConstructor<x>(a)            \
-        {                                       \
-        }                                       \
-    };                                          \*/ \
-    ObjectFactory<ClassConstructor<x> >(y);
+#define WRAP_CLASS(x, y) ObjectFactory<ClassConstructor<x> >(y);
+#define WRAP_CUSTOM_CLASS(x, y, z, m, n)                \
+    class C_##m : public ClassConstructorCustom<x, n> { \
+    public:                                             \
+        C_##m(PdArgs& a)                                \
+            : ClassConstructorCustom<x, n>(a)        \
+        {                                               \
+        }                                               \
+    };                                                  \
+    ObjectFactory<C_##m>(z);
 
 // ---
 

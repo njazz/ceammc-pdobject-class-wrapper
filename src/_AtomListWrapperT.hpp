@@ -21,7 +21,7 @@ void convertAtom(T& out, Atom a)
     if (DataAtom(a).isData()) {
         auto da = DataAtom(a);
         auto o_ = da.data().as<AbstractDataWrapT<T> >();
-        out = o_->value;
+        out = *o_->value;
     }
 };
 

@@ -98,4 +98,31 @@ public:
     }
 };
 
+// custom constructor
+template < typename R, class F, typename A>
+class _InvocationCustomConstructor {
+public:
+//    const F& _method;
+    const A& _arguments;
+//    R* _object = 0;
+
+//    TypedAtomT<void> _return;
+
+    _InvocationCustomConstructor( const A& a)   //const F& f,
+        :
+//          _method(f)
+//        ,
+          _arguments(a)
+    {
+    }
+
+    template <int... S>
+    R* operator()(_sequence<S...>)
+    {
+//       _object =
+       return new R(std::get<S>(_arguments)...);    //(*_method)
+    }
+};
+
+
 #endif

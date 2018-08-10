@@ -44,7 +44,7 @@ public:
             return;
         }
 
-        _InvocationClassMethod<typename Traits::return_type, T, F, decltype(_arguments)> call = _InvocationClassMethod<typename Traits::return_type, T, F, decltype(_arguments)>(_data.data()->value, _method, _arguments);
+        _InvocationClassMethod<typename Traits::return_type, T, F, decltype(_arguments)> call = _InvocationClassMethod<typename Traits::return_type, T, F, decltype(_arguments)>(*_data.data()->value, _method, _arguments);
         call(typename _genSequence<Traits::arity>::type());
 
         _return = call._return;
@@ -97,18 +97,7 @@ public:
 
             post("null %i", da.data().isNull());
 
-            //                        post("data: %s",da.data()->toString().c_str());
-
-            //            auto ptr1 = da.data()->as<AbstractDataWrapT<T> >();
-            //            if (!ptr1) {
-            //                post("bad ptr 2");
-            //                return;
-            //            }
-
-            //            auto ptr = const_cast< AbstractDataWrapT<T>* > (DataAtom(l.at(0)).data()->as<AbstractDataWrapT<T>>());
-            //            _data = DataTPtr<AbstractDataWrapT<T> >(ptr);
-
-            _data = DataTPtr<AbstractDataWrapT<T> >(l.at(0));
+           _data = DataTPtr<AbstractDataWrapT<T> >(l.at(0));
 
             return;
         }
