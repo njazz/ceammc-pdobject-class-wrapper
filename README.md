@@ -15,11 +15,13 @@ To build:
 Current limitations:
 - doesn't  convert classes without copy/move constructors
 - doesn't support templates
-- skips operators
+- namespaces are not supported
+- skips all operators
 
 Todo list:
 - destructors
 - exclude templates from generation
+- namespaces
 - classes without copy/move constructors
 - tests
 
