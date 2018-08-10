@@ -79,6 +79,7 @@ include_directories(./ceammc_lib/)
 include_directories(./pd_headers/)
 
 include_directories(./to_wrap/)
+include_directories(./to_include/)
 
 
 add_library(wrapper_library SHARED

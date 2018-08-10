@@ -8,8 +8,11 @@ sys.path = ["../"] + sys.path
 import CppHeaderParser
 
 outputFile = open("../to_wrap/_generated.cpp","w+")
-outputFile.write("#include \"Wrapper.hpp\"\n")
-outputFile.write("#include \"DemoClass.hpp\"\n\n")
+outputFile.write("#include \"Wrapper.hpp\"\n\n")
+
+for filename in os.listdir("../to_wrap/"):
+    if filename.endswith(".hpp"):
+        outputFile.write("#include \""+filename+"\"\n")
 
 outputFile.write("extern \"C\"{\n");
 outputFile.write("void setup(){\n\n")
@@ -33,13 +36,18 @@ def convert_name_n(name):
 
 ###
 
+patchXPos = 90
+
 for filename in os.listdir("../to_wrap/"):
     if filename.endswith(".hpp"):
         # ###
+
         outputFile.write("// "+filename+"\n")
-        patchFile.write("#X text 15 "+str(patchYPos)+ " "+filename+";\n")
+
+        patchYPos = 45
+        patchFile.write("#X text "+str(patchXPos-75)+" "+str(patchYPos)+ " "+filename+";\n")
         patchYPos += 30
-        patchXPos = 90
+
 
         # outputFile.write("#include \""+filename+"\"")
 
