@@ -29,22 +29,23 @@ public:
         return a+b;
     }
 
-//    std::string getString() {return _string;}
-
-//    void setString(std::string s) {_string =s;}
+    std::string getString() {return _string;}
+    void setString(std::string s) {_string =s;}
 
     void setDemoSubclass(DemoSubClass c)
     {
         _subClass = c;
     }
 
-//    DemoSubClass getDemoSubclass()
-//    {
-//        return _subClass;
-//    }
+    DemoSubClass getDemoSubclass()
+    {
+        return _subClass;
+    }
 
     static void testStatic(int i){};
 };
+
+// currently this doesn't work:
 
 //class CustomConstructed
 //{
