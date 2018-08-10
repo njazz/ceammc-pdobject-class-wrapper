@@ -4,3 +4,5 @@ build/
 to_wrap/_generated.cpp
 
 unused/
+
+CMakeLists.txt.user

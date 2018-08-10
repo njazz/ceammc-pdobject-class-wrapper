@@ -57,9 +57,13 @@ for filename in os.listdir("../to_wrap/"):
             print(e)
             sys.exit(1)
 
-        # print("CppHeaderParser view of %s"%cppHeader)
+        print("CppHeaderParser view of %s"%cppHeader)
 
         for c in cppHeader.classes:
+
+            # if cppHeader.classes[c]["template"]:
+            #     continue
+
             className = c
             if cppHeader.classes[c]["namespace"]:
                 className = cppHeader.classes[c]["namespace"]+"::"+c
@@ -72,11 +76,10 @@ for filename in os.listdir("../to_wrap/"):
 
             outputFile.write("//\n")
 
-
-
             hasDefaultConstructor = False
             hasConstructor = False
             for m in cppHeader.classes[c]["methods"]["public"]:
+
                 if m["constructor"]:
                     hasConstructor = True
                     methodType = [t["type"] for t in m["parameters"]]
@@ -110,6 +113,9 @@ for filename in os.listdir("../to_wrap/"):
             methodIndex = 0
 
             for m in cppHeader.classes[c]["methods"]["public"]:
+                if m["template"] != False:
+                    continue
+
                 methodName = m["name"]
 
                 #todo: add & for references

@@ -52,4 +52,17 @@ class WithConstructor
 public:
     WithConstructor(float f)
     {}
+    
+    template <typename T>
+    void shouldBeSkipped(){}
 };
+
+//
+//template<typename T>
+//class ShouldBeSkipped
+//{};
+//
+//template<>
+//class ShouldBeSkipped<void>{};
+
+

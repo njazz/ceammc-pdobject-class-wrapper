@@ -54,6 +54,7 @@ set (SOURCES
 #    "src/WrapperDemo.cpp"
 
 #    "to_wrap/DemoClass.hpp"
+
     "to_wrap/_generated.cpp"
 )
 
