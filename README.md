@@ -4,7 +4,9 @@ Check out the library itself:
 http://github.com/uliss/pure-data
 
 
-## Converter from C++ class to PureData objects. This is a stub. 
+## Converter from C++ class to PureData objects. This is a stub.
+
+![screenshot](demo.png?raw=true "screenshot")
 
 To build:
 - put C++ header files in (to_wrap) folder
