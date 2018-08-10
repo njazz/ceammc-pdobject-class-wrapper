@@ -9,12 +9,17 @@ http://github.com/uliss/pure-data
 ![screenshot](demo.png?raw=true "screenshot")
 
 To build:
-- put C++ header files in (to_wrap) folder
+- put C++ files in (to_wrap) folder (doesn't scan subfolders)
 - mkdir build && cd build && cmake .. && make
 
 Current limitations:
 - converts only classes with default constructor
 - skips operators
+
+Todo list:
+- handle classes without default constructor: add another AbstractDataWrapperT & ClassConstructor wrapper classes
+- destructors
+- tests
 
 Tested in CEAMMC Pd 2018.03 (v0.5)
 
