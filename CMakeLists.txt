@@ -63,6 +63,7 @@ set (HEADERS
     ceammc_lib/ceammc_format.h 
     ceammc_lib/ceammc_log.h 
     ceammc_lib/ceammc_property.h 
+    to_wrap
 )
 
 find_package(Boost 1.47.0 REQUIRED)

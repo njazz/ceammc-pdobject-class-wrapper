@@ -57,59 +57,59 @@ public:
 
     virtual void onAny(t_symbol* s, const AtomList& l) override
     {
-        if (s == gensym("set"))
-            if (l.size() == 1)
-                if (l.at(0).isData()) {
-                    _data = DataTPtr<AbstractDataWrapT<T> >(l.at(0)); //d.data();
-                }
+//        if (s == gensym("set"))
+//            if (l.size() == 1)
+//                if (l.at(0).isData()) {
+//                    _data = DataTPtr<AbstractDataWrapT<T> >(l.at(0)); //d.data();
+//                }
     }
 
-    virtual void onData(const DataPtr& d) override
-    {
-        post("data %i vs %i", d.desc().type, _data.desc().type);
+//    virtual void onData(const DataPtr& d) override
+//    {
+//        post("data %i vs %i", d.desc().type, _data.desc().type);
 
-        if (d.desc().type == _data.desc().type) {
-            _data = DataTPtr<AbstractDataWrapT<T> >(d.asAtom());
-        }
-    }
+//        if (d.desc().type == _data.desc().type) {
+//            _data = DataTPtr<AbstractDataWrapT<T> >(d.asAtom());
+//        }
+//    }
 
     virtual void onList(const AtomList& l) override
     {
 
-        if (l.at(0).isData()) {
+//        if (l.at(0).isData()) {
 
-            DataAtom da(l.at(0));
+//            DataAtom da(l.at(0));
 
-            post("rcv data id desc %i %i", l.at(0).getData().id, l.at(0).getData().type);
-            post("rcv data: %p", da.data().data());
+//            post("rcv data id desc %i %i", l.at(0).getData().id, l.at(0).getData().type);
+//            post("rcv data: %p", da.data().data());
 
-            if (!da.isData()) {
-                post("bad ptr");
-                return;
-            }
+//            if (!da.isData()) {
+//                post("bad ptr");
+//                return;
+//            }
 
-            if (da.isAtom()) {
-                post("bad ptr - atom");
-                return;
-            }
+//            if (da.isAtom()) {
+//                post("bad ptr - atom");
+//                return;
+//            }
 
-            post("null %i", da.data().isNull());
+//            post("null %i", da.data().isNull());
 
-            //                        post("data: %s",da.data()->toString().c_str());
+//            //                        post("data: %s",da.data()->toString().c_str());
 
-            //            auto ptr1 = da.data()->as<AbstractDataWrapT<T> >();
-            //            if (!ptr1) {
-            //                post("bad ptr 2");
-            //                return;
-            //            }
+//            //            auto ptr1 = da.data()->as<AbstractDataWrapT<T> >();
+//            //            if (!ptr1) {
+//            //                post("bad ptr 2");
+//            //                return;
+//            //            }
 
-            //            auto ptr = const_cast< AbstractDataWrapT<T>* > (DataAtom(l.at(0)).data()->as<AbstractDataWrapT<T>>());
-            //            _data = DataTPtr<AbstractDataWrapT<T> >(ptr);
+//            //            auto ptr = const_cast< AbstractDataWrapT<T>* > (DataAtom(l.at(0)).data()->as<AbstractDataWrapT<T>>());
+//            //            _data = DataTPtr<AbstractDataWrapT<T> >(ptr);
 
-            _data = DataTPtr<AbstractDataWrapT<T> >(l.at(0));
+//            _data = DataTPtr<AbstractDataWrapT<T> >(l.at(0));
 
-            return;
-        }
+//            return;
+//        }
 
         //
         if (l.size() != Traits::arity) {
