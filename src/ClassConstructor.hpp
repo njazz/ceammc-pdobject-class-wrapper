@@ -82,11 +82,11 @@ public:
     {
 
         _InvocationCustomConstructor<T, F, decltype(_arguments)> call = _InvocationCustomConstructor<T, F, decltype(_arguments)>(_arguments);
-        auto ptr = call(typename _genSequence<Traits::arity>::type());
+        auto shared_p = call(typename _genSequence<Traits::arity>::type());
 
-        post("created class pointer %p", ptr);
+        post("created class pointer %p", shared_p.get());
 
-        _value = new AbstractDataWrapT<T>(ptr);
+        _value = new AbstractDataWrapT<T>(shared_p);
         _data = DataTPtr<AbstractDataWrapT<T> >(_value);
     }
 

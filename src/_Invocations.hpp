@@ -4,6 +4,8 @@
 #include "_AtomListWrapperT.hpp"
 #include "_FunctionTraits.hpp"
 
+#include <memory.h>
+
 template <typename R, class C, class F, typename A>
 class _InvocationClassMethod {
 public:
@@ -108,9 +110,9 @@ public:
     }
 
     template <int... S>
-    R* operator()(_sequence<S...>)
+    std::shared_ptr<R> operator()(_sequence<S...>)
     {
-        return new R(std::get<S>(_arguments)...);
+        return std::make_shared<R>(std::get<S>(_arguments)...);
     }
 };
 
