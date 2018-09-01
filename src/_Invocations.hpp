@@ -53,7 +53,6 @@ public:
 
 // ---
 
-
 template <typename R, class F, typename A>
 class _InvocationStaticMethod {
 public:
@@ -63,8 +62,7 @@ public:
     TypedAtomT<R> _return;
 
     _InvocationStaticMethod(const F& f, const A& a)
-        :
-         _method(f)
+        : _method(f)
         , _arguments(a)
     {
     }
@@ -77,16 +75,16 @@ public:
 };
 
 // void return type
-template < class F, typename A>
-class _InvocationStaticMethod<void,F, A> {
+template <class F, typename A>
+class _InvocationStaticMethod<void, F, A> {
 public:
     const F& _method;
     const A& _arguments;
 
     TypedAtomT<void> _return;
 
-    _InvocationStaticMethod( const F& f, const A& a)
-        :  _method(f)
+    _InvocationStaticMethod(const F& f, const A& a)
+        : _method(f)
         , _arguments(a)
     {
     }
@@ -99,30 +97,21 @@ public:
 };
 
 // custom constructor
-template < typename R, class F, typename A>
+template <typename R, class F, typename A>
 class _InvocationCustomConstructor {
 public:
-//    const F& _method;
     const A& _arguments;
-//    R* _object = 0;
 
-//    TypedAtomT<void> _return;
-
-    _InvocationCustomConstructor( const A& a)   //const F& f,
-        :
-//          _method(f)
-//        ,
-          _arguments(a)
+    _InvocationCustomConstructor(const A& a)
+        : _arguments(a)
     {
     }
 
     template <int... S>
     R* operator()(_sequence<S...>)
     {
-//       _object =
-       return new R(std::get<S>(_arguments)...);    //(*_method)
+        return new R(std::get<S>(_arguments)...);
     }
 };
-
 
 #endif

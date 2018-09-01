@@ -30,7 +30,7 @@ set(CEAMMC_LIB_SOURCES
 #    ceammc_lib/ceammc_object.cpp
 #    ceammc_lib/ceammc_property.cpp
 
-    ceammc_lib/ceammc_object.cpp
+#    ceammc_lib/ceammc_object.cpp
 
 )
 
@@ -52,7 +52,6 @@ set (SOURCES
     "src/Wrapper.hpp"
 
 #    "src/WrapperDemo.cpp"
-
 #    "to_wrap/DemoClass.hpp"
 
     "to_wrap/_generated.cpp"
@@ -82,7 +81,6 @@ include_directories(./pd_headers/)
 include_directories(./to_wrap/)
 include_directories(./to_include/)
 
-
 add_library(wrapper_library SHARED
     ${CEAMMC_LIB_SOURCES}
     ${WRAP_SOURCES}
@@ -102,7 +100,7 @@ set_target_properties(wrapper_library PROPERTIES SUFFIX ".pd_darwin")
 #find_package(PythonInterp 3.6 REQUIRED)
 
 add_custom_target(
-        always_run_target ALL
+        generator_script ALL
         DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/to_wrap/_generated.cpp
 )
 

@@ -8,7 +8,7 @@
     class C_##m : public ClassConstructorCustom<x, n> { \
     public:                                             \
         C_##m(PdArgs& a)                                \
-            : ClassConstructorCustom<x, n>(a)        \
+            : ClassConstructorCustom<x, n>(a)           \
         {                                               \
         }                                               \
     };                                                  \
@@ -16,30 +16,28 @@
 
 // ---
 
-#define WRAP_METHOD(x, y, z, m, n)                               \
-    /* constexpr decltype(&x::y) _##x_method_##y = &x::y;     */ \
-                                                                 \
-    class M_##m : public ClassMethod<x, n> {                     \
-                                                                 \
-    public:                                                      \
-        M_##m(PdArgs& a)                                         \
-            : ClassMethod<x, n>(a, m)                            \
-        {                                                        \
-        }                                                        \
-    };                                                           \
+#define WRAP_METHOD(x, y, z, m, n)           \
+                                             \
+    class M_##m : public ClassMethod<x, n> { \
+                                             \
+    public:                                  \
+        M_##m(PdArgs& a)                     \
+            : ClassMethod<x, n>(a, m)        \
+        {                                    \
+        }                                    \
+    };                                       \
     ObjectFactory<M_##m>(z)
 
 // ---
 
-#define WRAP_STATIC_METHOD(x, y, z, m, n)                        \
-    /* constexpr decltype(&x::y) _##x_method_##y = &x::y;     */ \
-                                                                 \
-    class M_##m : public ClassStaticMethod<x, n> {               \
-                                                                 \
-    public:                                                      \
-        M_##m(PdArgs& a)                                         \
-            : ClassStaticMethod<x, n>(a, m)                      \
-        {                                                        \
-        }                                                        \
-    };                                                           \
+#define WRAP_STATIC_METHOD(x, y, z, m, n)          \
+                                                   \
+    class M_##m : public ClassStaticMethod<x, n> { \
+                                                   \
+    public:                                        \
+        M_##m(PdArgs& a)                           \
+            : ClassStaticMethod<x, n>(a, m)        \
+        {                                          \
+        }                                          \
+    };                                             \
     ObjectFactory<M_##m>(z)

@@ -2,7 +2,7 @@
 
 template <typename T>
 class TypedAtomT : public Atom {
-    DataTPtr<AbstractDataWrapT<T> > _d; //= DataTPtr<T>(Atom()) ;
+    DataTPtr<AbstractDataWrapT<T> > _d;
 
 public:
     TypedAtomT(T v)
@@ -17,7 +17,7 @@ public:
 
     Atom asAtom()
     {
-        return DataAtom(_d).toAtom(); //.toAtom();
+        return DataAtom(_d).toAtom();
     }
 };
 
@@ -121,5 +121,3 @@ Atom TypedAtomT<std::string&>::asAtom()
 
     return Atom(gensym(_d.data()->value->c_str()));
 }
-
-

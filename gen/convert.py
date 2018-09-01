@@ -7,25 +7,6 @@ sys.path = ["../"] + sys.path
 
 import CppHeaderParser
 
-outputFile = open("../to_wrap/_generated.cpp","w+")
-outputFile.write("#include \"Wrapper.hpp\"\n\n")
-
-for filename in os.listdir("../to_wrap/"):
-    if filename.endswith(".hpp"):
-        outputFile.write("#include \""+filename+"\"\n")
-
-outputFile.write("extern \"C\"{\n");
-outputFile.write("void setup(){\n\n")
-
-patchFile = open("../build/_generated.pd","w+")
-patchFile.write("#N canvas 100 100 800 600 12;\n")
-patchFile.write("#X declare -lib wrapper_library;\n")
-patchFile.write("#X obj 15 15 declare -lib wrapper_library;\n")
-objectIndex = 1
-
-patchYPos = 15 + 30
-patchXPos = 15
-
 def convert_name_h(name):
     s1 = re.sub('(.)([A-Z][a-z]+)', r'\1-\2', name)
     return re.sub('([a-z0-9])([A-Z])', r'\1-\2', s1).lower()
@@ -33,23 +14,41 @@ def convert_name_h(name):
 def convert_name_n(name):
     s1 = re.sub('(.)([A-Z][a-z]+)', r'\1\2', name)
     return re.sub('([a-z0-9])([A-Z])', r'\1\2', s1).lower()
+# ------------
 
-###
+def outputWriteHeader(file):
+    file.write("#include \"Wrapper.hpp\"\n\n")
+    for filename in os.listdir("../to_wrap/"):
+        if filename.endswith(".hpp"):
+            file.write("#include \""+filename+"\"\n")
 
+    file.write("extern \"C\"{\n");
+    file.write("void setup(){\n\n")
+
+def patchWriteHeader(file):
+    file.write("#N canvas 100 100 800 600 12;\n")
+    file.write("#X declare -lib wrapper_library;\n")
+    file.write("#X obj 15 15 declare -lib wrapper_library;\n")
+
+# ------------
+
+outputFile = open("../to_wrap/_generated.cpp","w+")
+patchFile = open("../build/_generated.pd","w+")
+
+outputWriteHeader(outputFile)
+patchWriteHeader(patchFile)
+
+objectIndex = 1
+patchYPos = 15 + 30
 patchXPos = 90
 
 for filename in os.listdir("../to_wrap/"):
     if filename.endswith(".hpp"):
-        # ###
-
         outputFile.write("// "+filename+"\n")
 
         patchYPos = 45
         patchFile.write("#X text "+str(patchXPos-75)+" "+str(patchYPos)+ " "+filename+";\n")
         patchYPos += 30
-
-
-        # outputFile.write("#include \""+filename+"\"")
 
         try:
             cppHeader = CppHeaderParser.CppHeader("../to_wrap/"+filename)
@@ -57,12 +56,12 @@ for filename in os.listdir("../to_wrap/"):
             print(e)
             sys.exit(1)
 
-        print("CppHeaderParser view of %s"%cppHeader)
+# debug:
+#        print("CppHeaderParser view of %s"%cppHeader)
 
         for c in cppHeader.classes:
 
-            # if cppHeader.classes[c]["template"]:
-            #     continue
+# todo: template filter
 
             className = c
             if cppHeader.classes[c]["namespace"]:
@@ -119,11 +118,9 @@ for filename in os.listdir("../to_wrap/"):
                 methodName = m["name"]
 
                 #todo: add & for references
-                methodType = [t["type"] for t in m["parameters"]] #m["parameters"]
-                # methodTypeRaw = [t["raw_type"] for t in m["parameters"]] #m["parameters"]
+                methodType = [t["type"] for t in m["parameters"]]
                 methodReturn = m["rtnType"]
-                # methodReturnRaw = m["rtnType"][0:3] #LOL
-
+                
                 wrapName = "WRAP_METHOD"
                 customConstructor = False;
                 if methodName == className:
@@ -132,7 +129,6 @@ for filename in os.listdir("../to_wrap/"):
                         continue
                     wrapName = "WRAP_CUSTOM_CLASS"
                     customConstructor = True
-
 
                 # exclude operators now:
                 if methodName.startswith("operator"):
@@ -208,7 +204,6 @@ for filename in os.listdir("../to_wrap/"):
                     objectIndex += 1
 
                 patchYPos += 105
-
 
                 outputFile.write("\n")
 

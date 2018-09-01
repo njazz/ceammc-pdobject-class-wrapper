@@ -10,10 +10,8 @@
 #include "_Invocations.hpp"
 
 #include "ceammc_atomlist.h"
-#include "ceammc_log.h"
 #include "ceammc_dataatom.h"
-
-
+#include "ceammc_log.h"
 
 // ---
 
@@ -97,7 +95,7 @@ public:
 
             post("null %i", da.data().isNull());
 
-           _data = DataTPtr<AbstractDataWrapT<T> >(l.at(0));
+            _data = DataTPtr<AbstractDataWrapT<T> >(l.at(0));
 
             return;
         }

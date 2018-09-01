@@ -42,7 +42,7 @@ public:
             return;
         }
 
-        _InvocationStaticMethod<typename Traits::return_type,  F, decltype(_arguments)> call = _InvocationStaticMethod<typename Traits::return_type, F, decltype(_arguments)>( _method, _arguments);
+        _InvocationStaticMethod<typename Traits::return_type, F, decltype(_arguments)> call = _InvocationStaticMethod<typename Traits::return_type, F, decltype(_arguments)>(_method, _arguments);
         call(typename _genSequence<Traits::arity>::type());
 
         _return = call._return;
@@ -57,21 +57,7 @@ public:
 
     virtual void onAny(t_symbol* s, const AtomList& l) override
     {
-//        if (s == gensym("set"))
-//            if (l.size() == 1)
-//                if (l.at(0).isData()) {
-//                    _data = DataTPtr<AbstractDataWrapT<T> >(l.at(0)); //d.data();
-//                }
     }
-
-//    virtual void onData(const DataPtr& d) override
-//    {
-//        post("data %i vs %i", d.desc().type, _data.desc().type);
-
-//        if (d.desc().type == _data.desc().type) {
-//            _data = DataTPtr<AbstractDataWrapT<T> >(d.asAtom());
-//        }
-//    }
 
     virtual void onList(const AtomList& l) override
     {

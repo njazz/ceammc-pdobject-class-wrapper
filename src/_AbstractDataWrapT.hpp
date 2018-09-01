@@ -4,7 +4,6 @@
 #define AbstractDataWrapT_hpp
 
 #include "ceammc_abstractdata.h"
-
 #include "ceammc_data.h"
 
 using namespace ceammc;
@@ -14,7 +13,7 @@ class AbstractDataWrapT : public AbstractData {
 
 public:
     using noRefT = typename std::remove_reference<T>::type;
-    // shared ptr?
+    // TODO: shared ptr?
     noRefT* value = 0;
 
     virtual AbstractData* clone() const override
@@ -30,23 +29,17 @@ public:
     }
 
     AbstractDataWrapT(noRefT v)
-//        : value(nv)
     {
-
         value = new noRefT;
         *value = v;
-        };
+    };
 
     AbstractDataWrapT(noRefT* v)
-//        : value(nv)
     {
-
-        value = v;//new noRefT;
-//        *value = v;
-        };
+        value = v;
+    };
 
     AbstractDataWrapT()
-//        : value()
     {
     }
 
@@ -57,7 +50,6 @@ public:
             delete value;
     }
 
-
     static const unsigned short dataType;
 };
 
@@ -65,7 +57,5 @@ template <typename T>
 const unsigned short AbstractDataWrapT<T>::dataType = (typeid(T).hash_code() % 8192);
 
 // ---
-
-
 
 #endif

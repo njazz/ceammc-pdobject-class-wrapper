@@ -14,16 +14,16 @@ using namespace ceammc;
 
 template <typename T>
 class ClassConstructor : public ceammc::BaseObject {
-    AbstractDataWrapT<T> _value;// = 0;
+    AbstractDataWrapT<T> _value; // = 0;
     DataTPtr<AbstractDataWrapT<T> > _data;
 
 public:
     ClassConstructor(PdArgs& a)
-        : BaseObject(a),
-         _data(&_value)
-        {
-            createOutlet();
-        };
+        : BaseObject(a)
+        , _data(&_value)
+    {
+        createOutlet();
+    };
 
     ~ClassConstructor()
     {
@@ -45,7 +45,6 @@ template <typename T, typename F>
 class ClassConstructorCustom : public ceammc::BaseObject {
     using Traits = _functionTraits<F>;
 
-//    const F _method;
     typename Traits::arguments _arguments;
 
     AbstractDataWrapT<T>* _value = 0;
@@ -53,12 +52,11 @@ class ClassConstructorCustom : public ceammc::BaseObject {
 
 public:
     ClassConstructorCustom(PdArgs& a)
-        : BaseObject(a),
-         _data(0)//,
-//       _method(m)
-        {
-            createOutlet();
-        };
+        : BaseObject(a)
+        , _data(0) //,
+    {
+        createOutlet();
+    };
 
     ~ClassConstructorCustom()
     {
@@ -82,15 +80,11 @@ public:
 
     void _dispatch()
     {
-//        if (!_data.data()) {
-//            post("no data");
-//            return;
-//        }
 
-        _InvocationCustomConstructor< T, F, decltype(_arguments)> call = _InvocationCustomConstructor< T, F, decltype(_arguments)>( _arguments);
+        _InvocationCustomConstructor<T, F, decltype(_arguments)> call = _InvocationCustomConstructor<T, F, decltype(_arguments)>(_arguments);
         auto ptr = call(typename _genSequence<Traits::arity>::type());
 
-        post ("created class pointer %p", ptr);
+        post("created class pointer %p", ptr);
 
         _value = new AbstractDataWrapT<T>(ptr);
         _data = DataTPtr<AbstractDataWrapT<T> >(_value);
@@ -110,9 +104,7 @@ public:
         // onBang in ClassMethod:
         _dispatch();
         dataTo(0, _data);
-
     }
-
 };
 
 #endif
