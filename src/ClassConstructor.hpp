@@ -89,7 +89,6 @@ public:
 
         post("created class pointer %p", _value.get());
 
-//        _value = shared_p;//std::make_shared< AbstractDataWrapT<T> >(shared_p);
         _data = DataTPtr<AbstractDataWrapT<T> >(new AbstractDataWrapT<T>(_value));
     }
 

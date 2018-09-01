@@ -27,20 +27,19 @@ public:
 
     TypedAtomT<typename Traits::return_type> _return;
 
-    ClassStaticMethod(PdArgs& a, F m) //F m)
-        : BaseObject(a) //PdArgs(AtomList(), 0, 0))
-          ,
-          _method(m)
+    ClassStaticMethod(PdArgs& a, F m)
+        : BaseObject(a)
+        , _method(m)
     {
         createOutlet();
     };
 
     void _dispatch()
     {
-        if (!_data.data()) {
-            post("no data");
-            return;
-        }
+//        if (!_data.data()) {
+//            post("no data");
+//            return;
+//        }
 
         _InvocationStaticMethod<typename Traits::return_type, F, decltype(_arguments)> call = _InvocationStaticMethod<typename Traits::return_type, F, decltype(_arguments)>(_method, _arguments);
         call(typename _genSequence<Traits::arity>::type());
