@@ -15,8 +15,7 @@ class AbstractDataWrapT : public AbstractData {
 
 public:
     using noRefT = typename std::remove_reference<T>::type;
-    // TODO: shared ptr?
-    //noRefT* value = 0;
+
     std::shared_ptr<noRefT> value = 0;
 
     virtual AbstractData* clone() const override
@@ -31,26 +30,20 @@ public:
         return typeid(T).name();
     }
 
-    AbstractDataWrapT(noRefT v)
+    explicit AbstractDataWrapT(noRefT v)
     {
-        value = std::make_shared<noRefT>();//= new noRefT;
+        value = std::make_shared<noRefT>();
         *value = v;
     };
 
-
-//    AbstractDataWrapT(noRefT* v)
-//    {
-//        value = std::shared_ptr<noRefT>(v);
-//    };
-
-    AbstractDataWrapT(std::shared_ptr<noRefT> v)
+    explicit AbstractDataWrapT(std::shared_ptr<noRefT> v)
     {
         value = v;
     };
 
-    AbstractDataWrapT()
+    explicit AbstractDataWrapT()
     {
-        value = std::make_shared<noRefT>();//new noRefT;
+        value = std::make_shared<noRefT>();
     }
 
     ~AbstractDataWrapT()

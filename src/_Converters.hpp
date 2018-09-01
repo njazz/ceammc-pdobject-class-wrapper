@@ -5,7 +5,7 @@ class TypedAtomT : public Atom {
     DataTPtr<AbstractDataWrapT<T> > _d;
 
 public:
-    TypedAtomT(T v)
+    explicit TypedAtomT(T v)
         : _d(new AbstractDataWrapT<T>(v))
     {
     }

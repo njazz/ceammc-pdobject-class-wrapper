@@ -47,7 +47,7 @@ class _tupleFromAtomlistT {
 public:
     T& output;
 
-    _tupleFromAtomlistT(T& o)
+    explicit _tupleFromAtomlistT(T& o)
         : output(o)
     {
     }
@@ -92,7 +92,7 @@ public:
     typename Traits::arguments output;
     bool validOutput = false;
 
-    AtomListWrapperT(const AtomList& src)
+    explicit AtomListWrapperT(const AtomList& src)
     {
         constexpr size_t tupleSize = std::tuple_size<typename Traits::arguments>::value;
         if (src.size() != tupleSize) {

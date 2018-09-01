@@ -104,7 +104,7 @@ class _InvocationCustomConstructor {
 public:
     const A& _arguments;
 
-    _InvocationCustomConstructor(const A& a)
+    explicit _InvocationCustomConstructor(const A& a)
         : _arguments(a)
     {
     }

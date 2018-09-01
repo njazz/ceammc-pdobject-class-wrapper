@@ -50,7 +50,7 @@ public:
 class WithConstructor
 {
 public:
-    WithConstructor(float f)
+    explicit WithConstructor(float f)
     {}
     
     template <typename T>

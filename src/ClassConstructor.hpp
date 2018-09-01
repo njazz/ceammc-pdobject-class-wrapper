@@ -18,7 +18,7 @@ class ClassConstructor : public ceammc::BaseObject {
     DataTPtr<AbstractDataWrapT<T> > _data;
 
 public:
-    ClassConstructor(PdArgs& a)
+    explicit ClassConstructor(PdArgs& a)
         : BaseObject(a)
         , _data(&_value)
     {
@@ -41,17 +41,19 @@ public:
 #include "_FunctionTraits.hpp"
 #include "_Invocations.hpp"
 
+#include <memory.h>
+
 template <typename T, typename F>
 class ClassConstructorCustom : public ceammc::BaseObject {
     using Traits = _functionTraits<F>;
 
     typename Traits::arguments _arguments;
 
-    AbstractDataWrapT<T>* _value = 0;
+    std::shared_ptr<T > _value = 0;
     DataTPtr<AbstractDataWrapT<T> > _data;
 
 public:
-    ClassConstructorCustom(PdArgs& a)
+    explicit ClassConstructorCustom(PdArgs& a)
         : BaseObject(a)
         , _data(0) //,
     {
@@ -60,6 +62,7 @@ public:
 
     ~ClassConstructorCustom()
     {
+        _value = 0;
         _data = 0;
     }
 
@@ -82,12 +85,12 @@ public:
     {
 
         _InvocationCustomConstructor<T, F, decltype(_arguments)> call = _InvocationCustomConstructor<T, F, decltype(_arguments)>(_arguments);
-        auto shared_p = call(typename _genSequence<Traits::arity>::type());
+        _value= call(typename _genSequence<Traits::arity>::type());
 
-        post("created class pointer %p", shared_p.get());
+        post("created class pointer %p", _value.get());
 
-        _value = new AbstractDataWrapT<T>(shared_p);
-        _data = DataTPtr<AbstractDataWrapT<T> >(_value);
+//        _value = shared_p;//std::make_shared< AbstractDataWrapT<T> >(shared_p);
+        _data = DataTPtr<AbstractDataWrapT<T> >(new AbstractDataWrapT<T>(_value));
     }
 
     virtual void onList(const AtomList& l) override
