@@ -13,18 +13,21 @@ To build:
 - mkdir build && cd build && cmake .. && make
 
 Current limitations:
-- doesn't  convert classes without copy/move constructors
-- skips template classes 
-- skips all operators
-- nested public classes with custom constructors don't compile
+- Will not compile:
+  * classes without copy/move constructors
+  * unions in class or struct
+  * variadic functions
+- Will skip:
+  * template classes 
+  * all operators
 
 Todo list:
 - destructors
-- nested classes
+- filter custom attributes
 - classes without copy/move constructors
 - tests
 
-Tested in CEAMMC Pd 2018.03 (v0.5)
+Tested in CEAMMC Pd 2018.03 (v0.5), CEAMMC Pd 2018.08 (v0.6)
 
 ### Authors
 
