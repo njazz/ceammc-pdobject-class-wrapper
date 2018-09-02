@@ -10,6 +10,7 @@ http://github.com/uliss/pure-data
 
 To build:
 - put C++ files in (to_wrap) folder (doesn't scan subfolders). 
+- add sources to (to_include) and libraries to (to_link) folders.
 - mkdir build && cd build && cmake .. && make
 
 Current limitations:
@@ -17,6 +18,7 @@ Current limitations:
   * classes without copy/move constructors
   * unions in class or struct
   * variadic functions
+  * constructors marked explicit
 - Will skip:
   * template classes 
   * all operators
@@ -26,6 +28,8 @@ Todo list:
 - filter custom attributes
 - classes without copy/move constructors
 - tests
+- convert STL containers <-> lists 
+- polymorphism
 
 Tested in CEAMMC Pd 2018.03 (v0.5), CEAMMC Pd 2018.08 (v0.6)
 
