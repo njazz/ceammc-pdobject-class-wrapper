@@ -28,9 +28,8 @@ public:
     TypedAtomT<typename Traits::return_type> _return;
 
     ClassMethod(PdArgs& a, F m) //F m)
-        : BaseObject(a) //PdArgs(AtomList(), 0, 0))
-          ,
-          _method(m)
+        : BaseObject(a) //
+          ,_method(m)
     {
         createOutlet();
     };

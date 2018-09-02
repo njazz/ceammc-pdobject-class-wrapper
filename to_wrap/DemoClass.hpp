@@ -96,8 +96,7 @@ struct NestedParent
 
     struct NestedStruct{
         void method(){};
-        // not working: doesn't parse  custom constructor in nested classes
-//        NestedStruct(float f){};
+        NestedStruct(float f){};
 
     };
 };

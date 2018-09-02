@@ -74,7 +74,7 @@ for filename in os.listdir("../to_wrap/"):
             # todo: clean up
             justClassName = c
 
-            outputFile.write("\n// Class: "+className+"\n")
+            outputFile.write("\n// Class: "+justClassName+"\n")
             outputFile.write("\n// Namespace: ["+nameSpace+"]\n")
 #            outputFile.write("\n// Raw: \n/* "+str(cppHeader.classes[c])+" */\n")
             patchFile.write("#X text "+str(patchXPos)+" "+str(patchYPos)+ " \ "+className+";\n")
@@ -130,7 +130,11 @@ for filename in os.listdir("../to_wrap/"):
 
                 wrapName = "WRAP_METHOD"
                 customConstructor = False;
-                if methodName == justClassName:
+                
+                lastClassName = className.split("::")[-1]
+                # outputFile.write("// method name / class name " + methodName + " "+justClassName +"\n")
+                
+                if methodName == lastClassName:
                     #exclude default
                     if methodType == "":
                         continue
