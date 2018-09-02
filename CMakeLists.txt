@@ -113,4 +113,8 @@ add_custom_command(
         COMMAND /usr/local/bin/python3 ${CMAKE_CURRENT_SOURCE_DIR}/gen/convert.py
 )
 
+###
+enable_testing(true)
+add_subdirectory(tests)
+
 

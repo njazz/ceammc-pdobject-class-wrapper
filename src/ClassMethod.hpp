@@ -34,6 +34,11 @@ public:
         createOutlet();
     };
 
+    virtual ~ClassMethod()
+    {
+        _data = 0;
+    }
+
     void _dispatch()
     {
         if (!_data.data()) {
@@ -79,8 +84,7 @@ public:
 
             DataAtom da(l.at(0));
 
-            post("rcv data id desc %i %i", l.at(0).getData().id, l.at(0).getData().type);
-            post("rcv data: %p", da.data().data());
+            post("class method received data: id: %i desc: %i pointer: %p ", l.at(0).getData().id, l.at(0).getData().type,da.data().data());
 
             if (!da.isData()) {
                 post("bad ptr");
@@ -92,7 +96,8 @@ public:
                 return;
             }
 
-            post("null %i", da.data().isNull());
+            if (da.data().isNull())
+                post("null pointer");
 
             _data = DataTPtr<AbstractDataWrapT<T> >(l.at(0));
 

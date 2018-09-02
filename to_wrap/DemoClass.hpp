@@ -73,8 +73,6 @@ class ShouldBeSkipped<void> {
 class AfterTemplate : public ShouldBeSkipped<void> {
 };
 
-
-
 namespace NS {
 class inNamespace {
 public:
@@ -89,29 +87,56 @@ namespace Sub {
 }
 
 // ---
-struct NestedParent
-{
+struct NestedParent {
     void method(){};
     NestedParent(float f){};
 
-    struct NestedStruct{
+    struct NestedStruct {
         void method(){};
         NestedStruct(float f){};
-
     };
 };
 
 namespace SameName {
-struct SameName
-{
+struct SameName {
     void method(){};
 
-    struct NestedStructNS{
+    struct NestedStructNS {
         void method(){};
     };
 };
-
 }
+
+// ---
+
+class BaseClass {
+public:
+    virtual std::string v() { return "base"; }
+};
+
+class DerivedClass : public BaseClass {
+public:
+    virtual std::string v() override { return "derived"; }
+};
+
+class PolyValue {
+    BaseClass* _v;
+
+public:
+    void setValue(BaseClass* v)
+    {
+        _v = v;
+    }
+    BaseClass* valuePtr()
+    {
+        return _v;
+    }
+
+    BaseClass value()
+    {
+        return *_v;
+    }
+};
 
 // ---
 
@@ -128,4 +153,3 @@ struct SameName
 //public:
 //    void var(float f,...){};
 //};
-
