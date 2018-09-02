@@ -4,7 +4,6 @@ cmake_minimum_required (VERSION 2.8)
 
 set (CMAKE_PREFIX_PATH ~/Qt/5.8/clang_64)
 set (CMAKE_CXX_STANDARD 11)
-# set (QMAKE_MACOSX_DEPLOYMENT_TARGET 10.10)
 
 if (APPLE)
 	set(CMAKE_MACOSX_RPATH FALSE)
@@ -51,9 +50,6 @@ set (SOURCES
 
     "src/Wrapper.hpp"
 
-#    "src/WrapperDemo.cpp"
-#    "to_wrap/DemoClass.hpp"
-
     "to_wrap/_generated.cpp"
 )
 
@@ -94,10 +90,8 @@ file (GLOB WRAP_LINK_LIBS
     )
 
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
-
 target_link_libraries(wrapper_library "-undefined dynamic_lookup" ${WRAP_LINK_LIBS})
 set(CMAKE_SHARED_LIBRARY_CREATE_CXX_FLAGS "${CMAKE_SHARED_LIBRARY_CREATE_CXX_FLAGS} -undefined dynamic_lookup")
-
 endif()
 
 SET_TARGET_PROPERTIES(wrapper_library PROPERTIES PREFIX "")

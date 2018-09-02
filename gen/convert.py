@@ -7,10 +7,12 @@ sys.path = ["../"] + sys.path
 
 import CppHeaderParser3 as CppHeaderParser
 
+# camelCase -> camel-case
 def convert_name_h(name):
     s1 = re.sub('(.)([A-Z][a-z]+)', r'\1-\2', name)
     return re.sub('([a-z0-9])([A-Z])', r'\1-\2', s1).lower()
 
+# camelCase -> camelcase
 def convert_name_n(name):
     s1 = re.sub('(.)([A-Z][a-z]+)', r'\1\2', name)
     return re.sub('([a-z0-9])([A-Z])', r'\1\2', s1).lower()
@@ -97,10 +99,10 @@ for filename in os.listdir("../to_wrap/"):
                 hasDefaultConstructor = True
 
             if hasDefaultConstructor:
-                outputFile.write("WRAP_CLASS("+className+" , \""+convert_name_h(c)+"\");\n")
+                outputFile.write("WRAP_CLASS("+className+" , \""+convert_name_n(c)+"\");\n")
 
                 patchFile.write("#X obj "+str(patchXPos-75)+" "+str(patchYPos-30)+ " ui.bang;\n")
-                patchFile.write("#X obj "+str(patchXPos-75)+" "+str(patchYPos)+ " "+convert_name_h(c)+";\n")
+                patchFile.write("#X obj "+str(patchXPos-75)+" "+str(patchYPos)+ " "+convert_name_n(c)+";\n")
                 patchFile.write("#X obj "+str(patchXPos-75)+" "+str(patchYPos+25)+ " ui.display;\n")
             else:
                 patchFile.write("#X text "+str(patchXPos-75)+" "+str(patchYPos)+ " class with custom constructor;\n")
@@ -192,7 +194,9 @@ for filename in os.listdir("../to_wrap/"):
                 if customConstructor == False:
                     outputFile.write(""+methodDeclare +"\n")
 
-                pdObjectName = convert_name_h(c)+"."+convert_name_n(m["name"])
+                pdObjectName = convert_name_n(c)+"."+convert_name_n(m["name"])
+                if customConstructor == True:
+                    pdObjectName = convert_name_n(c)+".new"
 
                 if m["static"] == True:
                     wrapName = "WRAP_STATIC_METHOD"
