@@ -113,3 +113,19 @@ struct SameName
 
 }
 
+// ---
+
+// not working: unions in class/struct
+//class ClassWithUnion
+//{
+//public:
+//    union {float f; int i;} ;
+//};
+
+// not working: variadic functions
+//class VariadicFunc
+//{
+//public:
+//    void var(float f,...){};
+//};
+
