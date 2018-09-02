@@ -88,9 +88,14 @@ add_library(wrapper_library SHARED
     ${WRAP_SOURCES}
     ${SOURCES} )
 
+file (GLOB WRAP_LINK_LIBS
+    "${PROJECT_SOURCE_DIR}/to_link/*.a"
+    "${PROJECT_SOURCE_DIR}/to_link/*.dylib"
+    )
+
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
 
-target_link_libraries(wrapper_library "-undefined dynamic_lookup")
+target_link_libraries(wrapper_library "-undefined dynamic_lookup" ${WRAP_LINK_LIBS})
 set(CMAKE_SHARED_LIBRARY_CREATE_CXX_FLAGS "${CMAKE_SHARED_LIBRARY_CREATE_CXX_FLAGS} -undefined dynamic_lookup")
 
 endif()
