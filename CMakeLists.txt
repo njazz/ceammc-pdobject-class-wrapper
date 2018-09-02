@@ -81,6 +81,8 @@ include_directories(./pd_headers/)
 include_directories(./to_wrap/)
 include_directories(./to_include/)
 
+LINK_DIRECTORIES(${CMAKE_SOURCE_DIR}/to_link/)
+
 add_library(wrapper_library SHARED
     ${CEAMMC_LIB_SOURCES}
     ${WRAP_SOURCES}
