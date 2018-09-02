@@ -8,6 +8,11 @@
 
 #include <memory.h>
 
+#include <cxxabi.h>
+
+#include <algorithm>
+#include <string>
+
 using namespace ceammc;
 
 template <typename T>
@@ -17,18 +22,6 @@ public:
     using noRefT = typename std::remove_reference<T>::type;
 
     std::shared_ptr<noRefT> value = 0;
-
-    virtual AbstractData* clone() const override
-    {
-        return new AbstractDataWrapT(value);
-    }
-
-    virtual DataType type() const override { return typeid(T).hash_code() % 8192; }
-
-    virtual std::string toString() const override
-    {
-        return typeid(T).name();
-    }
 
     explicit AbstractDataWrapT(noRefT v)
     {
@@ -49,6 +42,28 @@ public:
     ~AbstractDataWrapT()
     {
         value = 0;
+    }
+
+    virtual AbstractData* clone() const override
+    {
+        return new AbstractDataWrapT(value);
+    }
+
+    virtual DataType type() const override { return typeid(T).hash_code() % 8192; }
+
+    inline static void _replace(std::string& str, std::string src, std::string dest)
+    {
+        size_t pos = str.find(src);
+        while (pos != std::string::npos) {
+            str.replace(pos, src.size(), dest);
+            pos = str.find(src, pos + src.size());
+        }
+    }
+    virtual std::string toString() const override
+    {
+        int status;
+        std::string abi_str = abi::__cxa_demangle(typeid(T).name(), 0, 0, &status);
+        return abi_str;
     }
 
     static const unsigned short dataType;
