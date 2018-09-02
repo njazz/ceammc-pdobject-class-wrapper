@@ -14,14 +14,13 @@ To build:
 
 Current limitations:
 - doesn't  convert classes without copy/move constructors
-- doesn't support templates
-- namespaces are not supported
+- skips template classes 
 - skips all operators
+- nested public classes with custom constructors don't compile
 
 Todo list:
 - destructors
-- exclude templates from generation
-- namespaces
+- nested classes
 - classes without copy/move constructors
 - tests
 
