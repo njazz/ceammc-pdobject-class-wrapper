@@ -61,14 +61,56 @@ public:
     float testFunc(float input) { return 100 * _val * input; }
 };
 
-
-template<typename T>
-class ShouldBeSkipped
-{};
+template <typename T>
+class ShouldBeSkipped {
+};
 
 //
-template<>
-class ShouldBeSkipped<void>{};
+template <>
+class ShouldBeSkipped<void> {
+};
 
-class AfterTemplate : public ShouldBeSkipped<void>{};
+class AfterTemplate : public ShouldBeSkipped<void> {
+};
+
+
+
+namespace NS {
+class inNamespace {
+public:
+    void method(){};
+};
+namespace Sub {
+    class inNestedNamespace {
+    public:
+        void method(){};
+    };
+}
+}
+
+// ---
+struct NestedParent
+{
+    void method(){};
+    NestedParent(float f){};
+
+    struct NestedStruct{
+        void method(){};
+        // not working: doesn't parse  custom constructor in nested classes
+//        NestedStruct(float f){};
+
+    };
+};
+
+namespace SameName {
+struct SameName
+{
+    void method(){};
+
+    struct NestedStructNS{
+        void method(){};
+    };
+};
+
+}
 
