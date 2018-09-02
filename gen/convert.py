@@ -5,7 +5,7 @@ import re
 
 sys.path = ["../"] + sys.path
 
-import CppHeaderParser
+import CppHeaderParser3 as CppHeaderParser
 
 def convert_name_h(name):
     s1 = re.sub('(.)([A-Z][a-z]+)', r'\1-\2', name)
@@ -68,12 +68,11 @@ for filename in os.listdir("../to_wrap/"):
                 className = cppHeader.classes[c]["namespace"]+"::"+c
 
             outputFile.write("\n// Class: "+className+"\n")
+#            outputFile.write("\n// Raw: \n/* "+str(cppHeader.classes[c])+" */\n")
             patchFile.write("#X text "+str(patchXPos)+" "+str(patchYPos)+ " \ "+className+";\n")
             objectIndex += 1
 
             patchYPos += 30
-
-            outputFile.write("//\n")
 
             hasDefaultConstructor = False
             hasConstructor = False
@@ -120,7 +119,7 @@ for filename in os.listdir("../to_wrap/"):
                 #todo: add & for references
                 methodType = [t["type"] for t in m["parameters"]]
                 methodReturn = m["rtnType"]
-                
+
                 wrapName = "WRAP_METHOD"
                 customConstructor = False;
                 if methodName == className:

@@ -61,10 +61,14 @@ public:
     float testFunc(float input) { return 100 * _val * input; }
 };
 
+
+template<typename T>
+class ShouldBeSkipped
+{};
+
 //
-//template<typename T>
-//class ShouldBeSkipped
-//{};
-//
-//template<>
-//class ShouldBeSkipped<void>{};
+template<>
+class ShouldBeSkipped<void>{};
+
+class AfterTemplate : public ShouldBeSkipped<void>{};
+
