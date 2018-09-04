@@ -17,6 +17,8 @@ void _tester(T v)
     std::cout << "tested: " << typeid(T).name() << "\n";
 }
 
+
+
 TEST_CASE("_AtomListWrapperT", "wrapper")
 {
     SECTION("1. basic")
@@ -26,7 +28,7 @@ TEST_CASE("_AtomListWrapperT", "wrapper")
         // double loses precision:
         //        _tester(.3);
 
-        // symbol crashes
+        // symbol crashes (pd init)
         //        _tester(gensym("string"));
     }
 }
