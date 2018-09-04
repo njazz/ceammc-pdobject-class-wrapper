@@ -134,6 +134,58 @@ def write_pddoc_class_method_object(className,description,objectType, infoString
 
 # ---------------
 
+def write_pddoc_static_method_object(className,description,objectType, infoString):
+    fileName = "../build/doc/"+objectType+".pddoc"
+    outputFile = open(fileName,"w+")
+    outputFile.write("""<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="{2}">
+        <title>{2}</title>
+        <info>
+            <par> {1} </par>
+        </info>
+        <meta>
+            <authors>
+                <author> Script </author>
+            </authors>
+            <description> {2} is a static \n
+            method of {0}\n
+            {1} </description>
+            <license> N/A </license>
+            <library> wrapper_library </library>
+            <category>{0}</category>
+            <keywords> none </keywords>
+            <since> 1.0 </since>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="any"> {3} </xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet> {3} </outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+
+
+[B] [1.0( [symbol test( [1 2 3(
+|   |     |             |
+[{2}                        ]
+|
+[ui.display]
+
+[declare -lib ../wrapper_library]
+
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
+    """.format(className,description,objectType, infoString))
+# ----------
+
 def hasDefaultConstructor(cls):
     ret = False
     hasConstructor = False
@@ -184,5 +236,9 @@ for filename in os.listdir("../to_wrap/"):
 
                 methodInfoString = "("+" ".join(methodType)+")->"+methodReturn
 
-                write_pddoc_class_method_object(convert_name_n(c), "no description", pdObjectName, methodInfoString)
+                if m["static"] == True:
+                    write_pddoc_static_method_object(convert_name_n(c), "no description", pdObjectName, methodInfoString)
+                else:
+                    write_pddoc_class_method_object(convert_name_n(c), "no description", pdObjectName, methodInfoString)
+
                 dbFile.write("{0} . .\n".format(pdObjectName))
