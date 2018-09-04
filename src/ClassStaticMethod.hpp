@@ -17,7 +17,6 @@
 
 template <typename T, class F>
 class ClassStaticMethod : public ceammc::BaseObject {
-    DataTPtr<AbstractDataWrapT<T> > _data = DataTPtr<AbstractDataWrapT<T> >(Atom());
 
 public:
     using Traits = _functionTraits<F>;
@@ -36,11 +35,6 @@ public:
 
     void _dispatch()
     {
-//        if (!_data.data()) {
-//            post("no data");
-//            return;
-//        }
-
         _InvocationStaticMethod<typename Traits::return_type, F, decltype(_arguments)> call = _InvocationStaticMethod<typename Traits::return_type, F, decltype(_arguments)>(_method, _arguments);
         call(typename _genSequence<Traits::arity>::type());
 

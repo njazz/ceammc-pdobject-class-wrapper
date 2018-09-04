@@ -12,7 +12,7 @@ cd help
 
 for file in ../doc/*
 do
-/usr/local/bin/pd_doc2pd "$file" --force --xlet-db ../doc/_xlets.db
+/usr/local/bin/pd_doc2pd "$file" --force --xlet-db ../doc/wrapper_library.db
 done
 
 /usr/local/bin/pd_makelibrary --library wrapper_library ../doc/* > ../doc/_wrapper_library.xml
