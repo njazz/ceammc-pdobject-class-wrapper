@@ -22,7 +22,9 @@ class ClassMethod : public ceammc::BaseObject {
 public:
     using Traits = _functionTraits<F>;
 
-    const F _method;
+    F _defaultMethod;
+    F _method;
+
     typename Traits::arguments _arguments;
 
     TypedAtomT<typename Traits::return_type> _return;
@@ -34,8 +36,9 @@ public:
         createOutlet();
     };
 
-    virtual ~ClassMethod()
+    ~ClassMethod()
     {
+        _method = _defaultMethod;
         _data = 0;
     }
 

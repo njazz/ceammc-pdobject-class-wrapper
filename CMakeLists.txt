@@ -121,7 +121,7 @@ add_custom_command(
     )
 
 ###
-enable_testing(true)
-add_subdirectory(tests)
+#enable_testing(true)
+#add_subdirectory(tests)
 
 

@@ -10,6 +10,11 @@ public:
     {
     }
 
+    virtual ~TypedAtomT()
+    {
+        _d = 0;
+    }
+
     TypedAtomT()
         : _d(new AbstractDataWrapT<T>())
     {

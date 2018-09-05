@@ -21,7 +21,9 @@ class ClassStaticMethod : public ceammc::BaseObject {
 public:
     using Traits = _functionTraits<F>;
 
-    const F _method;
+    F _defaultMethod;
+    F _method;
+
     typename Traits::arguments _arguments;
 
     TypedAtomT<typename Traits::return_type> _return;
@@ -32,6 +34,12 @@ public:
     {
         createOutlet();
     };
+
+    ~ClassStaticMethod()
+    {
+        // the fix. lol
+        _method = _defaultMethod;
+    }
 
     void _dispatch()
     {
@@ -54,7 +62,7 @@ public:
 
     virtual void onList(const AtomList& l) override
     {
-        //
+
         if (l.size() != Traits::arity) {
             post("bad message: expected %i arguments, %i provided", Traits::arity, l.size());
         }

@@ -187,7 +187,7 @@ for filename in os.listdir("../to_wrap/"):
                     methodDeclare += " = " + "static_cast<" + methodPointer + ">(&" +className+"::"+methodName+");"
 
                 if m["static"] == False:
-                    typeDeclare = "using "+methodPointerNameWithoutNS+"_type = "+ methodReturn + "("+className+"::*const)(" + ",".join(methodType) + ");\n"
+                    typeDeclare = "using "+methodPointerNameWithoutNS+"_type = "+ methodReturn + "("+className+"::*)(" + ",".join(methodType) + ");\n"
                 else:
                     typeDeclare = "using "+methodPointerNameWithoutNS+"_type = "+ methodReturn + "(*)(" + ",".join(methodType) + ");\n"
 
