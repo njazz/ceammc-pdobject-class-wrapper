@@ -114,6 +114,12 @@ add_custom_command(
         #/usr/local/bin/python3 ${CMAKE_CURRENT_SOURCE_DIR}/gen/convert.py
 )
 
+add_custom_command(
+    TARGET wrapper_library
+    POST_BUILD
+    COMMAND cp ${CMAKE_BINARY_DIR}/wrapper_library.pd_darwin ${CMAKE_BINARY_DIR}/help/wrapper_library.pd_darwin
+    )
+
 ###
 enable_testing(true)
 add_subdirectory(tests)

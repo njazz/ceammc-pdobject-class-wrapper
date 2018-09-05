@@ -19,3 +19,10 @@ done
 cd ../doc/
 /usr/local/bin/pd_lib2pd _wrapper_library.xml
 cp wrapper_library-help.pd ../help/wrapper_library-help.pd
+
+# fix
+#echo "\n#X obj 300 15 declare -lib /../wrapper_library;" >> ../help/wrapper_library-help.pd
+sed -i '' '2i\
+#X declare -lib wrapper_library;\
+#X obj 300 15 declare -lib wrapper_library;\
+' ../help/wrapper_library-help.pd

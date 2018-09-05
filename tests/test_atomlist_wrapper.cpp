@@ -1,7 +1,7 @@
 #define CATCH_CONFIG_MAIN
 #include "catch.hpp"
 
-#include "_AtomListWrapperT.hpp".hpp "
+#include "_AtomListWrapperT.hpp"
 
 #include <iostream>
 

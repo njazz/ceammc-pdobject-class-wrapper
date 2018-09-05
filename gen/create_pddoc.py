@@ -35,20 +35,20 @@ def write_pddoc_class_object(name,description,objectType):
             <authors>
                 <author>Script</author>
             </authors>
-            <description>{1}</description>
+            <description>Instance of {0} object.</description>
             <license>N/A</license>
-            <library>wrapper_library </library>
+            <library>wrapper_library</library>
             <category>{2}</category>
             <keywords>none</keywords>
             <since>1.0</since>
         </meta>
         <inlets>
             <inlet>
-                <xinfo on="bang">Outputs {2}</xinfo>
+                <xinfo on="bang">Outputs DataAtom with {0} object.</xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>Outputs {2}</outlet>
+            <outlet>Outputs DataAtom with {0} object.</outlet>
         </outlets>
         <example>
             <pdascii>
@@ -60,7 +60,7 @@ def write_pddoc_class_object(name,description,objectType):
 |
 [ui.display]
 
-[declare -lib ../wrapper_library]
+[declare -lib wrapper_library]
 
 ]]>
             </pdascii>
@@ -68,41 +68,48 @@ def write_pddoc_class_object(name,description,objectType):
     </object>
 </pddoc>
     """.format(name,description,objectType))
-    # dbFile.write("{0} . .\n", objectType)
-    # if len(fileName)>0:
-    #     call(["pd_doc2pd",fileName, "--force"])
 
 #----------
 
-def write_pddoc_class_method_object(className,description,objectType, infoString):
+def write_pddoc_class_method_object(className,description,objectType,methodType,methodReturn, cppClassName):
     fileName = "../build/doc/"+objectType+".pddoc"
     outputFile = open(fileName,"w+")
+
+    if len(methodType) == 0:
+        methodType = "accepts bang"
+    else:
+        methodType = "accepts list: {0}".format(methodType)
+
+    if len(methodReturn)==0:
+        methodReturn = "no output"
+    else:
+        methodReturn = "list: {0}".format(methodReturn)
+
     outputFile.write("""<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
     <object name="{2}">
         <title>{2}</title>
         <info>
-            <par> {1} </par>
+            <par>{1}</par>
         </info>
         <meta>
             <authors>
                 <author> Script </author>
             </authors>
-            <description> method of {0}\n
-            {1} </description>
+            <description>Method of {5}</description>
             <license> N/A </license>
-            <library> wrapper_library </library>
+            <library>wrapper_library</library>
             <category>{0}</category>
             <keywords> none </keywords>
             <since> 1.0 </since>
         </meta>
         <inlets>
             <inlet>
-                <xinfo on="any"> {3} </xinfo>
+                <xinfo on="any">{3} </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet> {3} </outlet>
+            <outlet>{4} </outlet>
         </outlets>
         <example>
             <pdascii>
@@ -120,23 +127,30 @@ def write_pddoc_class_method_object(className,description,objectType, infoString
 |
 [ui.display]
 
-[declare -lib ../wrapper_library]
+[declare -lib wrapper_library]
 
 ]]>
             </pdascii>
         </example>
     </object>
 </pddoc>
-    """.format(className,description,objectType, infoString))
-    # dbFile.write("{0} . .\n", objectType)
-    # if len(fileName)>0:
-    #     call(["pd_doc2pd",fileName, "--force"])
+    """.format(className,description,objectType, methodType, methodReturn, cppClassName))
 
 # ---------------
 
-def write_pddoc_static_method_object(className,description,objectType, infoString):
+def write_pddoc_static_method_object(className,description,objectType, methodType,methodReturn, cppClassName):
     fileName = "../build/doc/"+objectType+".pddoc"
     outputFile = open(fileName,"w+")
+    if methodType == "[]":
+        methodType = "accepts bang"
+    else:
+        methodType = "accepts list: {0}".format(methodType)
+
+    if methodReturn =="[]":
+        methodReturn = "no output"
+    else:
+        methodReturn = "list: {0}".format(methodReturn)
+
     outputFile.write("""<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
     <object name="{2}">
@@ -148,21 +162,20 @@ def write_pddoc_static_method_object(className,description,objectType, infoStrin
             <authors>
                 <author> Script </author>
             </authors>
-            <description> static method of {0}\n
-            {1} </description>
+            <description>Static method of {5}</description>
             <license> N/A </license>
             <library> wrapper_library </library>
             <category>{0}</category>
-            <keywords> none </keywords>
-            <since> 1.0 </since>
+            <keywords>none</keywords>
+            <since>1.0</since>
         </meta>
         <inlets>
             <inlet>
-                <xinfo on="any"> {3} </xinfo>
+                <xinfo on="any">{3} </xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet> {3} </outlet>
+            <outlet>{4} </outlet>
         </outlets>
         <example>
             <pdascii>
@@ -175,14 +188,14 @@ def write_pddoc_static_method_object(className,description,objectType, infoStrin
 |
 [ui.display]
 
-[declare -lib ../wrapper_library]
+[declare -lib wrapper_library]
 
 ]]>
             </pdascii>
         </example>
     </object>
 </pddoc>
-    """.format(className,description,objectType, infoString))
+    """.format(className,description,objectType, methodType,methodReturn, cppClassName))
 # ----------
 
 def write_pddoc_class_custom_constructor_object(className,description,objectType, infoString):
@@ -199,8 +212,7 @@ def write_pddoc_class_custom_constructor_object(className,description,objectType
             <authors>
                 <author> Script </author>
             </authors>
-            <description> creates new {0}\n
-            {1} </description>
+            <description>Creates new instances of {0}</description>
             <license> N/A </license>
             <library> wrapper_library </library>
             <category>{0}</category>
@@ -209,12 +221,12 @@ def write_pddoc_class_custom_constructor_object(className,description,objectType
         </meta>
         <inlets>
             <inlet>
-                <xinfo on="bang"> outputs current instance of {0} </xinfo>
-                <xinfo on="any"> creates new instance of {0} and outputs it\n{3} </xinfo>
+                <xinfo on="bang">Outputs current instance of {0} </xinfo>
+                <xinfo on="any">Creates new instance of {0} and outputs it</xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet> {0} </outlet>
+            <outlet>Outputs DataAtom with {0} object.</outlet>
         </outlets>
         <example>
             <pdascii>
@@ -226,7 +238,7 @@ def write_pddoc_class_custom_constructor_object(className,description,objectType
 |
 [ui.display]
 
-[declare -lib ../wrapper_library]
+[declare -lib wrapper_library]
 
 ]]>
             </pdascii>
@@ -303,8 +315,8 @@ for filename in os.listdir("../to_wrap/"):
                     continue
 
                 if m["static"] == True:
-                    write_pddoc_static_method_object(convert_name_n(c), "", pdObjectName, methodInfoString)
+                    write_pddoc_static_method_object(convert_name_n(c), "", pdObjectName, methodType,methodReturn,c)
                 else:
-                    write_pddoc_class_method_object(convert_name_n(c), "", pdObjectName, methodInfoString)
+                    write_pddoc_class_method_object(convert_name_n(c), "", pdObjectName, methodType,methodReturn,c)
 
                 dbFile.write("{0} . .\n".format(pdObjectName))
