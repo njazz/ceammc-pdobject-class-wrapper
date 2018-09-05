@@ -1,6 +1,7 @@
 #include <string>
 #include <vector>
 
+/*
 class DemoSubClass {
     long _v = 123;
 
@@ -140,8 +141,14 @@ public:
 
 float test_function_wrapper(void* ptr);
 
+*/
+
 // not working:
-// void test_function_wrapper_v(void* ptr);
+// void test_function_wrapper_r(float& ref);
+
+void test_function_wrapper_v(void* ptr);
+void test_function_wrapper_v_ptr(float (*ptr)(float));
+void test_function_wrapper_v_ptr_v(void (*ptr)(float));
 
 #define MACRO_1 float
 MACRO_1 test_macro1();

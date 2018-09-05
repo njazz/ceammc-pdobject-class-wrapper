@@ -1,7 +1,11 @@
 #include "DemoClass.hpp"
 
+/*
+
 long& DemoSubClass::ref() { return _v; }
 std::vector<std::string> DemoSubClass::vec() { return { "lol" }; }
+
+*/
 
 float test_function_wrapper(void* ptr)
 {
@@ -28,3 +32,9 @@ float func_apply(float (*func)(float), float v)
         return (*func)(v);
     return 0;
 }
+
+// --
+
+void test_function_wrapper_v(void* ptr){}
+void test_function_wrapper_v_ptr(float (*ptr)(float)){}
+void test_function_wrapper_v_ptr_v(void (*ptr)(float)){}

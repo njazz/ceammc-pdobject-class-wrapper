@@ -26,7 +26,7 @@ Current limitations:
   * constructors marked explicit
   * variadic functions
   * function-like macros
-  * static function with void return type
+  * static functions with reference arguments
   
 - Will skip:
   * template classes
