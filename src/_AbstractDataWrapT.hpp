@@ -32,6 +32,7 @@ public:
     explicit AbstractDataWrapT(std::shared_ptr<noRefT> v)
     {
         value = v;
+        *value = *v;
     };
 
     explicit AbstractDataWrapT()
@@ -42,6 +43,12 @@ public:
     ~AbstractDataWrapT()
     {
         value = 0;
+    }
+
+    void operator=(AbstractDataWrapT& in)
+    {
+        value = in.value;
+        *value = *in.value;
     }
 
     virtual AbstractData* clone() const override

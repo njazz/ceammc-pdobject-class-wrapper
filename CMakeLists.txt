@@ -71,7 +71,8 @@ include_directories( ${CMAKE_BINARY_DIR} )
 
 include_directories(.)
 include_directories(./src/)
-include_directories(./ceammc_lib/)
+#include_directories(./ceammc_lib/)
+include_directories(./ceammc_lib_0.6/)
 include_directories(./pd_headers/)
 
 include_directories(./to_wrap/)
@@ -121,7 +122,7 @@ add_custom_command(
     )
 
 ###
-#enable_testing(true)
-#add_subdirectory(tests)
+enable_testing(true)
+add_subdirectory(tests)
 
 

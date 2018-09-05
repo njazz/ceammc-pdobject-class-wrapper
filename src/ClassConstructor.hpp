@@ -14,15 +14,16 @@ using namespace ceammc;
 
 template <typename T>
 class ClassConstructor : public ceammc::BaseObject {
-    AbstractDataWrapT<T> _value; // = 0;
+    AbstractDataWrapT<T>* _value = 0; // = 0;
     DataTPtr<AbstractDataWrapT<T> > _data;
 
 public:
     explicit ClassConstructor(PdArgs& a)
         : BaseObject(a)
-        , _data(&_value)
+        ,_data(new AbstractDataWrapT<T>)
     {
         createOutlet();
+
     };
 
     ~ClassConstructor()
@@ -49,7 +50,7 @@ class ClassConstructorCustom : public ceammc::BaseObject {
 
     typename Traits::arguments _arguments;
 
-    std::shared_ptr<T > _value = 0;
+    std::shared_ptr<T> _value = 0;
     DataTPtr<AbstractDataWrapT<T> > _data;
 
 public:
@@ -85,7 +86,7 @@ public:
     {
 
         _InvocationCustomConstructor<T, F, decltype(_arguments)> call = _InvocationCustomConstructor<T, F, decltype(_arguments)>(_arguments);
-        _value= call(typename _genSequence<Traits::arity>::type());
+        _value = call(typename _genSequence<Traits::arity>::type());
 
         post("created class pointer %p", _value.get());
 
