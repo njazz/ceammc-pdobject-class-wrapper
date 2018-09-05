@@ -273,7 +273,7 @@ dbFile = open(dbFileName,"w+")
 # ---------------
 
 for filename in os.listdir("../to_wrap/"):
-    if filename.endswith(".hpp"):
+    if filename.endswith(".hpp") or filename.endswith(".h"):
         try:
             cppHeader = CppHeaderParser.CppHeader("../to_wrap/"+filename)
         except CppHeaderParser.CppParseError as e:

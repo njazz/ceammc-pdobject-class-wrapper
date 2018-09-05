@@ -54,6 +54,7 @@ set (SOURCES
 )
 
 file (GLOB WRAP_SOURCES
+    "${PROJECT_SOURCE_DIR}/to_wrap/*.c"
     "${PROJECT_SOURCE_DIR}/to_wrap/*.cpp"
     )
 

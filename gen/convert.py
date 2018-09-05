@@ -22,7 +22,7 @@ def convert_name_n(name):
 def outputWriteHeader(file):
     file.write("#include \"Wrapper.hpp\"\n\n")
     for filename in os.listdir("../to_wrap/"):
-        if filename.endswith(".hpp"):
+        if filename.endswith(".hpp") or filename.endswith(".h"):
             file.write("#include \""+filename+"\"\n")
 
     file.write("extern \"C\"{\n");
@@ -99,22 +99,26 @@ for filename in os.listdir("../to_wrap/"):
             else:
                 methodPointer = methodReturn + "(*)(" + ",".join(methodType) + ")"
 
-            if m["static"] == False:
-                methodPointerDeclare = methodReturn + "(*"+methodPointerNameWithoutNS+")(" + ",".join(methodType) + ")"
-            else:
-                methodPointerDeclare = methodReturn + "(*"+methodPointerNameWithoutNS+")(" + ",".join(methodType) + ")"
+            # if m["static"] == False:
+            #     methodPointerDeclare = methodReturn + "(*"+methodPointerNameWithoutNS+")(" + ",".join(methodType) + ")"
+            # else:
+            #
+            methodPointerDeclare = methodReturn + "(*"+methodPointerNameWithoutNS+")(" + ",".join(methodType) + ")"
 
             methodDeclare = "constexpr " + methodPointerDeclare + " "
             methodDeclare += "" #"_"+className+"_method_"+methodName
 
-            if m["static"] == False:
-                methodDeclare += " = " + "static_cast<" + methodPointer + ">(&"+methodName+");"
-            else:
-                methodDeclare += " = " + "static_cast<" + methodPointer + ">(&"+methodName+");"
+            # if m["static"] == False:
+            #     methodDeclare += " = " + "static_cast<" + methodPointer + ">(&"+methodName+");"
+            # else:
+            #
 
-            if m["static"] == False:
-                typeDeclare = "using "+methodPointerNameWithoutNS+"_type = "+ methodReturn + "(*)(" + ",".join(methodType) + ");\n"
-            else:
+            methodDeclare += " = &"+methodName+";"
+
+            # if m["static"] == False:
+            #     typeDeclare = "using "+methodPointerNameWithoutNS+"_type = "+ methodReturn + "(*)(" + ",".join(methodType) + ");\n"
+            # else:
+            
                 typeDeclare = "using "+methodPointerNameWithoutNS+"_type = "+ methodReturn + "(*)(" + ",".join(methodType) + ");\n"
 
             outputFile.write(typeDeclare)

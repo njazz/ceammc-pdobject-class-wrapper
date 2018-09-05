@@ -1,4 +1,4 @@
-This is a development/experimental repository / stub. 
+This is a development/experimental repository / stub.
 Experimental feature for CEAMMC PureData library v0.7+
 Check out the library itself:
 http://github.com/uliss/pure-data
@@ -9,12 +9,12 @@ http://github.com/uliss/pure-data
 ![screenshot](demo.png?raw=true "screenshot")
 
 To build:
-- put C++ files in (to_wrap) folder (doesn't scan subfolders). 
+- put C++ files in (to_wrap) folder (doesn't scan subfolders).
 - add sources to (to_include) and libraries to (to_link) folders.
 - mkdir build && cd build && cmake .. && make
 
 Python dependencies:
-pycairo, cppheaderparser
+pycairo, cppheaderparser, ply
 
 Current limitations:
 - Will not compile:
@@ -25,8 +25,9 @@ Current limitations:
   * variadic functions
   * function-like macros
 - Will skip:
-  * template classes 
+  * template classes
   * all operators
+  * enums
 
 Todo list:
 - doc gen for methods with no-default-constructor classes
@@ -34,8 +35,9 @@ Todo list:
 - filter custom attributes
 - classes without copy/move constructors
 - tests
-- convert STL containers <-> lists 
+- convert STL containers <-> lists
 - polymorphism
+- enums
 
 Tested in CEAMMC Pd 2018.03 (v0.5), CEAMMC Pd 2018.08 (v0.6)
 
@@ -49,5 +51,3 @@ http://github.com/uliss/pddoc
 
 ### License
 GPLv3
-
-

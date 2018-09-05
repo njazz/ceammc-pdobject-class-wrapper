@@ -126,3 +126,22 @@ Atom TypedAtomT<std::string&>::asAtom()
 
     return Atom(gensym(_d.data()->value->c_str()));
 }
+
+template <>
+Atom TypedAtomT<const char*>::asAtom()
+{
+    if (!_d.data())
+        return Atom(gensym("<empty>"));
+
+    return Atom(gensym(*_d.data()->value));
+}
+
+
+template <>
+Atom TypedAtomT<char*>::asAtom()
+{
+    if (!_d.data())
+        return Atom(gensym("<empty>"));
+
+    return Atom(gensym(*_d.data()->value));
+}

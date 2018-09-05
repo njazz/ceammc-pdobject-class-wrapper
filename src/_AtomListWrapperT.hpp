@@ -40,6 +40,12 @@ void convertAtom(int& out, Atom a) { out = a.asInt(); }
 template <>
 void convertAtom(long& out, Atom a) { out = a.asInt(); }
 
+template <>
+void convertAtom(const char*& out, Atom a) { out = a.asSymbol()->s_name; }
+
+template <>
+void convertAtom(char*& out, Atom a) { out = a.asSymbol()->s_name; }
+
 // -----
 
 template <int I, typename T>
