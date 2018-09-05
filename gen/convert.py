@@ -118,8 +118,8 @@ for filename in os.listdir("../to_wrap/"):
             # if m["static"] == False:
             #     typeDeclare = "using "+methodPointerNameWithoutNS+"_type = "+ methodReturn + "(*)(" + ",".join(methodType) + ");\n"
             # else:
-            
-                typeDeclare = "using "+methodPointerNameWithoutNS+"_type = "+ methodReturn + "(*)(" + ",".join(methodType) + ");\n"
+
+            typeDeclare = "using "+methodPointerNameWithoutNS+"_type = "+ methodReturn + "(*)(" + ",".join(methodType) + ");\n"
 
             outputFile.write(typeDeclare)
             # if customConstructor == False:

@@ -13,6 +13,7 @@
 #include "ceammc_dataatom.h"
 #include "ceammc_log.h"
 
+#include <functional>
 // ---
 
 template <typename T, class F>
@@ -28,11 +29,16 @@ public:
 
     TypedAtomT<typename Traits::return_type> _return;
 
+    TypedAtomT<F> _funcReturn;
+
     ClassStaticMethod(PdArgs& a, F m)
         : BaseObject(a)
         , _method(m)
     {
         createOutlet();
+        createOutlet();
+
+        _funcReturn = TypedAtomT<F>(m);
     };
 
     ~ClassStaticMethod()
@@ -58,6 +64,11 @@ public:
 
     virtual void onAny(t_symbol* s, const AtomList& l) override
     {
+        if (s== gensym("func"))
+        {
+            auto atom = _funcReturn.asAtom();
+            atom.output(outletAt(1));
+        }
     }
 
     virtual void onList(const AtomList& l) override

@@ -182,11 +182,11 @@ def write_pddoc_static_method_object(className,description,objectType, methodTyp
 <![CDATA[
 
 
-[B] [1.0( [symbol test( [1 2 3(
-|   |     |             |
-[{2}                        ]
-|
-[ui.display @display_type 1]
+[B] [1.0( [symbol test( [1 2 3(  [func(
+|   |     |             |        |
+[{2}                               ]
+|                            |
+[ui.display @display_type 1] [ui.display @display_type 1]
 
 [declare -lib wrapper_library]
 
@@ -297,7 +297,7 @@ for filename in os.listdir("../to_wrap/"):
 
             write_pddoc_static_method_object("function", "", pdObjectName, methodType,methodReturn,"function")
 
-            dbFile.write("{0} . .\n".format(pdObjectName))
+            dbFile.write("{0} . ..\n".format(pdObjectName))
 
 
         for c in cppHeader.classes:
