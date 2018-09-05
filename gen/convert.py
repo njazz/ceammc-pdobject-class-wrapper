@@ -28,30 +28,21 @@ def outputWriteHeader(file):
     file.write("extern \"C\"{\n");
     file.write("void setup(){\n\n")
 
-def patchWriteHeader(file):
-    file.write("#N canvas 100 100 800 600 12;\n")
-    file.write("#X declare -lib wrapper_library;\n")
-    file.write("#X obj 15 15 declare -lib wrapper_library;\n")
+# def patchWriteHeader(file):
+#     file.write("#N canvas 100 100 800 600 12;\n")
+#     file.write("#X declare -lib wrapper_library;\n")
+#     file.write("#X obj 15 15 declare -lib wrapper_library;\n")
 
 # ------------
 
 outputFile = open("../to_wrap/_generated.cpp","w+")
-patchFile = open("../build/_generated.pd","w+")
 
 outputWriteHeader(outputFile)
-patchWriteHeader(patchFile)
-
-objectIndex = 1
-patchYPos = 15 + 30
-patchXPos = 90
+# patchWriteHeader(patchFile)
 
 for filename in os.listdir("../to_wrap/"):
     if filename.endswith(".hpp"):
         outputFile.write("// "+filename+"\n")
-
-        patchYPos = 45
-        patchFile.write("#X text "+str(patchXPos-75)+" "+str(patchYPos)+ " "+filename+";\n")
-        patchYPos += 30
 
         try:
             cppHeader = CppHeaderParser.CppHeader("../to_wrap/"+filename)
@@ -63,8 +54,6 @@ for filename in os.listdir("../to_wrap/"):
 #        print("CppHeaderParser view of %s"%cppHeader)
 
         for c in cppHeader.classes:
-
-# todo: template filter
 
             className = c
             nameSpace = cppHeader.classes[c]["namespace"]
@@ -79,11 +68,6 @@ for filename in os.listdir("../to_wrap/"):
 
             outputFile.write("\n// Class: "+justClassName+"\n")
             outputFile.write("\n// Namespace: ["+nameSpace+"]\n")
-#            outputFile.write("\n// Raw: \n/* "+str(cppHeader.classes[c])+" */\n")
-            patchFile.write("#X text "+str(patchXPos)+" "+str(patchYPos)+ " \ "+className+";\n")
-            objectIndex += 1
-
-            patchYPos += 30
 
             hasDefaultConstructor = False
             hasConstructor = False
@@ -101,23 +85,6 @@ for filename in os.listdir("../to_wrap/"):
 
             if hasDefaultConstructor:
                 outputFile.write("WRAP_CLASS("+className+" , \""+convert_name_n(c)+"\");\n")
-
-                patchFile.write("#X obj "+str(patchXPos-75)+" "+str(patchYPos-30)+ " ui.bang;\n")
-                patchFile.write("#X obj "+str(patchXPos-75)+" "+str(patchYPos)+ " "+convert_name_n(c)+";\n")
-                patchFile.write("#X obj "+str(patchXPos-75)+" "+str(patchYPos+25)+ " ui.display;\n")
-            else:
-                patchFile.write("#X text "+str(patchXPos-75)+" "+str(patchYPos)+ " class with custom constructor;\n")
-                patchFile.write("#X text "+str(patchXPos-75)+" "+str(patchYPos + 25)+ " \ ;\n")
-                patchFile.write("#X text "+str(patchXPos-75)+" "+str(patchYPos + 25)+ " \ ;\n")
-
-
-            classObjectIndex = objectIndex+2
-            patchFile.write("#X connect "+str(objectIndex+1)+" 0 "+str(objectIndex+2)+" 0;")
-            patchFile.write("#X connect "+str(objectIndex+2)+" 0 "+str(objectIndex+3)+" 0;")
-            objectIndex += 3
-
-            patchYPos += 30
-            patchYPos += 60
 
             methodIndex = 0
 
@@ -205,35 +172,12 @@ for filename in os.listdir("../to_wrap/"):
                 outputFile.write(wrapName+"(" + className + " , " + m["name"]+" , \"" + pdObjectName+"\","+methodPointerNameWithoutNS+","+methodPointerNameWithoutNS+"_type);\n")
 
                 staticObjOffset = int(m["static"])*60
-                patchFile.write("#X obj "+str(patchXPos + staticObjOffset)+" "+str(patchYPos)+ " "+convert_name_n(pdObjectName)+";\n")
-                objectIndex += 1
 
                 methodInfoString = "("+" ".join(methodType)+")->"+methodReturn
-                patchFile.write("#X text "+str(patchXPos + 30 + staticObjOffset)+" "+str(patchYPos-30)+ " "+methodInfoString+";\n")
-                objectIndex += 1
-
-                if m["static"] == False:
-                    patchFile.write("#X connect "+str(classObjectIndex)+" 0 "+str(objectIndex-1)+" 0;")
-
-
-                patchFile.write("#X msg "+str(patchXPos + staticObjOffset)+" "+str(patchYPos-30)+ " ;\n")
-                patchFile.write("#X obj "+str(patchXPos + staticObjOffset)+" "+str(patchYPos+30)+ " ui.display;\n")
-                patchFile.write("#X connect "+str(objectIndex+1)+" 0 "+str(objectIndex-1)+" 0;")
-                patchFile.write("#X connect "+str(objectIndex-1)+" 0 "+str(objectIndex+2)+" 0;")
-                objectIndex += 2
-
-                if m["static"]:
-                    patchFile.write("#X text "+str(patchXPos)+" "+str(patchYPos)+" static:;")
-                    objectIndex += 1
-
-                patchYPos += 105
 
                 outputFile.write("\n")
 
             outputFile.write("\n")
-
-            patchXPos += 300
-            patchYPos =  75
 
         continue
     else:
