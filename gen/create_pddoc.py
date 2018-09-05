@@ -88,7 +88,7 @@ def write_pddoc_class_method_object(className,description,objectType, infoString
             <authors>
                 <author> Script </author>
             </authors>
-            <description> {2} is a method of {0}\n
+            <description> method of {0}\n
             {1} </description>
             <license> N/A </license>
             <library> wrapper_library </library>
@@ -148,8 +148,7 @@ def write_pddoc_static_method_object(className,description,objectType, infoStrin
             <authors>
                 <author> Script </author>
             </authors>
-            <description> {2} is a static \n
-            method of {0}\n
+            <description> static method of {0}\n
             {1} </description>
             <license> N/A </license>
             <library> wrapper_library </library>
@@ -184,6 +183,58 @@ def write_pddoc_static_method_object(className,description,objectType, infoStrin
     </object>
 </pddoc>
     """.format(className,description,objectType, infoString))
+# ----------
+
+def write_pddoc_class_custom_constructor_object(className,description,objectType, infoString):
+    fileName = "../build/doc/"+objectType+".pddoc"
+    outputFile = open(fileName,"w+")
+    outputFile.write("""<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="{2}">
+        <title>{2}</title>
+        <info>
+            <par> {1} </par>
+        </info>
+        <meta>
+            <authors>
+                <author> Script </author>
+            </authors>
+            <description> creates new {0}\n
+            {1} </description>
+            <license> N/A </license>
+            <library> wrapper_library </library>
+            <category>{0}</category>
+            <keywords> none </keywords>
+            <since> 1.0 </since>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="bang"> outputs current instance of {0} </xinfo>
+                <xinfo on="any"> creates new instance of {0} and outputs it\n{3} </xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet> {0} </outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+
+[B] [1.0( [symbol test( [1 2 3(
+|   |     |             |
+[{2}                        ]
+|
+[ui.display]
+
+[declare -lib ../wrapper_library]
+
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
+    """.format(className,description,objectType, infoString))
+
 # ----------
 
 def hasDefaultConstructor(cls):
@@ -236,9 +287,24 @@ for filename in os.listdir("../to_wrap/"):
 
                 methodInfoString = "("+" ".join(methodType)+")->"+methodReturn
 
+                lastClassName = className.split("::")[-1]
+                customConstructor = False
+                methodName = m["name"]
+
+                if methodName == lastClassName:
+                    #exclude default
+                    if methodType != "":
+                        customConstructor = True
+
+                if customConstructor:
+                    pdObjectName = convert_name_n(c)+".new"
+                    write_pddoc_class_custom_constructor_object(convert_name_n(c), "", pdObjectName, methodInfoString)
+                    dbFile.write("{0} . .\n".format(pdObjectName))
+                    continue
+
                 if m["static"] == True:
-                    write_pddoc_static_method_object(convert_name_n(c), "no description", pdObjectName, methodInfoString)
+                    write_pddoc_static_method_object(convert_name_n(c), "", pdObjectName, methodInfoString)
                 else:
-                    write_pddoc_class_method_object(convert_name_n(c), "no description", pdObjectName, methodInfoString)
+                    write_pddoc_class_method_object(convert_name_n(c), "", pdObjectName, methodInfoString)
 
                 dbFile.write("{0} . .\n".format(pdObjectName))

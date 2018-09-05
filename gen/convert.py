@@ -70,7 +70,7 @@ for filename in os.listdir("../to_wrap/"):
             nameSpace = cppHeader.classes[c]["namespace"]
             # fix:
             nameSpace = nameSpace.lstrip(':')
-            
+
             if len(nameSpace) > 0:
                 className = nameSpace+"::"+c
 
@@ -132,11 +132,11 @@ for filename in os.listdir("../to_wrap/"):
                 methodReturn = m["rtnType"]
 
                 wrapName = "WRAP_METHOD"
-                customConstructor = False;
-                
+                customConstructor = False
+
                 lastClassName = className.split("::")[-1]
                 # outputFile.write("// method name / class name " + methodName + " "+justClassName +"\n")
-                
+
                 if methodName == lastClassName:
                     #exclude default
                     if methodType == "":
