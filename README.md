@@ -24,7 +24,7 @@ Current limitations:
   * all operators
 
 Todo list:
-- destructors
+- doc gen for methods with no-default-constructor classes
 - filter custom attributes
 - classes without copy/move constructors
 - tests

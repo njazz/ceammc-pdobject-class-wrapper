@@ -109,7 +109,7 @@ add_custom_target(
 add_custom_command(
         OUTPUT
             ${CMAKE_CURRENT_SOURCE_DIR}/to_wrap/_generated.cpp
-            ${CMAKE_CURRENT_SOURCE_DIR}/build/_generated.pd
+#            ${CMAKE_CURRENT_SOURCE_DIR}/build/_generated.pd
         DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/to_wrap/
         COMMAND cd ${CMAKE_SOURCE_DIR}/gen/ && ./run_scripts.sh
         #/usr/local/bin/python3 ${CMAKE_CURRENT_SOURCE_DIR}/gen/convert.py

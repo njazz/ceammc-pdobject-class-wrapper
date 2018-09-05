@@ -58,7 +58,7 @@ def write_pddoc_class_object(name,description,objectType):
 |
 [{2}]
 |
-[ui.display]
+[ui.display @display_type 1]
 
 [declare -lib wrapper_library]
 
@@ -119,13 +119,13 @@ def write_pddoc_class_method_object(className,description,objectType,methodType,
 |
 [{0}]
 |  |
-|  [ui.display]
+|  [ui.display @display_type 1]
 |
 |  [B] [1.0( [symbol test( [1 2 3(
 |  |   |     |             |
 [{2}                        ]
 |
-[ui.display]
+[ui.display @display_type 1]
 
 [declare -lib wrapper_library]
 
@@ -186,7 +186,7 @@ def write_pddoc_static_method_object(className,description,objectType, methodTyp
 |   |     |             |
 [{2}                        ]
 |
-[ui.display]
+[ui.display @display_type 1]
 
 [declare -lib wrapper_library]
 
@@ -236,7 +236,7 @@ def write_pddoc_class_custom_constructor_object(className,description,objectType
 |   |     |             |
 [{2}                        ]
 |
-[ui.display]
+[ui.display @display_type 1]
 
 [declare -lib wrapper_library]
 

@@ -24,6 +24,7 @@ public:
     {
         createOutlet();
 
+        post("class: %i",AbstractDataWrapT<T>::dataType );
     };
 
     ~ClassConstructor()
@@ -59,6 +60,8 @@ public:
         , _data(0) //,
     {
         createOutlet();
+
+
     };
 
     ~ClassConstructorCustom()
