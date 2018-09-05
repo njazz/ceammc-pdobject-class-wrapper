@@ -17,12 +17,13 @@
 
 template <typename T, class F>
 class ClassStaticMethod : public ceammc::BaseObject {
-    DataTPtr<AbstractDataWrapT<T> > _data = DataTPtr<AbstractDataWrapT<T> >(Atom());
 
 public:
     using Traits = _functionTraits<F>;
 
-    const F _method;
+    F _defaultMethod;
+    F _method;
+
     typename Traits::arguments _arguments;
 
     TypedAtomT<typename Traits::return_type> _return;
@@ -34,13 +35,14 @@ public:
         createOutlet();
     };
 
+    ~ClassStaticMethod()
+    {
+        // the fix. lol
+        _method = _defaultMethod;
+    }
+
     void _dispatch()
     {
-//        if (!_data.data()) {
-//            post("no data");
-//            return;
-//        }
-
         _InvocationStaticMethod<typename Traits::return_type, F, decltype(_arguments)> call = _InvocationStaticMethod<typename Traits::return_type, F, decltype(_arguments)>(_method, _arguments);
         call(typename _genSequence<Traits::arity>::type());
 
@@ -60,7 +62,7 @@ public:
 
     virtual void onList(const AtomList& l) override
     {
-        //
+
         if (l.size() != Traits::arity) {
             post("bad message: expected %i arguments, %i provided", Traits::arity, l.size());
         }

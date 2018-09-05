@@ -1,9 +1,11 @@
 #define CATCH_CONFIG_MAIN
 #include "catch.hpp"
 
-#include "_AtomListWrapperT.hpp".hpp "
+#include "_AtomListWrapperT.hpp"
 
 #include <iostream>
+
+#include "ceammc_data.h"
 
 template <typename T>
 void _func1(T value1){};
@@ -17,6 +19,20 @@ void _tester(T v)
     std::cout << "tested: " << typeid(T).name() << "\n";
 }
 
+template <typename T>
+void _tester_dataPtr(T v)
+{
+    DataTPtr< AtomListWrapperT<decltype(_func1<T>)> > dtptr;
+    AtomListWrapperT<decltype(_func1<T>)> aw((AtomList(Atom(v))));
+    dtptr = (&aw);
+
+    REQUIRE(std::get<0>(aw.output) == v);
+
+    std::cout << "tested: " << typeid(T).name() << "\n";
+}
+
+
+
 TEST_CASE("_AtomListWrapperT", "wrapper")
 {
     SECTION("1. basic")
@@ -26,7 +42,7 @@ TEST_CASE("_AtomListWrapperT", "wrapper")
         // double loses precision:
         //        _tester(.3);
 
-        // symbol crashes
+        // symbol crashes (pd init)
         //        _tester(gensym("string"));
     }
 }

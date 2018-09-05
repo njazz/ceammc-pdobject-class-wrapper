@@ -71,7 +71,8 @@ include_directories( ${CMAKE_BINARY_DIR} )
 
 include_directories(.)
 include_directories(./src/)
-include_directories(./ceammc_lib/)
+#include_directories(./ceammc_lib/)
+include_directories(./ceammc_lib_0.6/)
 include_directories(./pd_headers/)
 
 include_directories(./to_wrap/)
@@ -108,10 +109,17 @@ add_custom_target(
 add_custom_command(
         OUTPUT
             ${CMAKE_CURRENT_SOURCE_DIR}/to_wrap/_generated.cpp
-            ${CMAKE_CURRENT_SOURCE_DIR}/build/_generated.pd
+#            ${CMAKE_CURRENT_SOURCE_DIR}/build/_generated.pd
         DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/to_wrap/
-        COMMAND /usr/local/bin/python3 ${CMAKE_CURRENT_SOURCE_DIR}/gen/convert.py
+        COMMAND cd ${CMAKE_SOURCE_DIR}/gen/ && ./run_scripts.sh
+        #/usr/local/bin/python3 ${CMAKE_CURRENT_SOURCE_DIR}/gen/convert.py
 )
+
+add_custom_command(
+    TARGET wrapper_library
+    POST_BUILD
+    COMMAND cp ${CMAKE_BINARY_DIR}/wrapper_library.pd_darwin ${CMAKE_BINARY_DIR}/help/wrapper_library.pd_darwin
+    )
 
 ###
 enable_testing(true)

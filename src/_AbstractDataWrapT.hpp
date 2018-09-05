@@ -32,6 +32,7 @@ public:
     explicit AbstractDataWrapT(std::shared_ptr<noRefT> v)
     {
         value = v;
+        *value = *v;
     };
 
     explicit AbstractDataWrapT()
@@ -44,12 +45,20 @@ public:
         value = 0;
     }
 
+    AbstractDataWrapT& operator=(AbstractDataWrapT& in)
+    {
+        value = in.value;
+        *value = *in.value;
+
+        return(*this);
+    }
+
     virtual AbstractData* clone() const override
     {
         return new AbstractDataWrapT(value);
     }
 
-    virtual DataType type() const override { return typeid(T).hash_code() % 8192; }
+    virtual DataType type() const override { return AbstractDataWrapT<T>::dataType;}//typeid(T).hash_code() % 8192; }
 
     inline static void _replace(std::string& str, std::string src, std::string dest)
     {
