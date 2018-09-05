@@ -16,7 +16,9 @@ To build:
 Python dependencies:
 pycairo, cppheaderparser, ply
 
+---
 Current limitations:
+
 - Will not compile:
   * classes without copy/move constructors
   * unions in class or struct
@@ -24,12 +26,16 @@ Current limitations:
   * constructors marked explicit
   * variadic functions
   * function-like macros
+  * static function with void return type
+  
 - Will skip:
   * template classes
   * all operators
   * enums
 
+---
 Todo list:
+
 - doc gen for methods with no-default-constructor classes
 - doc gen depending on function signatures
 - filter custom attributes

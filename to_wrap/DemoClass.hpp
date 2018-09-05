@@ -140,8 +140,15 @@ public:
 
 float test_function_wrapper(void* ptr);
 
+// not working:
+// void test_function_wrapper_v(void* ptr);
+
 #define MACRO_1 float
 MACRO_1 test_macro1();
+
+float func_plus_10(float v);
+float func_minus_10(float v);
+float func_apply(float (*func)(float), float v);
 
 // not supported:
 // need to preprocess headers

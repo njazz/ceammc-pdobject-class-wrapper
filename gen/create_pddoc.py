@@ -163,8 +163,8 @@ def write_pddoc_static_method_object(className,description,objectType, methodTyp
                 <author> Script </author>
             </authors>
             <description>Static method of {5}</description>
-            <license> N/A </license>
-            <library> wrapper_library </library>
+            <license>N/A</license>
+            <library>wrapper_library</library>
             <category>{0}</category>
             <keywords>none</keywords>
             <since>1.0</since>
@@ -176,17 +176,24 @@ def write_pddoc_static_method_object(className,description,objectType, methodTyp
         </inlets>
         <outlets>
             <outlet>{4} </outlet>
+            <outlet>Outputs DataAtom with {2} function.</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
 
 
-[B] [1.0( [symbol test( [1 2 3(  [func(
-|   |     |             |        |
+[B] [1.0( [symbol test( [1 2 3(
+|   |     |             |
 [{2}                               ]
-|                            |
-[ui.display @display_type 1] [ui.display @display_type 1]
+|
+[ui.display @display_type 1]
+
+[func(
+|
+[{2}]
+|
+[ui.display @display_type 1]
 
 [declare -lib wrapper_library]
 
@@ -214,7 +221,7 @@ def write_pddoc_class_custom_constructor_object(className,description,objectType
             </authors>
             <description>Creates new instances of {0}</description>
             <license> N/A </license>
-            <library> wrapper_library </library>
+            <library>wrapper_library</library>
             <category>{0}</category>
             <keywords> none </keywords>
             <since> 1.0 </since>
