@@ -41,7 +41,7 @@ outputWriteHeader(outputFile)
 # patchWriteHeader(patchFile)
 
 for filename in os.listdir("../to_wrap/"):
-    if filename.endswith(".hpp"):
+    if filename.endswith(".hpp") or filename.endswith(".h"):
         outputFile.write("// "+filename+"\n")
 
         try:
@@ -52,6 +52,92 @@ for filename in os.listdir("../to_wrap/"):
 
 # debug:
 #        print("CppHeaderParser view of %s"%cppHeader)
+
+        methodIndex = 0
+        for f in cppHeader.functions:
+            functionName = f["name"]
+            nameSpace = f["namespace"]
+
+            outputFile.write("\n// Function: "+functionName+"\n")
+            outputFile.write("// Namespace: ["+nameSpace+"]\n")
+
+            m = f
+            if m["template"] != False:
+                continue
+
+            methodName = f["name"]
+
+            #todo: add & for references
+            methodType = [t["type"] for t in m["parameters"]]
+            methodReturn = m["rtnType"]
+
+            wrapName = "WRAP_FUNCTION"
+
+            # exclude operators now:
+            if methodName.startswith("operator"):
+                continue
+
+            if m["static"] == True:
+                methodReturn = methodReturn.replace('static ','')
+
+            if m["inline"] == True:
+                methodReturn = methodReturn.replace('inline ','')
+                #continue
+
+            nameSpaceDivider = ''
+            if len(nameSpace) > 0:
+                nameSpaceDivider = "::"
+            methodPointerName = nameSpace + nameSpaceDivider+ "_M"+"_func_"+methodName+"__"+str(methodIndex)  #"_".join(methodTypeRaw)+"__"+methodReturnRaw
+            methodPointerNameWithoutNS = "_func_"+methodName+"__"+str(methodIndex)+"_M"
+            # another fix:
+            methodPointerNameWithoutNS = methodPointerNameWithoutNS.replace(":","_")
+            methodIndex+=1
+
+
+            if m["static"] == False:
+                methodPointer = methodReturn + "(*)(" + ",".join(methodType) + ")"
+            else:
+                methodPointer = methodReturn + "(*)(" + ",".join(methodType) + ")"
+
+            if m["static"] == False:
+                methodPointerDeclare = methodReturn + "(*"+methodPointerNameWithoutNS+")(" + ",".join(methodType) + ")"
+            else:
+                methodPointerDeclare = methodReturn + "(*"+methodPointerNameWithoutNS+")(" + ",".join(methodType) + ")"
+
+            methodDeclare = "constexpr " + methodPointerDeclare + " "
+            methodDeclare += "" #"_"+className+"_method_"+methodName
+
+            if m["static"] == False:
+                methodDeclare += " = " + "static_cast<" + methodPointer + ">(&"+methodName+");"
+            else:
+                methodDeclare += " = " + "static_cast<" + methodPointer + ">(&"+methodName+");"
+
+            if m["static"] == False:
+                typeDeclare = "using "+methodPointerNameWithoutNS+"_type = "+ methodReturn + "(*)(" + ",".join(methodType) + ");\n"
+            else:
+                typeDeclare = "using "+methodPointerNameWithoutNS+"_type = "+ methodReturn + "(*)(" + ",".join(methodType) + ");\n"
+
+            outputFile.write(typeDeclare)
+            # if customConstructor == False:
+            outputFile.write(""+methodDeclare +"\n")
+
+            pdObjectName = convert_name_n(m["name"])
+            # if customConstructor == True:
+            #     pdObjectName = convert_name_n(c)+".new"
+
+            # if m["static"] == True:
+            #     wrapName = "WRAP_STATIC_METHOD"
+
+            outputFile.write(wrapName+"( " + m["name"]+" , \"" + pdObjectName+"\","+methodPointerNameWithoutNS+","+methodPointerNameWithoutNS+"_type);\n")
+
+            staticObjOffset = int(m["static"])*60
+
+            methodInfoString = "("+" ".join(methodType)+")->"+methodReturn
+
+            outputFile.write("\n")
+
+
+# -----------------
 
         for c in cppHeader.classes:
 
@@ -67,7 +153,7 @@ for filename in os.listdir("../to_wrap/"):
             justClassName = c
 
             outputFile.write("\n// Class: "+justClassName+"\n")
-            outputFile.write("\n// Namespace: ["+nameSpace+"]\n")
+            outputFile.write("// Namespace: ["+nameSpace+"]\n")
 
             hasDefaultConstructor = False
             hasConstructor = False
@@ -173,7 +259,7 @@ for filename in os.listdir("../to_wrap/"):
 
                 staticObjOffset = int(m["static"])*60
 
-                methodInfoString = "("+" ".join(methodType)+")->"+methodReturn
+                # methodInfoString = "("+" ".join(methodType)+")->"+methodReturn
 
                 outputFile.write("\n")
 

@@ -138,6 +138,16 @@ public:
     }
 };
 
+float test_function_wrapper(void* ptr);
+
+#define MACRO_1 float
+MACRO_1 test_macro1();
+
+// not supported:
+// need to preprocess headers
+//#define MACRO_2(x) x
+//MACRO_2(float) test_macro2();
+
 // ---
 
 // not working: unions in class/struct

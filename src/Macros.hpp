@@ -41,3 +41,15 @@
         }                                          \
     };                                             \
     ObjectFactory<M_##m>(z)
+
+#define WRAP_FUNCTION(y, z, m, n)          \
+                                                   \
+    class M_##m : public ClassStaticMethod<void, n> { \
+                                                   \
+    public:                                        \
+        M_##m(PdArgs& a)                           \
+            : ClassStaticMethod<void, n>(a, m)        \
+        {                                          \
+        }                                          \
+    };                                             \
+    ObjectFactory<M_##m>(z)

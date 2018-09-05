@@ -156,7 +156,7 @@ def write_pddoc_static_method_object(className,description,objectType, methodTyp
     <object name="{2}">
         <title>{2}</title>
         <info>
-            <par> {1} </par>
+            <par>{1}</par>
         </info>
         <meta>
             <authors>
@@ -206,7 +206,7 @@ def write_pddoc_class_custom_constructor_object(className,description,objectType
     <object name="{2}">
         <title>{2}</title>
         <info>
-            <par> {1} </par>
+            <par>{1}</par>
         </info>
         <meta>
             <authors>
@@ -279,6 +279,26 @@ for filename in os.listdir("../to_wrap/"):
         except CppHeaderParser.CppParseError as e:
             print(e)
             sys.exit(1)
+
+        for f in cppHeader.functions:
+            m = f
+
+            if m["template"] != False:
+                continue
+
+            pdObjectName = convert_name_n(m["name"])
+
+            methodType = [t["type"] for t in m["parameters"]]
+            methodReturn = m["rtnType"]
+
+            methodInfoString = "("+" ".join(methodType)+")->"+methodReturn
+
+            methodName = m["name"]
+
+            write_pddoc_static_method_object("function", "", pdObjectName, methodType,methodReturn,"function")
+
+            dbFile.write("{0} . .\n".format(pdObjectName))
+
 
         for c in cppHeader.classes:
             className = c

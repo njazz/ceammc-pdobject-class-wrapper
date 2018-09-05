@@ -20,8 +20,10 @@ Current limitations:
 - Will not compile:
   * classes without copy/move constructors
   * unions in class or struct
-  * variadic functions
+  * variadic methods
   * constructors marked explicit
+  * variadic functions
+  * function-like macros
 - Will skip:
   * template classes 
   * all operators
