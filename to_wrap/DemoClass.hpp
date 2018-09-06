@@ -1,7 +1,7 @@
 #include <string>
 #include <vector>
 
-/*
+
 class DemoSubClass {
     long _v = 123;
 
@@ -141,7 +141,6 @@ public:
 
 float test_function_wrapper(void* ptr);
 
-*/
 
 // not working:
 // void test_function_wrapper_r(float& ref);
