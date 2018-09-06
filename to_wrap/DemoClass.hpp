@@ -1,7 +1,6 @@
 #include <string>
 #include <vector>
 
-
 class DemoSubClass {
     long _v = 123;
 
@@ -45,6 +44,11 @@ public:
     }
 
     static std::string testStatic(int i) { return std::string("result: ") + std::to_string(i); };
+};
+
+struct point {
+    float x;
+    float y;
 };
 
 class WithConstructor {
@@ -141,7 +145,6 @@ public:
 
 float test_function_wrapper(void* ptr);
 
-
 // not working:
 // void test_function_wrapper_r(float& ref);
 
@@ -158,8 +161,7 @@ float func_apply(float (*func)(float), float v);
 
 float* p_create();
 // this crashes when gets message with pointer:
-void p_destroy(float *p);
-
+void p_destroy(float* p);
 
 // not supported:
 // need to preprocess headers

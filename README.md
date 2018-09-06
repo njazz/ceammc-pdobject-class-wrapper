@@ -43,6 +43,7 @@ pycairo, cppheaderparser, ply
   * template classes
   * all operators
   * enums
+  * all except last declaration of fields separated by comma i.e. ```float v1,v2,v3;```
 
 - Other:
   * static/plain function object that accepts pointer as argument crashes when it receives message

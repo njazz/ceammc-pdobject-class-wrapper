@@ -189,32 +189,38 @@ for filename in os.listdir("../to_wrap/"):
                 methodName = m["name"]
 
                 #todo: add & for references
-                methodType = [t["type"] for t in m["parameters"]]
-                methodReturn = m["rtnType"]
+                #methodType = [t["type"] for t in m["parameters"]]
+                #methodReturn = m["rtnType"]
 
                 wrapName = "WRAP_FIELD"
 
                 lastClassName = className.split("::")[-1]
 
-                if m["const"] == True:
-                    wrapName = "WRAP_CONST_FIELD"
+                #if m["const"] == True:
+                    # wrapName = "WRAP_CONST_FIELD"
 
-                if m["static"] == True:
-                    methodReturn = methodReturn.replace('static ','')
+                # if m["static"] == True:
+                    # methodReturn = methodReturn.replace('static ','')
 
-                if m["inline"] == True:
-                    methodReturn = methodReturn.replace('inline ','')
+                # if m["inline"] == True:
+                    # methodReturn = methodReturn.replace('inline ','')
 
                 nameSpaceDivider = ''
                 if len(nameSpace) > 0:
                     nameSpaceDivider = "::"
-                methodPointerName = nameSpace + nameSpaceDivider+ "_M"+justClassName+"__"+methodName+"__"+str(methodIndex)  #"_".join(methodTypeRaw)+"__"+methodReturnRaw
-                methodPointerNameWithoutNS = justClassName+"__"+methodName+"__"+str(methodIndex)+"_M"
+                #methodPointerName = nameSpace + nameSpaceDivider+ "_M"+justClassName+"__"+methodName+"__"+str(methodIndex)  #"_".join(methodTypeRaw)+"__"+methodReturnRaw
+                #methodPointerNameWithoutNS = justClassName+"__"+methodName+"__"+str(methodIndex)+"_M"
                 # another fix:
-                methodPointerNameWithoutNS = methodPointerNameWithoutNS.replace(":","_")
+                #methodPointerNameWithoutNS = methodPointerNameWithoutNS.replace(":","_")
                 methodIndex+=1
 
                 # todo
+                # WRAP_FIELD(class, field ptr, type)
+                fieldPtr = methodName   # className+"::"+
+                fieldPtrType = m["type"] #"decltype({0})".format(fieldPtr)
+
+                outputFile.write("{0}({1},{2},{3});\n".format(wrapName, className, fieldPtr, fieldPtrType))
+
 
             # ----------
             # methods

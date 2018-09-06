@@ -53,3 +53,8 @@
         }                                          \
     };                                             \
     ObjectFactory<M_##m>(z)
+
+#include "StructField.hpp"
+#define WRAP_FIELD(x, m, n)\
+    // TODO
+

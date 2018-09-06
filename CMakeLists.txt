@@ -46,6 +46,8 @@ set (SOURCES
     "src/ClassMethod.hpp"
     "src/ClassStaticMethod.hpp"
 
+    "src/StructField.hpp"
+
     "src/Macros.hpp"
 
     "src/Wrapper.hpp"
