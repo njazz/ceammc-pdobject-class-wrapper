@@ -192,7 +192,7 @@ def write_pddoc_static_method_object(className,description,objectType, methodTyp
 [func(
 |
 [{2}]
-|
+^|
 [ui.display @display_type 1]
 
 [declare -lib wrapper_library]
