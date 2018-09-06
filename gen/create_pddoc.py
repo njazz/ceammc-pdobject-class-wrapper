@@ -189,6 +189,16 @@ def write_pddoc_static_method_object(className,description,objectType, methodTyp
 |
 [ui.display @display_type 1]
 
+[loadbang]
+|
+[thread 1(
+|
+|  [B] [1.0( [symbol test( [1 2 3(
+|  |   |     |             |
+[{2}                               ]
+|
+[ui.display @display_type 1]
+
 [func(
 |
 [{2}]

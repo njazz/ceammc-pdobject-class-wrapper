@@ -65,7 +65,11 @@ set (HEADERS
     ceammc_lib/ceammc_log.h 
     ceammc_lib/ceammc_property.h 
 )
+#
 
+set(CMAKE_C_FLAGS ${CMAKE_C_FLAGS} "-fblocks")
+
+#
 find_package(Boost 1.47.0 REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS})
 include_directories( ${CMAKE_BINARY_DIR} )

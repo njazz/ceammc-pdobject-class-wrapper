@@ -14,6 +14,9 @@
 #include "ceammc_log.h"
 
 #include <functional>
+
+//#include "dispatch/dispatch.h"
+#include <thread>
 // ---
 
 template <typename T, class F>
@@ -31,6 +34,11 @@ public:
 
     TypedAtomT<F> _funcReturn;
 
+    bool _runInThread = false;
+    std::function<void(void)> _theThread;
+    std::thread* _thread = 0;
+    bool _performThread = false;
+
     ClassStaticMethod(PdArgs& a, F m)
         : BaseObject(a)
         , _method(m)
@@ -39,12 +47,28 @@ public:
         createOutlet();
 
         _funcReturn = TypedAtomT<F>(m);
+
+        _theThread = [&]() {
+            //while (true) {
+            //    if (_performThread) {
+                    _dispatch();
+                    onBang();
+            //        _performThread = false;
+            //    }
+//            }
+        };
+        _thread = new std::thread(_theThread);
     };
 
     ~ClassStaticMethod()
     {
         // the fix. lol
         _method = _defaultMethod;
+
+        if (_thread) {
+            _thread->join();
+            delete _thread;
+        }
     }
 
     void _dispatch()
@@ -57,17 +81,30 @@ public:
 
     virtual void onBang() override
     {
-        _dispatch();
         auto atom = _return.asAtom();
         atom.output(outletAt(0));
     }
 
     virtual void onAny(t_symbol* s, const AtomList& l) override
     {
-        if (s== gensym("func"))
-        {
+        if (s == gensym("func")) {
             auto atom = _funcReturn.asAtom();
             atom.output(outletAt(1));
+        }
+
+        if (s == gensym("thread")) {
+            if (l.size() < 1)
+                return;
+
+            _runInThread = l.at(0).asInt() > 0;
+            //            if (_runInThread) {
+            //                _thread = new std::thread(_theThread);
+            //            } else {
+            //                if (_thread) {
+            //                    _thread->join();
+            //                    delete _thread;
+            //                }
+            //            }
         }
     }
 
@@ -82,10 +119,22 @@ public:
         AtomListWrapperT<F> converter(l);
         _arguments = converter.output;
 
-        onBang();
+        if (_runInThread) {
+            post("separate thread *");
+            //_performThread = true;
+            auto t = std::thread(_theThread);
+            t.join();
+
+        }
+
+        else {
+            _dispatch();
+            onBang();
+        }
     }
 
-    virtual void onFloat(float f) override
+    virtual void
+    onFloat(float f) override
     {
         onList(AtomList(Atom(f)));
     }
