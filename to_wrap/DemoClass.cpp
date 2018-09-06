@@ -1,11 +1,9 @@
 #include "DemoClass.hpp"
 
-
+#include "m_pd.h"
 
 long& DemoSubClass::ref() { return _v; }
 std::vector<std::string> DemoSubClass::vec() { return { "lol" }; }
-
-
 
 float test_function_wrapper(void* ptr)
 {
@@ -35,6 +33,19 @@ float func_apply(float (*func)(float), float v)
 
 // --
 
-void test_function_wrapper_v(void* ptr){}
-void test_function_wrapper_v_ptr(float (*ptr)(float)){}
-void test_function_wrapper_v_ptr_v(void (*ptr)(float)){}
+void test_function_wrapper_v(void* ptr) {}
+void test_function_wrapper_v_ptr(float (*ptr)(float)) {}
+void test_function_wrapper_v_ptr_v(void (*ptr)(float)) {}
+
+// ---
+float* p_create()
+{
+    auto ret = new float;
+    post("create ptr %lu", (long)ret);
+    return ret;
+}
+void p_destroy(float* p)
+{
+    post("would destroy ptr %lu", (long)p);
+    //   if (p) delete p;
+}

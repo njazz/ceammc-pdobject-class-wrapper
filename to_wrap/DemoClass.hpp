@@ -156,6 +156,11 @@ float func_plus_10(float v);
 float func_minus_10(float v);
 float func_apply(float (*func)(float), float v);
 
+float* p_create();
+// this crashes when gets message with pointer:
+void p_destroy(float *p);
+
+
 // not supported:
 // need to preprocess headers
 //#define MACRO_2(x) x

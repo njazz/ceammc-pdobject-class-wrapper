@@ -265,18 +265,17 @@ for filename in os.listdir("../to_wrap/"):
                 methodPointerNameWithoutNS = methodPointerNameWithoutNS.replace(":","_")
                 methodIndex+=1
 
-                methodDeclare = "constexpr " + methodPointerDeclare + " "
-                methodDeclare += "" #"_"+className+"_method_"+methodName
-
                 if m["static"] == True:
                     wrapName = "WRAP_STATIC_METHOD"
                     methodPointer = methodReturn + "(*)(" + ",".join(methodType) + ")"
                     methodPointerDeclare = methodReturn + "("+"*"+methodPointerNameWithoutNS+")(" + ",".join(methodType) + ")"
+                    methodDeclare = "constexpr " + methodPointerDeclare + " "
                     methodDeclare += " = " + "static_cast<" + methodPointer + ">(&" +className+"::"+methodName+");"
                     typeDeclare = "using "+methodPointerNameWithoutNS+"_type = "+ methodReturn + "(*)(" + ",".join(methodType) + ");\n"
                 else:
                     methodPointer = methodReturn + "("+className+"::*)(" + ",".join(methodType) + ")"
                     methodPointerDeclare = methodReturn + "("+className+"::*"+methodPointerNameWithoutNS+")(" + ",".join(methodType) + ")"
+                    methodDeclare = "constexpr " + methodPointerDeclare + " "
                     methodDeclare += " = " + "static_cast<" + methodPointer + ">(&" +className+"::"+methodName+");"
                     typeDeclare = "using "+methodPointerNameWithoutNS+"_type = "+ methodReturn + "("+className+"::*)(" + ",".join(methodType) + ");\n"
 
