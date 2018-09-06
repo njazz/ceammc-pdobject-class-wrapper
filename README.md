@@ -43,6 +43,9 @@ pycairo, cppheaderparser, ply
   * template classes
   * all operators
   * enums
+
+- Other:
+  * static/plain function object that accepts pointer as argument crashes when it receives message
   
   
 ---
@@ -50,6 +53,7 @@ pycairo, cppheaderparser, ply
 
 - doc gen for methods with no-default-constructor classes
 - doc gen depending on function signatures
+- pointer types as function arguments
 - filter custom attributes
 - classes without copy/move constructors
 - tests
