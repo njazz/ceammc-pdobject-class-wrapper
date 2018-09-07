@@ -14,6 +14,8 @@ cmake_policy(SET CMP0037 OLD)
 
 project(wrapper_library)
 
+find_package(Boost 1.50.0 REQUIRED)
+
 set(CEAMMC_LIB_SOURCES
 #    ceammc_lib/ceammc_abstractdata.cpp
 #    ceammc_lib/ceammc_atom.cpp
@@ -57,6 +59,9 @@ set (SOURCES
 
     "src/_ConvertToCEAMMCType.cpp"
     "src/_ConvertFromCEAMMCType.cpp"
+
+    ###
+#    "ceammc-pd-0.6/data/datatype_dict.cpp"
 )
 
 file (GLOB WRAP_SOURCES
@@ -82,8 +87,11 @@ include_directories( ${CMAKE_BINARY_DIR} )
 
 include_directories(.)
 include_directories(./src/)
-#include_directories(./ceammc_lib/)
-include_directories(./ceammc_lib_0.6/)
+
+include_directories(./ceammc-pd-0.6/lib)
+include_directories(./ceammc-pd-0.6/data)
+include_directories(./ceammc-pd-0.6/string)
+
 include_directories(./pd_headers/)
 
 include_directories(./to_wrap/)

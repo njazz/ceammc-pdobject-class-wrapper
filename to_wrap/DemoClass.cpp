@@ -83,3 +83,14 @@ std::vector<std::string> test_conv(std::vector<int> v)
     }
     return ret;
 }
+
+//
+std::map<int,std::string> test_map()
+{
+    return {{1,"key one"},{42,"the question"}};
+}
+
+std::set<std::string> test_set()
+{
+    return {"ordered","set","with","strings"};
+}

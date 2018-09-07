@@ -1,5 +1,7 @@
 #include <string>
 #include <vector>
+#include <set>
+#include <map>
 
 
 class DemoSubClass {
@@ -169,6 +171,11 @@ std::vector<std::string> test_vec();
 std::string test_vec_in(std::vector<std::string> v);
 
 std::vector<std::string> test_conv(std::vector<int> v);
+
+
+std::map<int,std::string> test_map();
+std::set<std::string> test_set();
+
 
 // not supported:
 // need to preprocess headers
