@@ -26,7 +26,8 @@ pycairo, cppheaderparser, ply
 - Converts plain functions to single Pd objects. Receives list with appropriate data or bang if function has no arguments. Outputs list or doesn't output anything if function return type is void. Second object outlet outputs pointer to function as DataAtom - this is queried by 'func' message sent to the object. 
 - Converts classes with default constructors to Pd object that contains instance of that class and outputs it on bang. Outputs DataAtom.  
 - Converts custom constructors of classes to "classname.new" objects. This object creates new instance of class when it receives appropriate list for initialization. Outputs DataAtom.  
-- Converts class methods to single Pd objects. Objects derived from static class methods work as plain functions. Objects derived from non-static class methods require instance of class to be received as DataAtom.  
+- Converts class methods to single Pd objects. Objects derived from static class methods work as plain functions. Objects derived from non-static class methods require instance of class to be received as DataAtom.
+- Can output functions static methods and non-static method as DataAtoms. 
   
 ##### Current limitations
   
@@ -47,6 +48,7 @@ pycairo, cppheaderparser, ply
 - Other issues:
   * static/plain function object that accepts pointer as argument crashes when it receives message
   * docs for classes in namespaces are generated with wrong names
+  * some types don't register as correct and output NULL DataAtom
   
   
 ---
@@ -62,7 +64,14 @@ pycairo, cppheaderparser, ply
 - polymorphism
 - enums
 - properties with object flags (thread etc.)
-- build scripts for derived projects
+- build scripts for derived projects:
+    metadata variables
+    *library name
+    *version
+    *license
+    *keywords
+    *authors
+- support CEAMMC v0.6 data types. object flag for string/symbol output
 
 Tested in CEAMMC Pd 2018.03 (v0.5), CEAMMC Pd 2018.08 (v0.6)
 
