@@ -104,7 +104,7 @@ public:
         }
 
         // set arguments and call function
-        AtomListWrapperT<F> converter(l);
+        ArgumentsFromAtomList<F> converter(l);
         _arguments = converter.output;
 
         // onBang in ClassMethod:

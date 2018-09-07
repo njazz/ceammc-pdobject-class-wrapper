@@ -13,7 +13,7 @@ void _func1(T value1){};
 template <typename T>
 void _tester(T v)
 {
-    AtomListWrapperT<decltype(_func1<T>)> aw((AtomList(Atom(v))));
+    ArgumentsFromAtomList<decltype(_func1<T>)> aw((AtomList(Atom(v))));
     REQUIRE(std::get<0>(aw.output) == v);
 
     std::cout << "tested: " << typeid(T).name() << "\n";
@@ -22,8 +22,8 @@ void _tester(T v)
 template <typename T>
 void _tester_dataPtr(T v)
 {
-    DataTPtr< AtomListWrapperT<decltype(_func1<T>)> > dtptr;
-    AtomListWrapperT<decltype(_func1<T>)> aw((AtomList(Atom(v))));
+    DataTPtr< ArgumentsFromAtomList<decltype(_func1<T>)> > dtptr;
+    ArgumentsFromAtomList<decltype(_func1<T>)> aw((AtomList(Atom(v))));
     dtptr = (&aw);
 
     REQUIRE(std::get<0>(aw.output) == v);

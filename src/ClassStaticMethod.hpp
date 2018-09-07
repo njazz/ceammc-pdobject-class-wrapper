@@ -30,9 +30,9 @@ public:
 
     typename Traits::arguments _arguments;
 
-    TypedAtomT<typename Traits::return_type> _return;
+    AtomListFromReturnType<typename Traits::return_type> _return;
 
-    TypedAtomT<F> _funcAtom;
+    AtomListFromReturnType<F> _funcAtom;
 
     bool _runInThread = false;
     std::function<void(void)> _theThread;
@@ -46,7 +46,7 @@ public:
         createOutlet();
         createOutlet();
 
-        _funcAtom = TypedAtomT<F>(m);
+        _funcAtom = AtomListFromReturnType<F>(m);
 
         _theThread = [&]() {
                     _dispatch();
@@ -105,7 +105,7 @@ public:
         }
 
         // set arguments and call function
-        AtomListWrapperT<F> converter(l);
+        ArgumentsFromAtomList<F> converter(l);
         _arguments = converter.output;
 
         if (_runInThread) {

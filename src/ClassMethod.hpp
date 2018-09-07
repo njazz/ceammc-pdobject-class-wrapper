@@ -25,11 +25,11 @@ public:
     F _defaultMethod;
     F _method;
 
-    TypedAtomT<F> _funcAtom;
+    AtomListFromReturnType<F> _funcAtom;
 
     typename Traits::arguments _arguments;
 
-    TypedAtomT<typename Traits::return_type> _return;
+    AtomListFromReturnType<typename Traits::return_type> _return;
 
     ClassMethod(PdArgs& a, F m) //F m)
         : BaseObject(a) //
@@ -39,7 +39,7 @@ public:
         createOutlet();
 
         // TODO: output lambda
-        _funcAtom = TypedAtomT<F>(m);
+        _funcAtom = AtomListFromReturnType<F>(m);
 
     };
 
@@ -127,7 +127,7 @@ public:
         }
 
         // set arguments and call function
-        AtomListWrapperT<F> converter(l);
+        ArgumentsFromAtomList<F> converter(l);
         _arguments = converter.output;
 
         onBang();

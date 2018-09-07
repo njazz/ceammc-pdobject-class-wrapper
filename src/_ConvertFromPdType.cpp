@@ -3,49 +3,49 @@
 // 1. atoms
 
 template <>
-int fromAtomList(float& out, AtomList l)
+int _fromAtomList(float& out, AtomList l)
 {
     out = l.last()->asFloat();
     return 1;
 }
 
 template <>
-int fromAtomList(double& out, AtomList l)
+int _fromAtomList(double& out, AtomList l)
 {
     out = l.last()->asFloat();
     return 1;
 }
 
 template <>
-int fromAtomList(std::string& out, AtomList l)
+int _fromAtomList(std::string& out, AtomList l)
 {
     out = l.last()->asString();
     return 1;
 }
 
 template <>
-int fromAtomList(int& out, AtomList l)
+int _fromAtomList(int& out, AtomList l)
 {
     out = l.last()->asInt();
     return 1;
 }
 
 template <>
-int fromAtomList(long& out, AtomList l)
+int _fromAtomList(long& out, AtomList l)
 {
     out = l.last()->asInt();
     return 1;
 }
 
 template <>
-int fromAtomList(const char*& out, AtomList l)
+int _fromAtomList(const char*& out, AtomList l)
 {
     out = l.last()->asSymbol()->s_name;
     return 1;
 }
 
 template <>
-int fromAtomList(char*& out, AtomList l)
+int _fromAtomList(char*& out, AtomList l)
 {
     out = l.last()->asSymbol()->s_name;
     return 1;
@@ -54,7 +54,7 @@ int fromAtomList(char*& out, AtomList l)
 // 2. lists
 
 template <>
-int fromAtomList(std::vector<std::string>& out, AtomList l)
+int _fromAtomList(std::vector<std::string>& out, AtomList l)
 {
     for (auto& e : l) {
         out.push_back(e.asSymbol()->s_name);
@@ -64,7 +64,7 @@ int fromAtomList(std::vector<std::string>& out, AtomList l)
 }
 
 template <>
-int fromAtomList(std::vector<int>& out, AtomList l)
+int _fromAtomList(std::vector<int>& out, AtomList l)
 {
     for (auto& e : l) {
         out.push_back(e.asInt());
@@ -74,7 +74,7 @@ int fromAtomList(std::vector<int>& out, AtomList l)
 }
 
 template <>
-int fromAtomList(std::vector<long>& out, AtomList l)
+int _fromAtomList(std::vector<long>& out, AtomList l)
 {
     for (auto& e : l) {
         out.push_back(e.asInt());
@@ -84,7 +84,7 @@ int fromAtomList(std::vector<long>& out, AtomList l)
 }
 
 template <>
-int fromAtomList(std::vector<float>& out, AtomList l)
+int _fromAtomList(std::vector<float>& out, AtomList l)
 {
     for (auto& e : l) {
         out.push_back(e.asFloat());
@@ -94,7 +94,7 @@ int fromAtomList(std::vector<float>& out, AtomList l)
 }
 
 template <>
-int fromAtomList(std::vector<double>& out, AtomList l)
+int _fromAtomList(std::vector<double>& out, AtomList l)
 {
     for (auto& e : l) {
         out.push_back(e.asFloat());
