@@ -14,6 +14,9 @@
 #include "ceammc_log.h"
 
 #include <functional>
+
+//#include "dispatch/dispatch.h"
+#include <thread>
 // ---
 
 template <typename T, class F>
@@ -29,7 +32,12 @@ public:
 
     TypedAtomT<typename Traits::return_type> _return;
 
-    TypedAtomT<F> _funcReturn;
+    TypedAtomT<F> _funcAtom;
+
+    bool _runInThread = false;
+    std::function<void(void)> _theThread;
+    std::thread* _thread = 0;
+    bool _performThread = false;
 
     ClassStaticMethod(PdArgs& a, F m)
         : BaseObject(a)
@@ -38,13 +46,24 @@ public:
         createOutlet();
         createOutlet();
 
-        _funcReturn = TypedAtomT<F>(m);
+        _funcAtom = TypedAtomT<F>(m);
+
+        _theThread = [&]() {
+                    _dispatch();
+                    onBang();
+        };
+        _thread = new std::thread(_theThread);
     };
 
     ~ClassStaticMethod()
     {
         // the fix. lol
         _method = _defaultMethod;
+
+        if (_thread) {
+            _thread->join();
+            delete _thread;
+        }
     }
 
     void _dispatch()
@@ -57,17 +76,22 @@ public:
 
     virtual void onBang() override
     {
-        _dispatch();
         auto atom = _return.asAtom();
         atom.output(outletAt(0));
     }
 
     virtual void onAny(t_symbol* s, const AtomList& l) override
     {
-        if (s== gensym("func"))
-        {
-            auto atom = _funcReturn.asAtom();
+        if (s == gensym("func")) {
+            auto atom = _funcAtom.asAtom();
             atom.output(outletAt(1));
+        }
+
+        if (s == gensym("thread")) {
+            if (l.size() < 1)
+                return;
+
+            _runInThread = l.at(0).asInt() > 0;
         }
     }
 
@@ -82,10 +106,21 @@ public:
         AtomListWrapperT<F> converter(l);
         _arguments = converter.output;
 
-        onBang();
+        if (_runInThread) {
+            post("separate thread *");
+            auto t = std::thread(_theThread);
+            t.join();
+
+        }
+
+        else {
+            _dispatch();
+            onBang();
+        }
     }
 
-    virtual void onFloat(float f) override
+    virtual void
+    onFloat(float f) override
     {
         onList(AtomList(Atom(f)));
     }

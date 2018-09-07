@@ -25,6 +25,8 @@ public:
     F _defaultMethod;
     F _method;
 
+    TypedAtomT<F> _funcAtom;
+
     typename Traits::arguments _arguments;
 
     TypedAtomT<typename Traits::return_type> _return;
@@ -34,6 +36,11 @@ public:
           ,_method(m)
     {
         createOutlet();
+        createOutlet();
+
+        // TODO: output lambda
+        _funcAtom = TypedAtomT<F>(m);
+
     };
 
     ~ClassMethod()
@@ -64,6 +71,11 @@ public:
 
     virtual void onAny(t_symbol* s, const AtomList& l) override
     {
+        if (s == gensym("func")) {
+            auto atom = _funcAtom.asAtom();
+            atom.output(outletAt(1));
+        }
+
         if (s == gensym("set"))
             if (l.size() == 1)
                 if (l.at(0).isData()) {

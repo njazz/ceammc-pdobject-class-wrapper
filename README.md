@@ -44,8 +44,9 @@ pycairo, cppheaderparser, ply
   * all operators
   * enums
 
-- Other:
+- Other issues:
   * static/plain function object that accepts pointer as argument crashes when it receives message
+  * docs for classes in namespaces are generated with wrong names
   
   
 ---
@@ -60,6 +61,8 @@ pycairo, cppheaderparser, ply
 - convert STL containers <-> lists
 - polymorphism
 - enums
+- properties with object flags (thread etc.)
+- build scripts for derived projects
 
 Tested in CEAMMC Pd 2018.03 (v0.5), CEAMMC Pd 2018.08 (v0.6)
 

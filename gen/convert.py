@@ -107,7 +107,7 @@ for filename in os.listdir("../to_wrap/"):
             #     methodPointerDeclare = methodReturn + "(*"+methodPointerNameWithoutNS+")(" + ",".join(methodType) + ")"
             # else:
             #
-            methodPointerDeclare = methodReturn + "(*"+methodPointerNameWithoutNS+")(" + ",".join(methodType) + ")"
+            methodPointerDeclare = "auto " + methodPointerNameWithoutNS; #methodReturn + "(*"+methodPointerNameWithoutNS+")(" + ",".join(methodType) + ")"
 
             methodDeclare = "constexpr " + methodPointerDeclare + " "
             methodDeclare += "" #"_"+className+"_method_"+methodName
@@ -123,6 +123,7 @@ for filename in os.listdir("../to_wrap/"):
             #     typeDeclare = "using "+methodPointerNameWithoutNS+"_type = "+ methodReturn + "(*)(" + ",".join(methodType) + ");\n"
             # else:
 
+            # typeDeclare = "using "+methodPointerNameWithoutNS+"_type = decltype(&"+methodName+");\n" #+ methodReturn + "(*)(" + ",".join(methodType) + ");\n"
             typeDeclare = "using "+methodPointerNameWithoutNS+"_type = "+ methodReturn + "(*)(" + ",".join(methodType) + ");\n"
 
             outputFile.write(typeDeclare)
