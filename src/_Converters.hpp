@@ -8,7 +8,15 @@
 #include "ceammc_dataatom.h"
 
 template <typename T>
-class TypedAtomT : public Atom {
+int fromAtomList(T& out, AtomList l);
+
+template <typename T>
+void toAtomList(AtomList& out, T v);
+
+// ---
+
+template <typename T>
+class TypedAtomT {//: public Atom {
     DataTPtr<AbstractDataWrapT<T> > _d;
 
 public:
@@ -27,9 +35,21 @@ public:
     {
     }
 
-    Atom asAtom()
+//    Atom asAtom()
+//    {
+//        return DataAtom(_d).toAtom();
+//    }
+
+    AtomList asAtomList()
     {
-        return DataAtom(_d).toAtom();
+        AtomList ret;
+
+        if (!_d.data())
+            return AtomList(Atom(gensym("<empty>")));
+
+        toAtomList(ret, *_d.data()->value);
+
+        return ret;
     }
 };
 
@@ -37,7 +57,12 @@ template <>
 class TypedAtomT<void> : public Atom {
 public:
     TypedAtomT(void* v = 0) {}
-    Atom asAtom() { return Atom(); }
+//    Atom asAtom() { return Atom(); }
+    AtomList asAtomList()
+    {
+        AtomList ret;
+        return ret;
+    }
 };
 
 //---
@@ -46,8 +71,6 @@ public:
 // ====================
 // NEW HEADERS
 
-template <typename T>
-int fromAtomList(T& out, AtomList l);
 
 template <typename T>
 int fromAtomList(T& out, AtomList l)
@@ -63,8 +86,15 @@ int fromAtomList(T& out, AtomList l)
     return 1;
 };
 
+
 template <typename T>
-void toAtomList(AtomList& out, T v);
+void toAtomList(AtomList& out, T v)
+{
+    auto d = new AbstractDataWrapT<T>(v);
+    out = AtomList(DataAtom(d).toAtom());
+
+}
+
 
 
 #endif
