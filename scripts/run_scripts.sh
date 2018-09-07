@@ -2,7 +2,7 @@
 
 rm -R ../build/doc
 mkdir ../build/doc
-/usr/local/bin/python3 convert.py
+/usr/local/bin/python3 convert_headers.py
 /usr/local/bin/python3 create_pddoc.py
 
 cd ../build/

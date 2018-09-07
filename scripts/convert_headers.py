@@ -35,7 +35,7 @@ def outputWriteHeader(file):
 
 # ------------
 
-outputFile = open("../to_wrap/_generated.cpp","w+")
+outputFile = open("../generated/generated.cpp","w+")
 
 outputWriteHeader(outputFile)
 # patchWriteHeader(patchFile)

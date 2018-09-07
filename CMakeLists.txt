@@ -52,7 +52,7 @@ set (SOURCES
 
     "src/Wrapper.hpp"
 
-    "to_wrap/_generated.cpp"
+    "generated/generated.cpp"
 
     "src/_ConvertToPdType.cpp"
     "src/_ConvertFromPdType.cpp"
@@ -65,8 +65,8 @@ set (SOURCES
 )
 
 file (GLOB WRAP_SOURCES
-    "${PROJECT_SOURCE_DIR}/to_wrap/*.c"
-    "${PROJECT_SOURCE_DIR}/to_wrap/*.cpp"
+    "${PROJECT_SOURCE_DIR}/to_build/*.c"
+    "${PROJECT_SOURCE_DIR}/to_build/*.cpp"
     )
 
 set (HEADERS
@@ -122,16 +122,15 @@ set_target_properties(wrapper_library PROPERTIES SUFFIX ".pd_darwin")
 
 add_custom_target(
         generator_script ALL
-        DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/to_wrap/_generated.cpp
+        DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/generated/generated.cpp
 )
 
 add_custom_command(
         OUTPUT
-            ${CMAKE_CURRENT_SOURCE_DIR}/to_wrap/_generated.cpp
-#            ${CMAKE_CURRENT_SOURCE_DIR}/build/_generated.pd
+            ${CMAKE_CURRENT_SOURCE_DIR}/generated/generated.cpp
         DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/to_wrap/
-        COMMAND cd ${CMAKE_SOURCE_DIR}/gen/ && ./run_scripts.sh
-        #/usr/local/bin/python3 ${CMAKE_CURRENT_SOURCE_DIR}/gen/convert.py
+        COMMAND cd ${CMAKE_SOURCE_DIR}/scripts/ && ./run_scripts.sh
+
 )
 
 add_custom_command(

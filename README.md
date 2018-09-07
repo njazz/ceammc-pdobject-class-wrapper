@@ -1,7 +1,7 @@
-**This is a development/experimental repository / stub.** 
+**This is a development/experimental repository / stub.**
 
-Experimental feature for CEAMMC PureData library v0.7+
-Check out the library itself:
+Experimental feature for CEAMMC PureData v0.7+
+Check out the assembly/library itself:
 http://github.com/uliss/pure-data
 
 
@@ -11,30 +11,39 @@ http://github.com/uliss/pure-data
 
 **Requires CEAMMC Pd v0.5+**
 
-To build:
-- put C++ files in (to_wrap) folder (doesn't scan subfolders).
-- add sources to (to_include) and libraries to (to_link) folders.
+To build in-place:
+- clone this repository
+- put C++ headers in (to_wrap) folder (doesn't scan subfolders).
+- add sources to (to_build) and libraries to (to_link) folders.
 - mkdir build && cd build && cmake .. && make
-  
+
+To create new library: (IN PROGRESS)
+- create empty folder
+- clone ./submodule/init_library.sh to your new folder
+- run ./init_library.sh
+- edit library_info.cfg
+- mkdir build && cd build && cmake .. && make
+
+
 Python dependencies:  
 pycairo, cppheaderparser, ply
-  
+
 Requires Boost 1.50+
 
 ---
 ##### Features
-  
+
 - Plain types are converted to Pd atoms (float, symbols). Other types are converted to CEAMMC DataAtom.
-- Converts plain functions to single Pd objects. Receives list with appropriate data or bang if function has no arguments. Outputs list or doesn't output anything if function return type is void. Second object outlet outputs pointer to function as DataAtom - this is queried by 'func' message sent to the object. 
+- Converts plain functions to single Pd objects. Receives list with appropriate data or bang if function has no arguments. Outputs list or doesn't output anything if function return type is void. Second object outlet outputs pointer to function as DataAtom - this is queried by 'func' message sent to the object.
 - Converts classes with default constructors to Pd object that contains instance of that class and outputs it on bang. Outputs DataAtom.  
 - Converts custom constructors of classes to "classname.new" objects. This object creates new instance of class when it receives appropriate list for initialization. Outputs DataAtom.  
 - Converts class methods to single Pd objects. Objects derived from static class methods work as plain functions. Objects derived from non-static class methods require instance of class to be received as DataAtom.
 - Converts lists <->vectors of strings/numbers
 - Supports CEAMMC Set and Dict data types
 - Can output functions, static and non-static methods as DataAtoms containing function pointer.
-  
+
 ##### Current limitations
-  
+
 - Will not compile:
   * classes without copy/move constructors
   * unions in class or struct
@@ -44,7 +53,7 @@ Requires Boost 1.50+
   * function-like macros
   * static functions with reference arguments
   * nested template (i.e. set<function<void(void)> >)
-  
+
 - Will skip:
   * template classes
   * all operators
@@ -57,8 +66,8 @@ Requires Boost 1.50+
   * some types don't register as correct and output NULL DataAtom
   * objects report false "bad message format" error when function accepts vectors
   * messages with wrong arg count are truncated to last elements, this should be fixed
-  
-  
+
+
 ---
 ##### Todo list
 
@@ -72,15 +81,17 @@ Requires Boost 1.50+
 - enums
 - properties with object flags (thread etc.)
 - multiple inputs
-- build scripts for derived projects:
-    metadata variables
-    *library name
-    *version
-    *license
-    *keywords
-    *authors
+- build scripts for derived projects:  
+    metadata variables  
+    * library name  
+    * version  
+    * license  
+    * keywords  
+    * authors  
 - object flag for string/symbol output
 - check DataTPtr pointers
+- doc cleanup for plain functions  
+- pass DOXYGEN comments to pddoc  
 
 Tested in CEAMMC Pd 2018.08 (v0.6)
 
