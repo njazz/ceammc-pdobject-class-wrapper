@@ -51,6 +51,12 @@ set (SOURCES
     "src/Wrapper.hpp"
 
     "to_wrap/_generated.cpp"
+
+    "src/_ConvertToPdType.cpp"
+    "src/_ConvertFromPdType.cpp"
+
+    "src/_ConvertToCEAMMCType.cpp"
+    "src/_ConvertFromCEAMMCType.cpp"
 )
 
 file (GLOB WRAP_SOURCES

@@ -1,147 +1,88 @@
 // converters
 
+#ifndef _Converters_hpp
+#define _Converters_hpp
+
+#include "_AbstractDataWrapT.hpp"
+#include "ceammc_atomlist.h"
+#include "ceammc_dataatom.h"
+
+#include "m_pd.h"
+
 template <typename T>
-class TypedAtomT : public Atom {
+int _fromAtomList(T& out, AtomList l);
+
+template <typename T>
+void _toAtomList(AtomList& out, T v);
+
+// ---
+
+template <typename T>
+class AtomListFromReturnType { //: public Atom {
     DataTPtr<AbstractDataWrapT<T> > _d;
 
 public:
-    explicit TypedAtomT(T v)
+    explicit AtomListFromReturnType(T v)
         : _d(new AbstractDataWrapT<T>(v))
     {
     }
 
-    virtual ~TypedAtomT()
+    virtual ~AtomListFromReturnType()
     {
         _d = 0;
     }
 
-    TypedAtomT()
+    AtomListFromReturnType()
         : _d(new AbstractDataWrapT<T>())
     {
     }
 
-    Atom asAtom()
+    AtomList asAtomList()
     {
-        return DataAtom(_d).toAtom();
+        AtomList ret;
+
+        if (!_d.data())
+            return AtomList(Atom(gensym("<empty>")));
+
+        _toAtomList(ret, *_d.data()->value);
+
+        return ret;
     }
 };
 
 template <>
-class TypedAtomT<void> : public Atom {
+class AtomListFromReturnType<void> : public Atom {
 public:
-    TypedAtomT(void* v = 0) {}
-    Atom asAtom() { return Atom(); }
+    AtomListFromReturnType(void* v = 0) {}
+    AtomList asAtomList()
+    {
+        AtomList ret;
+        return ret;
+    }
 };
 
 //---
 
-template <>
-Atom TypedAtomT<float>::asAtom()
-{
-    if (!_d.data())
-        return Atom(gensym("<empty>"));
+// ====================
+// NEW HEADERS
 
-    return Atom(*_d.data()->value);
+template <typename T>
+int _fromAtomList(T& out, AtomList l)
+{
+    auto a = l.last(); //at(0);
+    if (DataAtom(*a).isData()) {
+        auto da = DataAtom(*a);
+        auto o_ = da.data().as<AbstractDataWrapT<T> >();
+        out = *o_->value;
+    }
+    return 1;
+};
+
+template <typename T>
+void _toAtomList(AtomList& out, T v)
+{
+    auto d = new AbstractDataWrapT<T>(v);
+    out = AtomList(DataAtom(d).toAtom());
 }
 
-template <>
-Atom TypedAtomT<double>::asAtom()
-{
-    if (!_d.data())
-        return Atom(gensym("<empty>"));
-
-    return Atom(*_d.data()->value);
-}
-
-template <>
-Atom TypedAtomT<int>::asAtom()
-{
-    if (!_d.data())
-        return Atom(gensym("<empty>"));
-
-    return Atom(*_d.data()->value);
-}
-
-template <>
-Atom TypedAtomT<long>::asAtom()
-{
-    if (!_d.data())
-        return Atom(gensym("<empty>"));
-
-    return Atom(*_d.data()->value);
-}
-
-template <>
-Atom TypedAtomT<std::string>::asAtom()
-{
-    if (!_d.data())
-        return Atom(gensym("<empty>"));
-
-    return Atom(gensym(_d.data()->value->c_str()));
-}
-
-// ---
-// TODO: use references?
-template <>
-Atom TypedAtomT<float&>::asAtom()
-{
-    if (!_d.data())
-        return Atom(gensym("<empty>"));
-
-    return Atom(*_d.data()->value);
-}
-
-template <>
-Atom TypedAtomT<double&>::asAtom()
-{
-    if (!_d.data())
-        return Atom(gensym("<empty>"));
-
-    return Atom(*_d.data()->value);
-}
-
-template <>
-Atom TypedAtomT<int&>::asAtom()
-{
-    if (!_d.data())
-        return Atom(gensym("<empty>"));
-
-    return Atom(*_d.data()->value);
-}
-
-template <>
-Atom TypedAtomT<long&>::asAtom()
-{
-    if (!_d.data())
-        return Atom(gensym("<empty>"));
-
-    return Atom(*_d.data()->value);
-}
-
-template <>
-Atom TypedAtomT<std::string&>::asAtom()
-{
-    if (!_d.data())
-        return Atom(gensym("<empty>"));
-
-    return Atom(gensym(_d.data()->value->c_str()));
-}
-
-template <>
-Atom TypedAtomT<const char*>::asAtom()
-{
-    if (!_d.data())
-        return Atom(gensym("<empty>"));
-
-    return Atom(gensym(*_d.data()->value));
-}
-
-
-template <>
-Atom TypedAtomT<char*>::asAtom()
-{
-    if (!_d.data())
-        return Atom(gensym("<empty>"));
-
-    return Atom(gensym(*_d.data()->value));
-}
+#endif

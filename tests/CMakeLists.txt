@@ -58,6 +58,8 @@ set(TEST_CEAMMC_LIB
 
     ../ceammc_lib/ceammc_object.cpp
 
+    ../src/_ConvertFromPdType.cpp
+
 )
 
 file (GLOB TEST_PD

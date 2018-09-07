@@ -4,8 +4,8 @@
 #define AtomListWrapperT_hpp
 
 #include "_AbstractDataWrapT.hpp"
-#include "_SequenceT.hpp"
 #include "_FunctionTraits.hpp"
+#include "_SequenceT.hpp"
 
 #include "ceammc_atomlist.h"
 #include "ceammc_data.h"
@@ -15,41 +15,24 @@
 
 // ---------------------
 
-template <typename T>
-void convertAtom(T& out, Atom a)
-{
-    if (DataAtom(a).isData()) {
-        auto da = DataAtom(a);
-        auto o_ = da.data().as<AbstractDataWrapT<T> >();
-        out = *o_->value;
-    }
-};
-
-template <>
-void convertAtom(float& out, Atom a) { out = a.asFloat(); }
-
-template <>
-void convertAtom(double& out, Atom a) { out = a.asFloat(); }
-
-template <>
-void convertAtom(std::string& out, Atom a) { out = a.asString(); }
-
-template <>
-void convertAtom(int& out, Atom a) { out = a.asInt(); }
-
-template <>
-void convertAtom(long& out, Atom a) { out = a.asInt(); }
-
-template <>
-void convertAtom(const char*& out, Atom a) { out = a.asSymbol()->s_name; }
-
-template <>
-void convertAtom(char*& out, Atom a) { out = a.asSymbol()->s_name; }
-
-// -----
-
 template <int I, typename T>
 class _tupleFromAtomlistT {
+
+    // converts n elements to T; erases them, returns false if l.size is zero.
+    template <typename U>
+    bool _process(U& v, AtomList& l)
+    {
+        if (l.size() < 1)
+            return false;
+
+        int n = _fromAtomList(v, l);
+
+        for (int i = 0; i < n; i++) {
+            l.remove(l.size() - 1);
+        }
+        return true;
+    }
+
 public:
     T& output;
 
@@ -60,17 +43,15 @@ public:
 
     void operator()(const AtomList& src)
     {
-        using el_type = decltype(std::get<I - 1>(output));
+        using elementType = decltype(std::get<I - 1>(output));
 
-        auto& el = std::get<I - 1>(output);
-        auto atom = src.at(I - 1);
+        auto& element = std::get<I - 1>(output);
 
-        convertAtom(el, atom);
+        AtomList nextList = src;
+        bool result = _process(element, nextList);
 
-        AtomList next = src;
-        next.remove(next.size() - 1);
-
-        tail(next);
+        if (result)
+            tail(nextList);
     }
 
     _tupleFromAtomlistT<I - 1, T> tail = _tupleFromAtomlistT<I - 1, T>(output);
@@ -91,23 +72,26 @@ public:
 // ---
 
 template <typename F>
-class AtomListWrapperT : public AtomList {
+class ArgumentsFromAtomList : public AtomList {
     using Traits = _functionTraits<F>;
 
 public:
     typename Traits::arguments output;
     bool validOutput = false;
 
-    explicit AtomListWrapperT(const AtomList& src)
+    explicit ArgumentsFromAtomList(const AtomList& src)
     {
         constexpr size_t tupleSize = std::tuple_size<typename Traits::arguments>::value;
+
+        validOutput = true;
+
         if (src.size() != tupleSize) {
-            return;
+            validOutput = false;
+            //            return;
         }
 
         _tupleFromAtomlistT<tupleSize, typename Traits::arguments> proc(output);
         proc(src);
-        validOutput = true;
     };
 };
 

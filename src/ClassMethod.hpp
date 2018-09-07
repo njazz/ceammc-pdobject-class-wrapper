@@ -25,11 +25,11 @@ public:
     F _defaultMethod;
     F _method;
 
-    TypedAtomT<F> _funcAtom;
+    AtomListFromReturnType<F> _funcAtom;
 
     typename Traits::arguments _arguments;
 
-    TypedAtomT<typename Traits::return_type> _return;
+    AtomListFromReturnType<typename Traits::return_type> _return;
 
     ClassMethod(PdArgs& a, F m) //F m)
         : BaseObject(a) //
@@ -39,7 +39,7 @@ public:
         createOutlet();
 
         // TODO: output lambda
-        _funcAtom = TypedAtomT<F>(m);
+        _funcAtom = AtomListFromReturnType<F>(m);
 
     };
 
@@ -65,15 +65,17 @@ public:
     virtual void onBang() override
     {
         _dispatch();
-        auto atom = _return.asAtom();
-        atom.output(outletAt(0));
+//        auto atom = _return.asAtom();
+        auto atomList = _return.asAtomList();
+        atomList.output(outletAt(0));
+//        atom.output(outletAt(0));
     }
 
     virtual void onAny(t_symbol* s, const AtomList& l) override
     {
         if (s == gensym("func")) {
-            auto atom = _funcAtom.asAtom();
-            atom.output(outletAt(1));
+            auto atomList = _funcAtom.asAtomList();
+            atomList.output(outletAt(1));
         }
 
         if (s == gensym("set"))
@@ -125,7 +127,7 @@ public:
         }
 
         // set arguments and call function
-        AtomListWrapperT<F> converter(l);
+        ArgumentsFromAtomList<F> converter(l);
         _arguments = converter.output;
 
         onBang();

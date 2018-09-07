@@ -13,7 +13,7 @@ public:
     const F& _method;
     const A& _arguments;
 
-    TypedAtomT<R> _return;
+    AtomListFromReturnType<R> _return;
 
     _InvocationClassMethod(const C& c, const F& f, const A& a)
         : _class(const_cast<C&>(c))
@@ -25,7 +25,7 @@ public:
     template <int... S>
     void operator()(_sequence<S...>)
     {
-        _return = TypedAtomT<R>((_class.*_method)(std::get<S>(_arguments)...));
+        _return = AtomListFromReturnType<R>((_class.*_method)(std::get<S>(_arguments)...));
     }
 };
 
@@ -37,7 +37,7 @@ public:
     const F& _method;
     const A& _arguments;
 
-    TypedAtomT<void> _return;
+    AtomListFromReturnType<void> _return;
 
     _InvocationClassMethod(const C& c, const F& f, const A& a)
         : _class(const_cast<C&>(c))
@@ -61,7 +61,7 @@ public:
     const F& _method;
     const A& _arguments;
 
-    TypedAtomT<R> _return;
+    AtomListFromReturnType<R> _return;
 
     _InvocationStaticMethod(const F& f, const A& a)
         : _method(f)
@@ -72,7 +72,7 @@ public:
     template <int... S>
     void operator()(_sequence<S...>)
     {
-        _return = TypedAtomT<R>((*_method)(std::get<S>(_arguments)...));
+        _return = AtomListFromReturnType<R>((*_method)(std::get<S>(_arguments)...));
     }
 };
 
@@ -83,7 +83,7 @@ public:
     const F& _method;
     const A& _arguments;
 
-    TypedAtomT<void> _return;
+    AtomListFromReturnType<void> _return;
 
     _InvocationStaticMethod(const F& f, const A& a)
         : _method(f)

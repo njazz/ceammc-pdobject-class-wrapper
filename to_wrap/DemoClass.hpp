@@ -161,6 +161,15 @@ float* p_create();
 void p_destroy(float *p);
 
 
+
+std::string test_tuple_in(float a,float b, float c);
+
+std::vector<std::string> test_vec();
+
+std::string test_vec_in(std::vector<std::string> v);
+
+std::vector<std::string> test_conv(std::vector<int> v);
+
 // not supported:
 // need to preprocess headers
 //#define MACRO_2(x) x
