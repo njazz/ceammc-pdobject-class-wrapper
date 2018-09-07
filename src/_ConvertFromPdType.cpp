@@ -52,3 +52,14 @@ int fromAtomList(char*& out, AtomList l)
 }
 
 // 2. lists
+
+template <>
+int fromAtomList(std::vector<std::string>& out, AtomList l)
+{
+    for (auto& e : l)
+    {
+        out.push_back(e.asSymbol()->s_name);
+    }
+
+    return l.size();
+}

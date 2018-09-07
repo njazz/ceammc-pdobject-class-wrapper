@@ -131,14 +131,17 @@ public:
     explicit AtomListWrapperT(const AtomList& src)
     {
         constexpr size_t tupleSize = std::tuple_size<typename Traits::arguments>::value;
+
+        validOutput = true;
+
         if (src.size() != tupleSize) {
             validOutput = false;
-            return;
+//            return;
         }
 
         _tupleFromAtomlistT<tupleSize, typename Traits::arguments> proc(output);
         proc(src);
-        validOutput = true;
+
     };
 };
 

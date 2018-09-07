@@ -63,3 +63,13 @@ std::vector<std::string> test_vec()
 {
     return {"demo","vector","abcde","123"};
 }
+
+std::string test_vec_in(std::vector<std::string> v)
+{
+    std::string ret = " ** ";
+    for (auto e:v)
+    {
+        ret = ret + e + " ** ";
+    }
+    return ret;
+}

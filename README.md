@@ -48,7 +48,7 @@ pycairo, cppheaderparser, ply
 - Other issues:
   * static/plain function object that accepts pointer as argument crashes when it receives message
   * docs for classes in namespaces are generated with wrong names
-  * docs are not generated for classes with templated return types
+  * docs are not generated for functions with templated types as args or return
   * some types don't register as correct and output NULL DataAtom
   
   

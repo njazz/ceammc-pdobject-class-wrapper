@@ -7,6 +7,8 @@
 #include "ceammc_atomlist.h"
 #include "ceammc_dataatom.h"
 
+#include "m_pd.h"
+
 template <typename T>
 int fromAtomList(T& out, AtomList l);
 
@@ -80,8 +82,7 @@ int fromAtomList(T& out, AtomList l)
         auto da = DataAtom(*a);
         auto o_ = da.data().as<AbstractDataWrapT<T> >();
         out = *o_->value;
-
-
+        // post("converted data: %s", o_->toString().c_str());
     }
     return 1;
 };
