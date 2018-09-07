@@ -17,7 +17,9 @@ To build:
 - mkdir build && cd build && cmake .. && make
   
 Python dependencies:  
-pycairo, cppheaderparser, ply  
+pycairo, cppheaderparser, ply
+  
+Requires Boost 1.50+
 
 ---
 ##### Features
@@ -28,6 +30,7 @@ pycairo, cppheaderparser, ply
 - Converts custom constructors of classes to "classname.new" objects. This object creates new instance of class when it receives appropriate list for initialization. Outputs DataAtom.  
 - Converts class methods to single Pd objects. Objects derived from static class methods work as plain functions. Objects derived from non-static class methods require instance of class to be received as DataAtom.
 - Converts lists <->vectors of strings/numbers
+- Supports CEAMMC Set and Dict data types
 - Can output functions, static and non-static methods as DataAtoms containing function pointer.
   
 ##### Current limitations
@@ -65,10 +68,10 @@ pycairo, cppheaderparser, ply
 - filter custom attributes
 - classes without copy/move constructors
 - tests
-- convert more STL containers <-> lists
 - polymorphism
 - enums
 - properties with object flags (thread etc.)
+- multiple inputs
 - build scripts for derived projects:
     metadata variables
     *library name
@@ -76,7 +79,7 @@ pycairo, cppheaderparser, ply
     *license
     *keywords
     *authors
-- support CEAMMC v0.6 data types. object flag for string/symbol output
+- object flag for string/symbol output
 - check DataTPtr pointers
 
 Tested in CEAMMC Pd 2018.08 (v0.6)
