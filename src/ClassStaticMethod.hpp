@@ -49,13 +49,8 @@ public:
         _funcAtom = TypedAtomT<F>(m);
 
         _theThread = [&]() {
-            //while (true) {
-            //    if (_performThread) {
                     _dispatch();
                     onBang();
-            //        _performThread = false;
-            //    }
-//            }
         };
         _thread = new std::thread(_theThread);
     };
@@ -97,14 +92,6 @@ public:
                 return;
 
             _runInThread = l.at(0).asInt() > 0;
-            //            if (_runInThread) {
-            //                _thread = new std::thread(_theThread);
-            //            } else {
-            //                if (_thread) {
-            //                    _thread->join();
-            //                    delete _thread;
-            //                }
-            //            }
         }
     }
 
@@ -121,7 +108,6 @@ public:
 
         if (_runInThread) {
             post("separate thread *");
-            //_performThread = true;
             auto t = std::thread(_theThread);
             t.join();
 

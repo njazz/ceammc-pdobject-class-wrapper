@@ -105,10 +105,12 @@ def write_pddoc_class_method_object(className,description,objectType,methodType,
         <inlets>
             <inlet>
                 <xinfo on="any">{3} </xinfo>
+                <xinfo on="symbol">'func' outputs object's function as DataAtom at second outlet</xinfo>
             </inlet>
         </inlets>
         <outlets>
             <outlet>{4} </outlet>
+            <outlet>Outputs DataAtom with {2} function.</outlet>
         </outlets>
         <example>
             <pdascii>
@@ -125,6 +127,12 @@ def write_pddoc_class_method_object(className,description,objectType,methodType,
 |  |   |     |             |
 [{2}                        ]
 |
+[ui.display @display_type 1]
+
+[func(
+|
+[{2}]
+^|
 [ui.display @display_type 1]
 
 ]]>
@@ -353,4 +361,4 @@ for filename in os.listdir("../to_wrap/"):
                 else:
                     write_pddoc_class_method_object(convert_name_n(c), "", pdObjectName, methodType,methodReturn,c)
 
-                dbFile.write("{0} . .\n".format(pdObjectName))
+                dbFile.write("{0} . ..\n".format(pdObjectName))
