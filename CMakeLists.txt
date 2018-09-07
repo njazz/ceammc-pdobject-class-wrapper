@@ -64,10 +64,21 @@ set (SOURCES
 #    "ceammc-pd-0.6/data/datatype_dict.cpp"
 )
 
-file (GLOB WRAP_SOURCES
+# exclude when it is submodule:
+file (GLOB WRAP_SOURCES_TEST
     "${PROJECT_SOURCE_DIR}/to_build/*.c"
     "${PROJECT_SOURCE_DIR}/to_build/*.cpp"
     )
+include_directories(./to_wrap/)
+include_directories(./to_include/)
+###
+
+file (GLOB WRAP_SOURCES
+    "${PROJECT_SOURCE_DIR}/../to_build/*.c"
+    "${PROJECT_SOURCE_DIR}/../to_build/*.cpp"
+    )
+include_directories(./to_wrap/)
+include_directories(./to_include/)
 
 set (HEADERS
     ceammc_lib/ceammc_object.h 
@@ -76,6 +87,7 @@ set (HEADERS
     ceammc_lib/ceammc_log.h 
     ceammc_lib/ceammc_property.h 
 )
+
 #
 
 set(CMAKE_C_FLAGS ${CMAKE_C_FLAGS} "-fblocks")
@@ -93,9 +105,6 @@ include_directories(./ceammc-pd-0.6/data)
 include_directories(./ceammc-pd-0.6/string)
 
 include_directories(./pd_headers/)
-
-include_directories(./to_wrap/)
-include_directories(./to_include/)
 
 LINK_DIRECTORIES(${CMAKE_SOURCE_DIR}/to_link/)
 
