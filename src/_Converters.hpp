@@ -81,8 +81,12 @@ int _fromAtomList(T& out, AtomList l)
 template <typename T>
 void _toAtomList(AtomList& out, T v)
 {
-    auto d = new AbstractDataWrapT<T>(v);
-    out = AtomList(DataAtom(d).toAtom());
+    // TODO needs to be fixed:
+    auto d =  new AbstractDataWrapT<T>(v);
+    auto ptr = new  DataTPtr<AbstractDataWrapT<T>>(d);
+    out = AtomList(DataAtom(*ptr).toAtom());
 }
+
+
 
 #endif

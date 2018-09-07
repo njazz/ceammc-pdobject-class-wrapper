@@ -176,6 +176,14 @@ std::vector<std::string> test_conv(std::vector<int> v);
 std::map<int,std::string> test_map();
 std::set<std::string> test_set();
 
+typedef float(*func_1)(float);
+
+std::map<std::string, func_1> func_list(func_1 a, func_1 b);
+//func_1 func_l_plus_10();
+//func_1 func_l_minus_10();
+//float func_l_apply(func_1 f, float v);
+
+
 
 // not supported:
 // need to preprocess headers
