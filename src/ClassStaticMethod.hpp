@@ -32,7 +32,7 @@ public:
 
     TypedAtomT<typename Traits::return_type> _return;
 
-    TypedAtomT<F> _funcReturn;
+    TypedAtomT<F> _funcAtom;
 
     bool _runInThread = false;
     std::function<void(void)> _theThread;
@@ -46,7 +46,7 @@ public:
         createOutlet();
         createOutlet();
 
-        _funcReturn = TypedAtomT<F>(m);
+        _funcAtom = TypedAtomT<F>(m);
 
         _theThread = [&]() {
             //while (true) {
@@ -88,7 +88,7 @@ public:
     virtual void onAny(t_symbol* s, const AtomList& l) override
     {
         if (s == gensym("func")) {
-            auto atom = _funcReturn.asAtom();
+            auto atom = _funcAtom.asAtom();
             atom.output(outletAt(1));
         }
 

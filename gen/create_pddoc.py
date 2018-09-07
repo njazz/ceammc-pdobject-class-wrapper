@@ -53,14 +53,13 @@ def write_pddoc_class_object(name,description,objectType):
         <example>
             <pdascii>
 <![CDATA[
+[declare -lib wrapper_library]
 
 [B]
 |
 [{2}]
 |
 [ui.display @display_type 1]
-
-[declare -lib wrapper_library]
 
 ]]>
             </pdascii>
@@ -114,6 +113,7 @@ def write_pddoc_class_method_object(className,description,objectType,methodType,
         <example>
             <pdascii>
 <![CDATA[
+[declare -lib wrapper_library]
 
 [B]
 |
@@ -126,8 +126,6 @@ def write_pddoc_class_method_object(className,description,objectType,methodType,
 [{2}                        ]
 |
 [ui.display @display_type 1]
-
-[declare -lib wrapper_library]
 
 ]]>
             </pdascii>
@@ -172,6 +170,8 @@ def write_pddoc_static_method_object(className,description,objectType, methodTyp
         <inlets>
             <inlet>
                 <xinfo on="any">{3} </xinfo>
+                <xinfo on="symbol">'thread 1' sets the object to perform it's action in separate thread</xinfo>
+                <xinfo on="symbol">'func' outputs object's function as DataAtom at second outlet</xinfo>
             </inlet>
         </inlets>
         <outlets>
@@ -181,7 +181,7 @@ def write_pddoc_static_method_object(className,description,objectType, methodTyp
         <example>
             <pdascii>
 <![CDATA[
-
+[declare -lib wrapper_library]
 
 [B] [1.0( [symbol test( [1 2 3(
 |   |     |             |
@@ -204,8 +204,6 @@ def write_pddoc_static_method_object(className,description,objectType, methodTyp
 [{2}]
 ^|
 [ui.display @display_type 1]
-
-[declare -lib wrapper_library]
 
 ]]>
             </pdascii>
@@ -248,14 +246,13 @@ def write_pddoc_class_custom_constructor_object(className,description,objectType
         <example>
             <pdascii>
 <![CDATA[
+[declare -lib wrapper_library]
 
 [B] [1.0( [symbol test( [1 2 3(
 |   |     |             |
 [{2}                        ]
 |
 [ui.display @display_type 1]
-
-[declare -lib wrapper_library]
 
 ]]>
             </pdascii>
