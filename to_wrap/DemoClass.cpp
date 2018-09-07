@@ -73,3 +73,13 @@ std::string test_vec_in(std::vector<std::string> v)
     }
     return ret;
 }
+
+std::vector<std::string> test_conv(std::vector<int> v)
+{
+    std::vector<std::string> ret;
+    for (auto e:v)
+    {
+        ret.push_back(std::to_string(e));
+    }
+    return ret;
+}

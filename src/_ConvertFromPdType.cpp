@@ -63,3 +63,47 @@ int fromAtomList(std::vector<std::string>& out, AtomList l)
 
     return l.size();
 }
+
+template <>
+int fromAtomList(std::vector<int>& out, AtomList l)
+{
+    for (auto& e : l)
+    {
+        out.push_back(e.asInt());
+    }
+
+    return l.size();
+}
+
+template <>
+int fromAtomList(std::vector<long>& out, AtomList l)
+{
+    for (auto& e : l)
+    {
+        out.push_back(e.asInt());
+    }
+
+    return l.size();
+}
+
+template <>
+int fromAtomList(std::vector<float>& out, AtomList l)
+{
+    for (auto& e : l)
+    {
+        out.push_back(e.asFloat());
+    }
+
+    return l.size();
+}
+
+template <>
+int fromAtomList(std::vector<double>& out, AtomList l)
+{
+    for (auto& e : l)
+    {
+        out.push_back(e.asFloat());
+    }
+
+    return l.size();
+}

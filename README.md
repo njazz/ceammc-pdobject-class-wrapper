@@ -50,6 +50,8 @@ pycairo, cppheaderparser, ply
   * docs for classes in namespaces are generated with wrong names
   * docs are not generated for functions with templated types as args or return
   * some types don't register as correct and output NULL DataAtom
+  * objects report false "bad message format" error when function accepts vectors
+  * messages with wrong arg count are truncated to last elements, this should be fixed
   
   
 ---

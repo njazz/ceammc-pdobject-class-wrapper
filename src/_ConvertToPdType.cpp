@@ -34,6 +34,46 @@ void toAtomList(AtomList& out, std::vector<std::string> v) {
     out = ret;
 }
 
+template <>
+void toAtomList(AtomList& out, std::vector<int> v) {
+    AtomList ret;
+    for (auto e : v)
+    {
+        ret.append(Atom(e));
+    }
+    out = ret;
+}
+
+template <>
+void toAtomList(AtomList& out, std::vector<float> v) {
+    AtomList ret;
+    for (auto e : v)
+    {
+        ret.append(Atom(e));
+    }
+    out = ret;
+}
+
+template <>
+void toAtomList(AtomList& out, std::vector<long> v) {
+    AtomList ret;
+    for (auto e : v)
+    {
+        ret.append(Atom(e));
+    }
+    out = ret;
+}
+
+template <>
+void toAtomList(AtomList& out, std::vector<double> v) {
+    AtomList ret;
+    for (auto e : v)
+    {
+        ret.append(Atom(e));
+    }
+    out = ret;
+}
+
 // ===
 
 // OLD

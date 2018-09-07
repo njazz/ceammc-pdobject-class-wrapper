@@ -168,6 +168,8 @@ std::vector<std::string> test_vec();
 
 std::string test_vec_in(std::vector<std::string> v);
 
+std::vector<std::string> test_conv(std::vector<int> v);
+
 // not supported:
 // need to preprocess headers
 //#define MACRO_2(x) x
