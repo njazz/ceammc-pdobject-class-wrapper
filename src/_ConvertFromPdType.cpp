@@ -56,8 +56,7 @@ int fromAtomList(char*& out, AtomList l)
 template <>
 int fromAtomList(std::vector<std::string>& out, AtomList l)
 {
-    for (auto& e : l)
-    {
+    for (auto& e : l) {
         out.push_back(e.asSymbol()->s_name);
     }
 
@@ -67,8 +66,7 @@ int fromAtomList(std::vector<std::string>& out, AtomList l)
 template <>
 int fromAtomList(std::vector<int>& out, AtomList l)
 {
-    for (auto& e : l)
-    {
+    for (auto& e : l) {
         out.push_back(e.asInt());
     }
 
@@ -78,8 +76,7 @@ int fromAtomList(std::vector<int>& out, AtomList l)
 template <>
 int fromAtomList(std::vector<long>& out, AtomList l)
 {
-    for (auto& e : l)
-    {
+    for (auto& e : l) {
         out.push_back(e.asInt());
     }
 
@@ -89,8 +86,7 @@ int fromAtomList(std::vector<long>& out, AtomList l)
 template <>
 int fromAtomList(std::vector<float>& out, AtomList l)
 {
-    for (auto& e : l)
-    {
+    for (auto& e : l) {
         out.push_back(e.asFloat());
     }
 
@@ -100,8 +96,7 @@ int fromAtomList(std::vector<float>& out, AtomList l)
 template <>
 int fromAtomList(std::vector<double>& out, AtomList l)
 {
-    for (auto& e : l)
-    {
+    for (auto& e : l) {
         out.push_back(e.asFloat());
     }
 

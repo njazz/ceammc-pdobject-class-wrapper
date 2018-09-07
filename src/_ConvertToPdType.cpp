@@ -25,165 +25,52 @@ void toAtomList(AtomList& out, char* v) { out = AtomList(Atom(gensym(v))); }
 // 2. lists
 
 template <>
-void toAtomList(AtomList& out, std::vector<std::string> v) {
+void toAtomList(AtomList& out, std::vector<std::string> v)
+{
     AtomList ret;
-    for (auto e : v)
-    {
+    for (auto e : v) {
         ret.append(Atom(gensym(e.c_str())));
     }
     out = ret;
 }
 
 template <>
-void toAtomList(AtomList& out, std::vector<int> v) {
+void toAtomList(AtomList& out, std::vector<int> v)
+{
     AtomList ret;
-    for (auto e : v)
-    {
+    for (auto e : v) {
         ret.append(Atom(e));
     }
     out = ret;
 }
 
 template <>
-void toAtomList(AtomList& out, std::vector<float> v) {
+void toAtomList(AtomList& out, std::vector<float> v)
+{
     AtomList ret;
-    for (auto e : v)
-    {
+    for (auto e : v) {
         ret.append(Atom(e));
     }
     out = ret;
 }
 
 template <>
-void toAtomList(AtomList& out, std::vector<long> v) {
+void toAtomList(AtomList& out, std::vector<long> v)
+{
     AtomList ret;
-    for (auto e : v)
-    {
+    for (auto e : v) {
         ret.append(Atom(e));
     }
     out = ret;
 }
 
 template <>
-void toAtomList(AtomList& out, std::vector<double> v) {
+void toAtomList(AtomList& out, std::vector<double> v)
+{
     AtomList ret;
-    for (auto e : v)
-    {
+    for (auto e : v) {
         ret.append(Atom(e));
     }
     out = ret;
 }
 
-// ===
-
-// OLD
-
-//template <>
-//Atom TypedAtomT<float>::asAtom()
-//{
-//    if (!_d.data())
-//        return Atom(gensym("<empty>"));
-
-//    return Atom(*_d.data()->value);
-//}
-
-//template <>
-//Atom TypedAtomT<double>::asAtom()
-//{
-//    if (!_d.data())
-//        return Atom(gensym("<empty>"));
-
-//    return Atom(*_d.data()->value);
-//}
-
-//template <>
-//Atom TypedAtomT<int>::asAtom()
-//{
-//    if (!_d.data())
-//        return Atom(gensym("<empty>"));
-
-//    return Atom(*_d.data()->value);
-//}
-
-//template <>
-//Atom TypedAtomT<long>::asAtom()
-//{
-//    if (!_d.data())
-//        return Atom(gensym("<empty>"));
-
-//    return Atom(*_d.data()->value);
-//}
-
-//template <>
-//Atom TypedAtomT<std::string>::asAtom()
-//{
-//    if (!_d.data())
-//        return Atom(gensym("<empty>"));
-
-//    return Atom(gensym(_d.data()->value->c_str()));
-//}
-
-//// ---
-//// TODO: use references?
-//template <>
-//Atom TypedAtomT<float&>::asAtom()
-//{
-//    if (!_d.data())
-//        return Atom(gensym("<empty>"));
-
-//    return Atom(*_d.data()->value);
-//}
-
-//template <>
-//Atom TypedAtomT<double&>::asAtom()
-//{
-//    if (!_d.data())
-//        return Atom(gensym("<empty>"));
-
-//    return Atom(*_d.data()->value);
-//}
-
-//template <>
-//Atom TypedAtomT<int&>::asAtom()
-//{
-//    if (!_d.data())
-//        return Atom(gensym("<empty>"));
-
-//    return Atom(*_d.data()->value);
-//}
-
-//template <>
-//Atom TypedAtomT<long&>::asAtom()
-//{
-//    if (!_d.data())
-//        return Atom(gensym("<empty>"));
-
-//    return Atom(*_d.data()->value);
-//}
-
-//template <>
-//Atom TypedAtomT<std::string&>::asAtom()
-//{
-//    if (!_d.data())
-//        return Atom(gensym("<empty>"));
-
-//    return Atom(gensym(_d.data()->value->c_str()));
-//}
-
-//template <>
-//Atom TypedAtomT<const char*>::asAtom()
-//{
-//    if (!_d.data())
-//        return Atom(gensym("<empty>"));
-
-//    return Atom(gensym(*_d.data()->value));
-//}
-
-//template <>
-//Atom TypedAtomT<char*>::asAtom()
-//{
-//    if (!_d.data())
-//        return Atom(gensym("<empty>"));
-
-//    return Atom(gensym(*_d.data()->value));
-//}
