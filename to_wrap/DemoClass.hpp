@@ -1,7 +1,7 @@
 #include <string>
 #include <vector>
 
-
+/*
 class DemoSubClass {
     long _v = 123;
 
@@ -160,7 +160,12 @@ float* p_create();
 // this crashes when gets message with pointer:
 void p_destroy(float *p);
 
+*/
+
 std::string test_tuple_in(float a,float b, float c);
+
+std::vector<std::string> test_vec();
+
 // not supported:
 // need to preprocess headers
 //#define MACRO_2(x) x

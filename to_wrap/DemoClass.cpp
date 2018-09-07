@@ -2,8 +2,10 @@
 
 #include "m_pd.h"
 
+/*
 long& DemoSubClass::ref() { return _v; }
 std::vector<std::string> DemoSubClass::vec() { return { "lol" }; }
+*/
 
 float test_function_wrapper(void* ptr)
 {
@@ -55,4 +57,9 @@ void p_destroy(float* p)
 std::string test_tuple_in(float a, float b, float c)
 {
     return "test: " + std::to_string(a) +" , "+ std::to_string(b) + " , "+std::to_string(c);
+}
+
+std::vector<std::string> test_vec()
+{
+    return {"demo","vector","abcde","123"};
 }
