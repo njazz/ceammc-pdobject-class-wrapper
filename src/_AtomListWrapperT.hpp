@@ -14,7 +14,7 @@
 #include "_Converters.hpp"
 
 // ---------------------
-
+/*
 template <typename T>
 void convertAtom(T& out, Atom a)
 {
@@ -45,11 +45,27 @@ void convertAtom(const char*& out, Atom a) { out = a.asSymbol()->s_name; }
 
 template <>
 void convertAtom(char*& out, Atom a) { out = a.asSymbol()->s_name; }
+*/
 
 // -----
 
 template <int I, typename T>
 class _tupleFromAtomlistT {
+
+    // converts n elements to T; erases them, returns false if l.size is zero.
+    template<typename U>
+    bool _process(U& v, AtomList& l)
+    {
+       if (l.size()<1) return false;
+
+       int n = fromAtomList(v, l);
+
+       for (int i=0;i<n;i++)
+       {
+           l.remove(l.size()-1);
+       }
+       return true;
+    }
 public:
     T& output;
 
@@ -60,6 +76,7 @@ public:
 
     void operator()(const AtomList& src)
     {
+        /*
         using el_type = decltype(std::get<I - 1>(output));
 
         auto& el = std::get<I - 1>(output);
@@ -71,6 +88,19 @@ public:
         next.remove(next.size() - 1);
 
         tail(next);
+
+        */
+
+        using elementType = decltype(std::get<I - 1>(output));
+
+        auto& element = std::get<I - 1>(output);
+
+        AtomList nextList = src;
+        bool result =  _process(element, nextList);
+
+        if (result)
+            tail(nextList);
+
     }
 
     _tupleFromAtomlistT<I - 1, T> tail = _tupleFromAtomlistT<I - 1, T>(output);
@@ -102,6 +132,7 @@ public:
     {
         constexpr size_t tupleSize = std::tuple_size<typename Traits::arguments>::value;
         if (src.size() != tupleSize) {
+            validOutput = false;
             return;
         }
 

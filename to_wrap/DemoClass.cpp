@@ -49,3 +49,10 @@ void p_destroy(float* p)
     post("would destroy ptr %lu", (long)p);
     //   if (p) delete p;
 }
+
+// ---
+
+std::string test_tuple_in(float a, float b, float c)
+{
+    return "test: " + std::to_string(a) +" , "+ std::to_string(b) + " , "+std::to_string(c);
+}
