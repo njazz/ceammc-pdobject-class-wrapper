@@ -147,3 +147,14 @@ void _toAtomList(AtomList& out, std::map<std::string, func_1> v)
 
     out = ret;
 }
+
+
+std::string test_map_input (map_str src)
+{
+    std::string ret;
+    for (auto k : src)
+    {
+        ret = ret+"key: " + k.first + ", value: "+k.second + "\n";
+    }
+    return ret;
+}
