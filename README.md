@@ -61,7 +61,6 @@ Requires Boost 1.50+
 
 - Other issues:
   * static/plain function object that accepts pointer as argument crashes when it receives message
-  * docs for classes in namespaces are generated with wrong names
   * docs are not generated for functions with templated types as args or return
   * some types don't register as correct and output NULL DataAtom
   * objects report false "bad message format" error when function accepts vectors

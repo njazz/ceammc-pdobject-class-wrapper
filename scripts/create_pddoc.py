@@ -72,7 +72,7 @@ for filename in gen.getHeaderFiles():#os.listdir("../to_wrap/"):
             #stub:
             if hasDefaultConstructor(cppHeader.classes[c]):
                 docwrite.classObject(c, "no description", pdClassName)
-                dbFile.write("{0} . .\n".format(gen.convertName(c)))
+                dbFile.write("{0} . .\n".format(pdClassName))
 
             for m in cppHeader.classes[c]["methods"]["public"]:
                 if m["template"] != False:
