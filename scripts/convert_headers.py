@@ -70,10 +70,13 @@ for filename in gen.getHeaderFiles(): #os.listdir("../to_wrap/"):
             if m["inline"] == True:
                 methodReturn = methodReturn.replace('inline ','')
 
-            methodName = gen.getClassNameCXX(nameSpace, m["name"])
-            pdObjectName = gen.getClassNamePD(nameSpace, m["name"]) #gen.convertName(m["name"])
+            # methodName = gen.getClassNameCXX(nameSpace, m["name"])
+            # pdObjectName = gen.getClassNamePD(nameSpace, m["name"]) #gen.convertName(m["name"])
 
-            toWrite = objt.genFunc(methodName, nameSpace, pdObjectName, methodIndex, methodReturn, ",".join(methodType))
+            # toWrite = objt.genFunc(methodName, nameSpace, pdObjectName, methodIndex, methodReturn, ",".join(methodType))
+
+            toWrite = objt.genFunc(nameSpace, methodName, methodIndex, methodReturn, ",".join(methodType))
+
             outputFile.write(toWrite)
 
             methodIndex+=1
@@ -108,7 +111,7 @@ for filename in gen.getHeaderFiles(): #os.listdir("../to_wrap/"):
 
             #####
             if hasDefaultConstructor:
-                outputFile.write(objt.genClass(nameCXX,c, namePD))
+                outputFile.write(objt.genClass(nameSpace, className))
 
             methodIndex = 0
 
@@ -165,11 +168,9 @@ for filename in gen.getHeaderFiles(): #os.listdir("../to_wrap/"):
                 methodType = [t["type"] for t in m["parameters"]]
                 methodReturn = m["rtnType"]
 
-                wrapName = "WRAP_METHOD"
                 customConstructor = False
 
                 lastClassName = className.split("::")[-1]
-                # outputFile.write("// method name / class name " + methodName + " "+justClassName +"\n")
 
                 # custom constructor
                 if methodName == lastClassName:
@@ -192,46 +193,24 @@ for filename in gen.getHeaderFiles(): #os.listdir("../to_wrap/"):
                 if m["inline"] == True:
                     methodReturn = methodReturn.replace('inline ','')
 
-                nameSpaceDivider = ''
-                if len(nameSpace) > 0:
-                    nameSpaceDivider = "::"
-                methodPointerName = nameSpace + nameSpaceDivider+ "_M"+justClassName+"__"+methodName+"__"+str(methodIndex)  #"_".join(methodTypeRaw)+"__"+methodReturnRaw
-                methodPointerNameWithoutNS = justClassName+"__"+methodName+"__"+str(methodIndex)+"_M"
-                # another fix:
-                methodPointerNameWithoutNS = methodPointerNameWithoutNS.replace(":","_")
-                methodIndex+=1
+                methodIndex += 1
 
                 if m["static"] == True:
-                    wrapName = "WRAP_STATIC_METHOD"
-                    methodPointer = methodReturn + "(*)(" + ",".join(methodType) + ")"
-                    methodPointerDeclare = methodReturn + "("+"*"+methodPointerNameWithoutNS+")(" + ",".join(methodType) + ")"
-                    methodDeclare = "constexpr " + methodPointerDeclare + " "
-                    methodDeclare += " = " + "static_cast<" + methodPointer + ">(&" +className+"::"+methodName+");"
-                    typeDeclare = "using "+methodPointerNameWithoutNS+"_type = "+ methodReturn + "(*)(" + ",".join(methodType) + ");\n"
-
-                    # outputFile.write(objt.)
+                    className = c
+                    nameSpace = cppHeader.classes[c]["namespace"]
+                    methodArgs = ",".join(methodType)
+                    outputFile.write(objt.genClassStaticMethod(nameSpace, className, methodIndex, methodName, methodReturn, methodArgs))
                 else:
-                    methodPointer = methodReturn + "("+className+"::*)(" + ",".join(methodType) + ")"
-                    methodPointerDeclare = methodReturn + "("+className+"::*"+methodPointerNameWithoutNS+")(" + ",".join(methodType) + ")"
-                    methodDeclare = "constexpr " + methodPointerDeclare + " "
-                    methodDeclare += " = " + "static_cast<" + methodPointer + ">(&" +className+"::"+methodName+");"
-                    typeDeclare = "using "+methodPointerNameWithoutNS+"_type = "+ methodReturn + "("+className+"::*)(" + ",".join(methodType) + ");\n"
+                    methodArgs = ",".join(methodType)
+                    if customConstructor == True :
+                        className = c
+                        nameSpace = cppHeader.classes[c]["namespace"]
 
-                outputFile.write(typeDeclare)
-                if customConstructor == False:
-                    outputFile.write(""+methodDeclare +"\n")
-
-                pdObjectName = gen.convertName(c)+"."+gen.convertName(m["name"])
-                if customConstructor == True:
-                    pdObjectName = gen.convertName(c)+".new"
-
-                outputFile.write(wrapName+"(" + className + " , " + m["name"]+" , \"" + pdObjectName+"\","+methodPointerNameWithoutNS+","+methodPointerNameWithoutNS+"_type);\n")
-
-                staticObjOffset = int(m["static"])*60
-
-                # methodInfoString = "("+" ".join(methodType)+")->"+methodReturn
-
-                outputFile.write("\n")
+                        outputFile.write(objt.genCustomClass(nameSpace, className, methodIndex, methodArgs))
+                    else:
+                        className = c
+                        nameSpace = cppHeader.classes[c]["namespace"]
+                        outputFile.write(objt.genClassMethod(nameSpace, className, methodIndex, methodName, methodReturn, methodArgs))
 
             outputFile.write("\n")
 

@@ -42,16 +42,19 @@ def getHeaderFilesFullPath():
     return ret;
 
 #####
-def getPdObjectName(cxxClassName):
-    return "object"
-
-def getPdObjectName(cxxClassName, cxxMethodName):
-    return "object.method"
+# def getPdObjectName(cxxClassName):
+#     return "object"
+#
+# def getPdObjectName(cxxClassName, cxxMethodName):
+#     return "object.method"
 #####
 
 def getClassNameCXX(nameSpace, classNameSrc):
+    nameSpaceDivider = "::"
+    if (nameSpace == ""):
+        nameSpaceDivider = ""
     if len(nameSpace) > 0:
-        ret = nameSpace+"::"+classNameSrc
+        ret = nameSpace + "::" + classNameSrc 
     else:
         ret = classNameSrc
     return ret

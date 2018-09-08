@@ -68,9 +68,10 @@ for filename in gen.getHeaderFiles():#os.listdir("../to_wrap/"):
 
             nameSpace = cppHeader.classes[c]["namespace"]
 
+            pdClassName = gen.getClassNamePD(nameSpace, className)
             #stub:
             if hasDefaultConstructor(cppHeader.classes[c]):
-                docwrite.classObject(c, "no description", gen.getClassNamePD(nameSpace, className))
+                docwrite.classObject(c, "no description", pdClassName)
                 dbFile.write("{0} . .\n".format(gen.convertName(c)))
 
             for m in cppHeader.classes[c]["methods"]["public"]:
@@ -87,7 +88,6 @@ for filename in gen.getHeaderFiles():#os.listdir("../to_wrap/"):
                 lastClassName = className.split("::")[-1]
                 customConstructor = False
                 methodName = m["name"]
-
                 if methodName == lastClassName:
                     #exclude default
                     if methodType != "":
@@ -100,8 +100,8 @@ for filename in gen.getHeaderFiles():#os.listdir("../to_wrap/"):
                     continue
 
                 if m["static"] == True:
-                    docwrite.staticMethodObject(gen.convertName(c), "", pdObjectName, methodType, methodReturn, c)
+                    docwrite.staticMethodObject(pdClassName, "", pdObjectName, methodType, methodReturn, c)
                 else:
-                    docwrite.classMethodObject(gen.convertName(c), "", pdObjectName, methodType, methodReturn, c)
+                    docwrite.classMethodObject(pdClassName, "", pdObjectName, methodType, methodReturn, c)
 
                 dbFile.write("{0} . ..\n".format(pdObjectName))

@@ -14,29 +14,29 @@ def classObject(name,description,objectType):
     outputFile = open(fileName,"w+")
     outputFile.write("""<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
-    <object name="{2}">
-        <title>{2}</title>
+    <object name="{CLASSNAME_PD}">
+        <title>{CLASSNAME_PD}</title>
         <info>
-            <par>{1}</par>
+            <par>{DESCR}</par>
         </info>
         <meta>
             <authors>
                 <author>Script</author>
             </authors>
-            <description>Instance of {0} object.</description>
+            <description>Instance of {CLASSNAME_CXX} object.</description>
             <license>N/A</license>
             <library>wrapper_library</library>
-            <category>{2}</category>
+            <category>{CLASSNAME_PD}</category>
             <keywords>none</keywords>
             <since>1.0</since>
         </meta>
         <inlets>
             <inlet>
-                <xinfo on="bang">Outputs DataAtom with {0} object.</xinfo>
+                <xinfo on="bang">Outputs DataAtom with {CLASSNAME_CXX} object.</xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>Outputs DataAtom with {0} object.</outlet>
+            <outlet>Outputs DataAtom with {CLASSNAME_CXX} object.</outlet>
         </outlets>
         <example>
             <pdascii>
@@ -45,7 +45,7 @@ def classObject(name,description,objectType):
 
 [B]
 |
-[{2}]
+[{CLASSNAME_PD}]
 |
 [ui.display @display_type 1]
 
@@ -54,7 +54,7 @@ def classObject(name,description,objectType):
         </example>
     </object>
 </pddoc>
-    """.format(name,description,objectType))
+    """.format(CLASSNAME_CXX = name, DESCR = description, CLASSNAME_PD = objectType))
 
 #----------
 
@@ -128,7 +128,7 @@ def classMethodObject(className,description,objectType,methodType,methodReturn, 
         </example>
     </object>
 </pddoc>
-    """.format(className,description,objectType, methodType, methodReturn, cppClassName))
+    """.format(className, description, objectType, methodType, methodReturn, cppClassName))
 
 # ---------------
 

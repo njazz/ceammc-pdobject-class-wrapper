@@ -115,163 +115,169 @@ constexpr auto _func_test_map_input__17_M  = &test_map_input;
 WRAP_FUNCTION(test_map_input, "test_map_input", _func_test_map_input__17_M, _func_test_map_input__17_M_type);
 
 // Class: DemoSubClass
-// Namespace: DemoSubClass
+// Namespace: 
 WRAP_CLASS(DemoSubClass , "demosubclass");
 
-using DemoSubClass__ref__0_M_type = long &(DemoSubClass::*)();
-constexpr long &(DemoSubClass::*DemoSubClass__ref__0_M)()  = static_cast<long &(DemoSubClass::*)()>(&DemoSubClass::ref);
-WRAP_METHOD(DemoSubClass , ref , "demosubclass.ref",DemoSubClass__ref__0_M,DemoSubClass__ref__0_M_type);
 
-using DemoSubClass__vec__1_M_type = std::vector<std::string>(DemoSubClass::*)();
-constexpr std::vector<std::string>(DemoSubClass::*DemoSubClass__vec__1_M)()  = static_cast<std::vector<std::string>(DemoSubClass::*)()>(&DemoSubClass::vec);
-WRAP_METHOD(DemoSubClass , vec , "demosubclass.vec",DemoSubClass__vec__1_M,DemoSubClass__vec__1_M_type);
+using demosubclass__ref__1_M_type = long &(DemoSubClass::*)();
+constexpr long &(DemoSubClass::*demosubclass__ref__1_M)()  = static_cast<long &(DemoSubClass::*)()>(&DemoSubClass::ref);
+WRAP_METHOD(DemoSubClass, ref, "demosubclass.ref", demosubclass__ref__1_M, demosubclass__ref__1_M_type);
 
+using demosubclass__vec__2_M_type = std::vector<std::string>(DemoSubClass::*)();
+constexpr std::vector<std::string>(DemoSubClass::*demosubclass__vec__2_M)()  = static_cast<std::vector<std::string>(DemoSubClass::*)()>(&DemoSubClass::vec);
+WRAP_METHOD(DemoSubClass, vec, "demosubclass.vec", demosubclass__vec__2_M, demosubclass__vec__2_M_type);
 
 
 // Class: DemoClass
-// Namespace: DemoClass
+// Namespace: 
 WRAP_CLASS(DemoClass , "democlass");
 
-using DemoClass__set__0_M_type = void(DemoClass::*)(float);
-constexpr void(DemoClass::*DemoClass__set__0_M)(float)  = static_cast<void(DemoClass::*)(float)>(&DemoClass::set);
-WRAP_METHOD(DemoClass , set , "democlass.set",DemoClass__set__0_M,DemoClass__set__0_M_type);
 
-using DemoClass__get__1_M_type = float(DemoClass::*)();
-constexpr float(DemoClass::*DemoClass__get__1_M)()  = static_cast<float(DemoClass::*)()>(&DemoClass::get);
-WRAP_METHOD(DemoClass , get , "democlass.get",DemoClass__get__1_M,DemoClass__get__1_M_type);
+using democlass__set__1_M_type = void(DemoClass::*)(float);
+constexpr void(DemoClass::*democlass__set__1_M)(float)  = static_cast<void(DemoClass::*)(float)>(&DemoClass::set);
+WRAP_METHOD(DemoClass, set, "democlass.set", democlass__set__1_M, democlass__set__1_M_type);
 
-using DemoClass__sum__2_M_type = float(DemoClass::*)(float,float);
-constexpr float(DemoClass::*DemoClass__sum__2_M)(float,float)  = static_cast<float(DemoClass::*)(float,float)>(&DemoClass::sum);
-WRAP_METHOD(DemoClass , sum , "democlass.sum",DemoClass__sum__2_M,DemoClass__sum__2_M_type);
+using democlass__get__2_M_type = float(DemoClass::*)();
+constexpr float(DemoClass::*democlass__get__2_M)()  = static_cast<float(DemoClass::*)()>(&DemoClass::get);
+WRAP_METHOD(DemoClass, get, "democlass.get", democlass__get__2_M, democlass__get__2_M_type);
 
-using DemoClass__getString__3_M_type = std::string(DemoClass::*)();
-constexpr std::string(DemoClass::*DemoClass__getString__3_M)()  = static_cast<std::string(DemoClass::*)()>(&DemoClass::getString);
-WRAP_METHOD(DemoClass , getString , "democlass.getstring",DemoClass__getString__3_M,DemoClass__getString__3_M_type);
+using democlass__sum__3_M_type = float(DemoClass::*)(float,float);
+constexpr float(DemoClass::*democlass__sum__3_M)(float,float)  = static_cast<float(DemoClass::*)(float,float)>(&DemoClass::sum);
+WRAP_METHOD(DemoClass, sum, "democlass.sum", democlass__sum__3_M, democlass__sum__3_M_type);
 
-using DemoClass__setString__4_M_type = void(DemoClass::*)(std::string);
-constexpr void(DemoClass::*DemoClass__setString__4_M)(std::string)  = static_cast<void(DemoClass::*)(std::string)>(&DemoClass::setString);
-WRAP_METHOD(DemoClass , setString , "democlass.setstring",DemoClass__setString__4_M,DemoClass__setString__4_M_type);
+using democlass__getstring__4_M_type = std::string(DemoClass::*)();
+constexpr std::string(DemoClass::*democlass__getstring__4_M)()  = static_cast<std::string(DemoClass::*)()>(&DemoClass::getString);
+WRAP_METHOD(DemoClass, getString, "democlass.getstring", democlass__getstring__4_M, democlass__getstring__4_M_type);
 
-using DemoClass__setDemoSubclass__5_M_type = void(DemoClass::*)(DemoSubClass);
-constexpr void(DemoClass::*DemoClass__setDemoSubclass__5_M)(DemoSubClass)  = static_cast<void(DemoClass::*)(DemoSubClass)>(&DemoClass::setDemoSubclass);
-WRAP_METHOD(DemoClass , setDemoSubclass , "democlass.setdemosubclass",DemoClass__setDemoSubclass__5_M,DemoClass__setDemoSubclass__5_M_type);
+using democlass__setstring__5_M_type = void(DemoClass::*)(std::string);
+constexpr void(DemoClass::*democlass__setstring__5_M)(std::string)  = static_cast<void(DemoClass::*)(std::string)>(&DemoClass::setString);
+WRAP_METHOD(DemoClass, setString, "democlass.setstring", democlass__setstring__5_M, democlass__setstring__5_M_type);
 
-using DemoClass__getDemoSubclass__6_M_type = DemoSubClass(DemoClass::*)();
-constexpr DemoSubClass(DemoClass::*DemoClass__getDemoSubclass__6_M)()  = static_cast<DemoSubClass(DemoClass::*)()>(&DemoClass::getDemoSubclass);
-WRAP_METHOD(DemoClass , getDemoSubclass , "democlass.getdemosubclass",DemoClass__getDemoSubclass__6_M,DemoClass__getDemoSubclass__6_M_type);
+using democlass__setdemosubclass__6_M_type = void(DemoClass::*)(DemoSubClass);
+constexpr void(DemoClass::*democlass__setdemosubclass__6_M)(DemoSubClass)  = static_cast<void(DemoClass::*)(DemoSubClass)>(&DemoClass::setDemoSubclass);
+WRAP_METHOD(DemoClass, setDemoSubclass, "democlass.setdemosubclass", democlass__setdemosubclass__6_M, democlass__setdemosubclass__6_M_type);
 
-using DemoClass__testStatic__7_M_type = std::string(*)(int);
-constexpr std::string(*DemoClass__testStatic__7_M)(int)  = static_cast<std::string(*)(int)>(&DemoClass::testStatic);
-WRAP_STATIC_METHOD(DemoClass , testStatic , "democlass.teststatic",DemoClass__testStatic__7_M,DemoClass__testStatic__7_M_type);
+using democlass__getdemosubclass__7_M_type = DemoSubClass(DemoClass::*)();
+constexpr DemoSubClass(DemoClass::*democlass__getdemosubclass__7_M)()  = static_cast<DemoSubClass(DemoClass::*)()>(&DemoClass::getDemoSubclass);
+WRAP_METHOD(DemoClass, getDemoSubclass, "democlass.getdemosubclass", democlass__getdemosubclass__7_M, democlass__getdemosubclass__7_M_type);
+
+using democlass__teststatic__8_M_type = std::string(*)(int);
+constexpr std::string(*democlass__teststatic__8_M)(int)  = (&DemoClass::testStatic); 
+WRAP_STATIC_METHOD(DemoClass, testStatic, "democlass.teststatic", democlass__teststatic__8_M, democlass__teststatic__8_M_type);
 
 
-using WithConstructor__WithConstructor__0_M_type = void(WithConstructor::*)(float);
-WRAP_CUSTOM_CLASS(WithConstructor , WithConstructor , "withconstructor.new",WithConstructor__WithConstructor__0_M,WithConstructor__WithConstructor__0_M_type);
+// Class: WithConstructor
+// Namespace: 
+using withconstructor_1_constructor_type = void(WithConstructor::*)(float);
+WRAP_CUSTOM_CLASS(WithConstructor, WithConstructor, "withconstructor.new", withconstructor_1_constructor, withconstructor_1_constructor_type);
 
-using WithConstructor__testFunc__1_M_type = float(WithConstructor::*)(float);
-constexpr float(WithConstructor::*WithConstructor__testFunc__1_M)(float)  = static_cast<float(WithConstructor::*)(float)>(&WithConstructor::testFunc);
-WRAP_METHOD(WithConstructor , testFunc , "withconstructor.testfunc",WithConstructor__testFunc__1_M,WithConstructor__testFunc__1_M_type);
-
+using withconstructor__testfunc__2_M_type = float(WithConstructor::*)(float);
+constexpr float(WithConstructor::*withconstructor__testfunc__2_M)(float)  = static_cast<float(WithConstructor::*)(float)>(&WithConstructor::testFunc);
+WRAP_METHOD(WithConstructor, testFunc, "withconstructor.testfunc", withconstructor__testfunc__2_M, withconstructor__testfunc__2_M_type);
 
 
 // Class: AfterTemplate
-// Namespace: AfterTemplate
+// Namespace: 
 WRAP_CLASS(AfterTemplate , "aftertemplate");
 
 
 
 // Class: NS::inNamespace
-// Namespace: inNamespace
+// Namespace: NS
 WRAP_CLASS(NS::inNamespace , "ns.innamespace");
 
-using inNamespace__method__0_M_type = void(NS::inNamespace::*)();
-constexpr void(NS::inNamespace::*inNamespace__method__0_M)()  = static_cast<void(NS::inNamespace::*)()>(&NS::inNamespace::method);
-WRAP_METHOD(NS::inNamespace , method , "innamespace.method",inNamespace__method__0_M,inNamespace__method__0_M_type);
 
+using ns_innamespace__method__1_M_type = void(NS::inNamespace::*)();
+constexpr void(NS::inNamespace::*ns_innamespace__method__1_M)()  = static_cast<void(NS::inNamespace::*)()>(&NS::inNamespace::method);
+WRAP_METHOD(NS::inNamespace, method, "ns.innamespace.method", ns_innamespace__method__1_M, ns_innamespace__method__1_M_type);
 
 
 // Class: NS::Sub::inNestedNamespace
-// Namespace: inNestedNamespace
+// Namespace: NS::Sub
 WRAP_CLASS(NS::Sub::inNestedNamespace , "ns.sub.innestednamespace");
 
-using inNestedNamespace__method__0_M_type = void(NS::Sub::inNestedNamespace::*)();
-constexpr void(NS::Sub::inNestedNamespace::*inNestedNamespace__method__0_M)()  = static_cast<void(NS::Sub::inNestedNamespace::*)()>(&NS::Sub::inNestedNamespace::method);
-WRAP_METHOD(NS::Sub::inNestedNamespace , method , "innestednamespace.method",inNestedNamespace__method__0_M,inNestedNamespace__method__0_M_type);
+
+using ns_sub_innestednamespace__method__1_M_type = void(NS::Sub::inNestedNamespace::*)();
+constexpr void(NS::Sub::inNestedNamespace::*ns_sub_innestednamespace__method__1_M)()  = static_cast<void(NS::Sub::inNestedNamespace::*)()>(&NS::Sub::inNestedNamespace::method);
+WRAP_METHOD(NS::Sub::inNestedNamespace, method, "ns.sub.innestednamespace.method", ns_sub_innestednamespace__method__1_M, ns_sub_innestednamespace__method__1_M_type);
 
 
-using NestedParent__method__0_M_type = void(NestedParent::*)();
-constexpr void(NestedParent::*NestedParent__method__0_M)()  = static_cast<void(NestedParent::*)()>(&NestedParent::method);
-WRAP_METHOD(NestedParent , method , "nestedparent.method",NestedParent__method__0_M,NestedParent__method__0_M_type);
+using nestedparent__method__1_M_type = void(NestedParent::*)();
+constexpr void(NestedParent::*nestedparent__method__1_M)()  = static_cast<void(NestedParent::*)()>(&NestedParent::method);
+WRAP_METHOD(NestedParent, method, "nestedparent.method", nestedparent__method__1_M, nestedparent__method__1_M_type);
 
-using NestedParent__NestedParent__1_M_type = void(NestedParent::*)(float);
-WRAP_CUSTOM_CLASS(NestedParent , NestedParent , "nestedparent.new",NestedParent__NestedParent__1_M,NestedParent__NestedParent__1_M_type);
+// Class: NestedParent
+// Namespace: 
+using nestedparent_2_constructor_type = void(NestedParent::*)(float);
+WRAP_CUSTOM_CLASS(NestedParent, NestedParent, "nestedparent.new", nestedparent_2_constructor, nestedparent_2_constructor_type);
 
 
-using NestedParent__NestedStruct__method__0_M_type = void(NestedParent::NestedParent::NestedStruct::*)();
-constexpr void(NestedParent::NestedParent::NestedStruct::*NestedParent__NestedStruct__method__0_M)()  = static_cast<void(NestedParent::NestedParent::NestedStruct::*)()>(&NestedParent::NestedParent::NestedStruct::method);
-WRAP_METHOD(NestedParent::NestedParent::NestedStruct , method , "nestedparent::nestedstruct.method",NestedParent__NestedStruct__method__0_M,NestedParent__NestedStruct__method__0_M_type);
+using _nestedparent_nestedparent_nestedstruct__method__1_M_type = void(::NestedParent::NestedParent::NestedStruct::*)();
+constexpr void(::NestedParent::NestedParent::NestedStruct::*_nestedparent_nestedparent_nestedstruct__method__1_M)()  = static_cast<void(::NestedParent::NestedParent::NestedStruct::*)()>(&::NestedParent::NestedParent::NestedStruct::method);
+WRAP_METHOD(::NestedParent::NestedParent::NestedStruct, method, ".nestedparent.nestedparent.nestedstruct.method", _nestedparent_nestedparent_nestedstruct__method__1_M, _nestedparent_nestedparent_nestedstruct__method__1_M_type);
 
-using NestedParent__NestedStruct__NestedStruct__1_M_type = void(NestedParent::NestedParent::NestedStruct::*)(float);
-WRAP_CUSTOM_CLASS(NestedParent::NestedParent::NestedStruct , NestedStruct , "nestedparent::nestedstruct.new",NestedParent__NestedStruct__NestedStruct__1_M,NestedParent__NestedStruct__NestedStruct__1_M_type);
-
+// Class: ::NestedParent::NestedParent::NestedStruct
+// Namespace: ::NestedParent
+using _nestedparent_nestedparent_nestedstruct_2_constructor_type = void(::NestedParent::NestedParent::NestedStruct::*)(float);
+WRAP_CUSTOM_CLASS(::NestedParent::NestedParent::NestedStruct, NestedParent::NestedStruct, ".nestedparent.nestedparent.nestedstruct.new", _nestedparent_nestedparent_nestedstruct_2_constructor, _nestedparent_nestedparent_nestedstruct_2_constructor_type);
 
 
 // Class: SameName::SameName
 // Namespace: SameName
 WRAP_CLASS(SameName::SameName , "samename.samename");
 
-using SameName__method__0_M_type = void(SameName::SameName::*)();
-constexpr void(SameName::SameName::*SameName__method__0_M)()  = static_cast<void(SameName::SameName::*)()>(&SameName::SameName::method);
-WRAP_METHOD(SameName::SameName , method , "samename.method",SameName__method__0_M,SameName__method__0_M_type);
 
+using samename_samename__method__1_M_type = void(SameName::SameName::*)();
+constexpr void(SameName::SameName::*samename_samename__method__1_M)()  = static_cast<void(SameName::SameName::*)()>(&SameName::SameName::method);
+WRAP_METHOD(SameName::SameName, method, "samename.samename.method", samename_samename__method__1_M, samename_samename__method__1_M_type);
 
 
 // Class: SameName::SameName::SameName::NestedStructNS
-// Namespace: SameName::NestedStructNS
+// Namespace: SameName::SameName
 WRAP_CLASS(SameName::SameName::SameName::NestedStructNS , "samename.samename.samename.nestedstructns");
 
-using SameName__NestedStructNS__method__0_M_type = void(SameName::SameName::SameName::NestedStructNS::*)();
-constexpr void(SameName::SameName::SameName::NestedStructNS::*SameName__NestedStructNS__method__0_M)()  = static_cast<void(SameName::SameName::SameName::NestedStructNS::*)()>(&SameName::SameName::SameName::NestedStructNS::method);
-WRAP_METHOD(SameName::SameName::SameName::NestedStructNS , method , "samename::nestedstructns.method",SameName__NestedStructNS__method__0_M,SameName__NestedStructNS__method__0_M_type);
 
+using samename_samename_samename_nestedstructns__method__1_M_type = void(SameName::SameName::SameName::NestedStructNS::*)();
+constexpr void(SameName::SameName::SameName::NestedStructNS::*samename_samename_samename_nestedstructns__method__1_M)()  = static_cast<void(SameName::SameName::SameName::NestedStructNS::*)()>(&SameName::SameName::SameName::NestedStructNS::method);
+WRAP_METHOD(SameName::SameName::SameName::NestedStructNS, method, "samename.samename.samename.nestedstructns.method", samename_samename_samename_nestedstructns__method__1_M, samename_samename_samename_nestedstructns__method__1_M_type);
 
 
 // Class: BaseClass
-// Namespace: BaseClass
+// Namespace: 
 WRAP_CLASS(BaseClass , "baseclass");
 
-using BaseClass__v__0_M_type = std::string(BaseClass::*)();
-constexpr std::string(BaseClass::*BaseClass__v__0_M)()  = static_cast<std::string(BaseClass::*)()>(&BaseClass::v);
-WRAP_METHOD(BaseClass , v , "baseclass.v",BaseClass__v__0_M,BaseClass__v__0_M_type);
 
+using baseclass__v__1_M_type = std::string(BaseClass::*)();
+constexpr std::string(BaseClass::*baseclass__v__1_M)()  = static_cast<std::string(BaseClass::*)()>(&BaseClass::v);
+WRAP_METHOD(BaseClass, v, "baseclass.v", baseclass__v__1_M, baseclass__v__1_M_type);
 
 
 // Class: DerivedClass
-// Namespace: DerivedClass
+// Namespace: 
 WRAP_CLASS(DerivedClass , "derivedclass");
 
-using DerivedClass__v__0_M_type = std::string(DerivedClass::*)();
-constexpr std::string(DerivedClass::*DerivedClass__v__0_M)()  = static_cast<std::string(DerivedClass::*)()>(&DerivedClass::v);
-WRAP_METHOD(DerivedClass , v , "derivedclass.v",DerivedClass__v__0_M,DerivedClass__v__0_M_type);
 
+using derivedclass__v__1_M_type = std::string(DerivedClass::*)();
+constexpr std::string(DerivedClass::*derivedclass__v__1_M)()  = static_cast<std::string(DerivedClass::*)()>(&DerivedClass::v);
+WRAP_METHOD(DerivedClass, v, "derivedclass.v", derivedclass__v__1_M, derivedclass__v__1_M_type);
 
 
 // Class: PolyValue
-// Namespace: PolyValue
+// Namespace: 
 WRAP_CLASS(PolyValue , "polyvalue");
 
-using PolyValue__setValue__0_M_type = void(PolyValue::*)(BaseClass *);
-constexpr void(PolyValue::*PolyValue__setValue__0_M)(BaseClass *)  = static_cast<void(PolyValue::*)(BaseClass *)>(&PolyValue::setValue);
-WRAP_METHOD(PolyValue , setValue , "polyvalue.setvalue",PolyValue__setValue__0_M,PolyValue__setValue__0_M_type);
 
-using PolyValue__valuePtr__1_M_type = BaseClass *(PolyValue::*)();
-constexpr BaseClass *(PolyValue::*PolyValue__valuePtr__1_M)()  = static_cast<BaseClass *(PolyValue::*)()>(&PolyValue::valuePtr);
-WRAP_METHOD(PolyValue , valuePtr , "polyvalue.valueptr",PolyValue__valuePtr__1_M,PolyValue__valuePtr__1_M_type);
+using polyvalue__setvalue__1_M_type = void(PolyValue::*)(BaseClass *);
+constexpr void(PolyValue::*polyvalue__setvalue__1_M)(BaseClass *)  = static_cast<void(PolyValue::*)(BaseClass *)>(&PolyValue::setValue);
+WRAP_METHOD(PolyValue, setValue, "polyvalue.setvalue", polyvalue__setvalue__1_M, polyvalue__setvalue__1_M_type);
 
-using PolyValue__value__2_M_type = BaseClass(PolyValue::*)();
-constexpr BaseClass(PolyValue::*PolyValue__value__2_M)()  = static_cast<BaseClass(PolyValue::*)()>(&PolyValue::value);
-WRAP_METHOD(PolyValue , value , "polyvalue.value",PolyValue__value__2_M,PolyValue__value__2_M_type);
+using polyvalue__valueptr__2_M_type = BaseClass *(PolyValue::*)();
+constexpr BaseClass *(PolyValue::*polyvalue__valueptr__2_M)()  = static_cast<BaseClass *(PolyValue::*)()>(&PolyValue::valuePtr);
+WRAP_METHOD(PolyValue, valuePtr, "polyvalue.valueptr", polyvalue__valueptr__2_M, polyvalue__valueptr__2_M_type);
 
+using polyvalue__value__3_M_type = BaseClass(PolyValue::*)();
+constexpr BaseClass(PolyValue::*polyvalue__value__3_M)()  = static_cast<BaseClass(PolyValue::*)()>(&PolyValue::value);
+WRAP_METHOD(PolyValue, value, "polyvalue.value", polyvalue__value__3_M, polyvalue__value__3_M_type);
 
 }
 }
