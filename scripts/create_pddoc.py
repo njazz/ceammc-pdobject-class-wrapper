@@ -78,7 +78,10 @@ for filename in gen.getHeaderFiles():#os.listdir("../to_wrap/"):
                 if m["template"] != False:
                     continue
 
-                pdObjectName = gen.getClassNamePD(m["namespace"], className)+"."+gen.convertName(m["name"])
+                pdObjectName = gen.getClassNamePD(nameSpace, className)+"."+gen.convertName(m["name"])
+
+                # TODO: temporary fix!!
+                # pdObjectName.replace("..",".")
 
                 methodType = [t["type"] for t in m["parameters"]]
                 methodReturn = m["rtnType"]

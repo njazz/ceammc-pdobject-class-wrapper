@@ -62,12 +62,18 @@ def classMethodObject(className,description,objectType,methodType,methodReturn, 
     fileName = "../build/doc/"+objectType+".pddoc"
     outputFile = open(fileName,"w+")
 
-    if len(methodType) == 0:
-        methodType = "accepts bang"
-    else:
-        methodType = "accepts list: {0}".format(methodType)
+    methodTypeStr = ",".join(methodType)
+    methodTypeStr.replace("<","(")
+    methodTypeStr.replace(">",")")
+    methodReturn.replace("<","(")
+    methodReturn.replace(">",")")
 
-    if len(methodReturn)==0:
+    if methodType == "[]":
+        methodTypeStr = "accepts bang"
+    else:
+        methodTypeStr = "accepts list: {0}".format(methodTypeStr)
+
+    if methodReturn =="[]":
         methodReturn = "no output"
     else:
         methodReturn = "list: {0}".format(methodReturn)
@@ -128,17 +134,24 @@ def classMethodObject(className,description,objectType,methodType,methodReturn, 
         </example>
     </object>
 </pddoc>
-    """.format(className, description, objectType, methodType, methodReturn, cppClassName))
+    """.format(className, description, objectType, methodTypeStr, methodReturn, cppClassName))
 
 # ---------------
 
 def staticMethodObject(className,description,objectType, methodType,methodReturn, cppClassName):
     fileName = "../build/doc/"+objectType+".pddoc"
     outputFile = open(fileName,"w+")
+
+    methodTypeStr = ",".join(methodType)
+    methodTypeStr.replace("<","(")
+    methodTypeStr.replace(">",")")
+    methodReturn.replace("<","(")
+    methodReturn.replace(">",")")
+
     if methodType == "[]":
-        methodType = "accepts bang"
+        methodTypeStr = "accepts bang"
     else:
-        methodType = "accepts list: {0}".format(methodType)
+        methodTypeStr = "accepts list: {0}".format(methodTypeStr)
 
     if methodReturn =="[]":
         methodReturn = "no output"
@@ -206,7 +219,7 @@ def staticMethodObject(className,description,objectType, methodType,methodReturn
         </example>
     </object>
 </pddoc>
-    """.format(className,description,objectType, methodType,methodReturn, cppClassName))
+    """.format(className,description,objectType, methodTypeStr,methodReturn, cppClassName))
 # ----------
 
 def customClassObject(className,description,objectType, infoString):
