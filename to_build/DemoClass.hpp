@@ -183,6 +183,9 @@ std::map<std::string, func_1> func_list(func_1 a, func_1 b);
 typedef std::map<std::string,std::string> map_str;
 std::string test_map_input (map_str src);
 
+namespace forFunction{
+void testInNamespace();
+};
 //func_1 func_l_plus_10();
 //func_1 func_l_minus_10();
 //float func_l_apply(func_1 f, float v);

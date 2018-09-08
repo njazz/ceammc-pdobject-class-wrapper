@@ -89,7 +89,6 @@ set (HEADERS
 )
 
 #
-
 set(CMAKE_C_FLAGS ${CMAKE_C_FLAGS} "-fblocks")
 
 #
@@ -111,6 +110,7 @@ LINK_DIRECTORIES(${CMAKE_SOURCE_DIR}/to_link/)
 add_library(wrapper_library SHARED
     ${CEAMMC_LIB_SOURCES}
     ${WRAP_SOURCES}
+    ${WRAP_SOURCES_TEST}
     ${SOURCES} )
 
 file (GLOB WRAP_LINK_LIBS

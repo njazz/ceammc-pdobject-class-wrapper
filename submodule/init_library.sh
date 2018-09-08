@@ -8,6 +8,7 @@ rm -Rf wrapper
 mkdir to_wrap
 mkdir to_build
 mkdir to_link
+mkdir build
 
 git init
 

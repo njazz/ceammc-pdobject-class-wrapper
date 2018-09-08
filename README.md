@@ -92,6 +92,8 @@ Requires Boost 1.50+
 - check DataTPtr pointers
 - doc cleanup for plain functions  
 - pass DOXYGEN comments to pddoc  
+- class object containing all methods  
+- local/global data objects  
 
 Tested in CEAMMC Pd 2018.08 (v0.6)
 

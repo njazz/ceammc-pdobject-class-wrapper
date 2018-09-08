@@ -158,3 +158,7 @@ std::string test_map_input (map_str src)
     }
     return ret;
 }
+
+namespace forFunction{
+void testInNamespace(){}
+};
