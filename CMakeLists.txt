@@ -69,8 +69,8 @@ if (WRAPPER_SUBMODULE=="YES")
     set(WRAP_SOURCES_TEST)
 else()
 file (GLOB WRAP_SOURCES_TEST
-    "${PROJECT_SOURCE_DIR}/to_build/*.c"
-    "${PROJECT_SOURCE_DIR}/to_build/*.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/to_build/*.c"
+    "${CMAKE_CURRENT_SOURCE_DIR}/to_build/*.cpp"
     )
 endif()
 
@@ -79,23 +79,23 @@ include_directories(./to_include/)
 ###
 
 file (GLOB WRAP_SOURCES
-    "${PROJECT_SOURCE_DIR}/../to_build/*.c"
-    "${PROJECT_SOURCE_DIR}/../to_build/*.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/../to_build/*.c"
+    "${CMAKE_CURRENT_SOURCE_DIR}/../to_build/*.cpp"
     )
-include_directories(./to_wrap/)
-include_directories(./to_include/)
+include_directories(../to_wrap/)
+include_directories(../to_include/)
 
 #cfg
 file (GLOB WRAP_CFG
-    "${PROJECT_SOURCE_DIR}/../library_info.cfg"
+    "${CMAKE_CURRENT_SOURCE_DIR}/../library_info.cfg"
     )
 
 set (HEADERS
-    ceammc_lib/ceammc_object.h 
-    ceammc_lib/ceammc_message.h 
-    ceammc_lib/ceammc_format.h 
-    ceammc_lib/ceammc_log.h 
-    ceammc_lib/ceammc_property.h 
+    ceammc_lib/ceammc_object.h
+    ceammc_lib/ceammc_message.h
+    ceammc_lib/ceammc_format.h
+    ceammc_lib/ceammc_log.h
+    ceammc_lib/ceammc_property.h
 )
 
 #
@@ -115,7 +115,8 @@ include_directories(./ceammc-pd-0.6/string)
 
 include_directories(./pd_headers/)
 
-LINK_DIRECTORIES(${CMAKE_SOURCE_DIR}/to_link/)
+LINK_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/to_link/)
+LINK_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/../to_link/)
 
 add_library(wrapper_library SHARED
     ${CEAMMC_LIB_SOURCES}
@@ -161,5 +162,3 @@ add_custom_command(
 ###
 enable_testing(true)
 add_subdirectory(tests)
-
-

@@ -55,7 +55,7 @@ def classObject(name,description,objectType):
         <example>
             <pdascii>
 <![CDATA[
-[declare -lib wrapper_library]
+[declare -lib {CFG_LIBRARY}]
 
 [B]
 |
@@ -132,7 +132,7 @@ def classMethodObject(className,description,objectType,methodType,methodReturn, 
         <example>
             <pdascii>
 <![CDATA[
-[declare -lib wrapper_library]
+[declare -lib {CFG_LIBRARY}]
 
 [B]
 |
@@ -223,7 +223,7 @@ def staticMethodObject(className,description,objectType, methodType,methodReturn
         <example>
             <pdascii>
 <![CDATA[
-[declare -lib wrapper_library]
+[declare -lib {CFG_LIBRARY}]
 
 [B] [1.0( [symbol test( [1 2 3(
 |   |     |             |
@@ -299,7 +299,7 @@ def customClassObject(className,description,objectType, infoString):
         <example>
             <pdascii>
 <![CDATA[
-[declare -lib wrapper_library]
+[declare -lib {CFG_LIBRARY}]
 
 [B] [1.0( [symbol test( [1 2 3(
 |   |     |             |
