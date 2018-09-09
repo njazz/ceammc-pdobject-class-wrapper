@@ -9,7 +9,7 @@ http://github.com/uliss/pure-data
 
 ![screenshot](demo.png?raw=true "screenshot")
 
-**Requires CEAMMC Pd v0.5+**
+**Requires CEAMMC Pd v0.6+**
 
 To build in-place:
 - clone this repository
@@ -17,9 +17,10 @@ To build in-place:
 - add sources to (to_build) and libraries to (to_link) folders.
 - mkdir build && cd build && cmake .. && make
 
-To create new library: (IN PROGRESS)
+To create new library:
 - create empty folder
-- clone ./submodule/init_library.sh to your new folder
+- clone (this repository)/submodule/init_library.sh to your new folder
+- chmod +x init_library.sh
 - run ./init_library.sh
 - edit library_info.cfg
 - mkdir build && cd build && cmake .. && make
@@ -61,7 +62,6 @@ Requires Boost 1.50+
 
 - Other issues:
   * static/plain function object that accepts pointer as argument crashes when it receives message
-  * docs are not generated for functions with templated types as args or return
   * some types don't register as correct and output NULL DataAtom
   * objects report false "bad message format" error when function accepts vectors
   * messages with wrong arg count are truncated to last elements, this should be fixed
@@ -80,13 +80,6 @@ Requires Boost 1.50+
 - enums
 - properties with object flags (thread etc.)
 - multiple inputs
-- build scripts for derived projects:  
-    metadata variables  
-    * library name  
-    * version  
-    * license  
-    * keywords  
-    * authors  
 - object flag for string/symbol output
 - check DataTPtr pointers
 - doc cleanup for plain functions  
