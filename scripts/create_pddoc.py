@@ -10,13 +10,39 @@ import common_functions as gen
 
 import write_pddoc as docwrite
 
+# arguments
 from argparse import ArgumentParser
 parser = ArgumentParser()
 parser.add_argument("-b", "--build-dir", dest="build_dir",
                     help="set CMAKE_BINARY_DIR value here")
+parser.add_argument("-n", "--library-name", dest="library_name",
+                    help="set library name")
+parser.add_argument("-c", "--config-file", dest="config_file",
+                    help="set library config file")
 args = parser.parse_args()
 buildDir = args.build_dir
+libraryName = args.library_name
 
+# library_info.cfg
+
+import configparser
+config = configparser.ConfigParser()
+config["DEFAULT"] = {
+"library_name" : "wrapper_library",
+"version" : "0.1",
+"license" : "WTFPL",
+"keywords" : "none",
+"authors" : "John Smith Jr",
+}
+
+if args.config_file:
+    configFile = open(args.config_file)
+    config.read(configFile)
+
+libraryNameFile = open("../generated/library_name.txt","w+")
+libraryNameFile.write(config["DEFAULT"]["library_name"])
+
+docwrite.__libraryConfig__ = config["DEFAULT"]
 # ----------
 
 def hasDefaultConstructor(cls):
@@ -37,7 +63,7 @@ def hasDefaultConstructor(cls):
 
 # ---------------
 
-dbFileName = buildDir + "/doc/wrapper_library.db"
+dbFileName = buildDir + ("/doc/{0}.db".format(libraryName))
 dbFile = open(dbFileName,"w+")
 
 docwrite.__outputDir__ = buildDir + "/doc/" #setOutputDir(buildDir + "/doc")

@@ -10,6 +10,8 @@ import common_functions as gen
 global __outputDir__
 __outputDir__ = ""
 
+global __libraryConfig__
+
 def escapeTypeString(typeString):
     ret = typeString.replace("<","(")
     ret = ret.replace(">",")")
@@ -20,6 +22,8 @@ def escapeTypeString(typeString):
 # ---------------
 def classObject(name,description,objectType):
     global __outputDir__
+    global __libraryConfig__
+
     fileName = __outputDir__+objectType+".pddoc"
     outputFile = open(fileName,"w+")
     outputFile.write("""<?xml version="1.0" encoding="utf-8"?>
@@ -31,11 +35,11 @@ def classObject(name,description,objectType):
         </info>
         <meta>
             <authors>
-                <author>Script</author>
+                <author>{CFG_AUTHORS}</author>
             </authors>
             <description>Instance of {CLASSNAME_CXX} object.</description>
-            <license>N/A</license>
-            <library>wrapper_library</library>
+            <license>{CFG_LICENSE}</license>
+            <library>{CFG_LIBRARY}</library>
             <category>{CLASSNAME_PD}</category>
             <keywords>none</keywords>
             <since>1.0</since>
@@ -66,12 +70,17 @@ def classObject(name,description,objectType):
 </pddoc>
     """.format(CLASSNAME_CXX = name, \
     DESCR = description, \
-    CLASSNAME_PD = objectType))
+    CLASSNAME_PD = objectType, \
+    CFG_AUTHORS = __libraryConfig__["authors"], \
+    CFG_LICENSE = __libraryConfig__["license"], \
+    CFG_LIBRARY = __libraryConfig__["library_name"]))
 
 #----------
 
 def classMethodObject(className,description,objectType,methodType,methodReturn, cppClassName):
     global __outputDir__
+    global __libraryConfig__
+
     fileName = __outputDir__+objectType+".pddoc"
     outputFile = open(fileName,"w+")
 
@@ -101,11 +110,11 @@ def classMethodObject(className,description,objectType,methodType,methodReturn, 
         </info>
         <meta>
             <authors>
-                <author> Script </author>
+                <author>{CFG_AUTHORS}</author>
             </authors>
             <description>Method of {CLASSNAME_CXX}</description>
-            <license> N/A </license>
-            <library>wrapper_library</library>
+            <license>{CFG_LICENSE}</license>
+            <library>{CFG_LIBRARY}</library>
             <category>{CLASSNAME_PD}</category>
             <keywords> none </keywords>
             <since> 1.0 </since>
@@ -153,12 +162,17 @@ def classMethodObject(className,description,objectType,methodType,methodReturn, 
     OBJECTNAME_PD = objectType, \
     METHOD_ARGS_STR = methodTypeStr, \
     METHOD_RETURN_STR = methodReturnStr,
-    CLASSNAME_CXX =cppClassName))
+    CLASSNAME_CXX =cppClassName, \
+    CFG_AUTHORS = __libraryConfig__["authors"], \
+    CFG_LICENSE = __libraryConfig__["license"], \
+    CFG_LIBRARY = __libraryConfig__["library_name"]))
 
 # ---------------
 
 def staticMethodObject(className,description,objectType, methodType,methodReturn, cppClassName):
     global __outputDir__
+    global __libraryConfig__
+
     fileName = __outputDir__+objectType+".pddoc"
     outputFile = open(fileName,"w+")
 
@@ -186,11 +200,11 @@ def staticMethodObject(className,description,objectType, methodType,methodReturn
         </info>
         <meta>
             <authors>
-                <author> Script </author>
+                <author>{CFG_AUTHORS}</author>
             </authors>
             <description>Static method of {CLASSNAME_CXX}</description>
-            <license>N/A</license>
-            <library>wrapper_library</library>
+            <license>{CFG_LICENSE}</license>
+            <library>{CFG_LIBRARY}</library>
             <category>{CLASSNAME_PD}</category>
             <keywords>none</keywords>
             <since>1.0</since>
@@ -243,11 +257,16 @@ def staticMethodObject(className,description,objectType, methodType,methodReturn
     OBJECTNAME_PD = objectType, \
     METHOD_ARGS_STR = methodTypeStr, \
     METHOD_RETURN_STR = methodReturnStr,
-    CLASSNAME_CXX =cppClassName))
+    CLASSNAME_CXX =cppClassName, \
+    CFG_AUTHORS = __libraryConfig__["authors"], \
+    CFG_LICENSE = __libraryConfig__["license"], \
+    CFG_LIBRARY = __libraryConfig__["library_name"]))
 # ----------
 
 def customClassObject(className,description,objectType, infoString):
     global __outputDir__
+    global __libraryConfig__
+
     fileName = __outputDir__+objectType+".pddoc"
     outputFile = open(fileName,"w+")
     outputFile.write("""<?xml version="1.0" encoding="utf-8"?>
@@ -259,11 +278,11 @@ def customClassObject(className,description,objectType, infoString):
         </info>
         <meta>
             <authors>
-                <author> Script </author>
+                <author>{CFG_AUTHORS}</author>
             </authors>
             <description>Creates new instances of {CLASSNAME_CXX}</description>
-            <license> N/A </license>
-            <library>wrapper_library</library>
+            <license>{CFG_LICENSE}</license>
+            <library>{CFG_LIBRARY}</library>
             <category>{CLASSNAME_CXX}</category>
             <keywords> none </keywords>
             <since> 1.0 </since>
@@ -296,4 +315,7 @@ def customClassObject(className,description,objectType, infoString):
     """.format(CLASSNAME_CXX = className, \
     DESCR = description, \
     CLASSNAME_PD = objectType, \
-    INFO_STRING = infoString))
+    INFO_STRING = infoString, \
+    CFG_AUTHORS = __libraryConfig__["authors"], \
+    CFG_LICENSE = __libraryConfig__["license"], \
+    CFG_LIBRARY = __libraryConfig__["library_name"]))

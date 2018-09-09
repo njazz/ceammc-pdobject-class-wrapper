@@ -80,6 +80,11 @@ file (GLOB WRAP_SOURCES
 include_directories(./to_wrap/)
 include_directories(./to_include/)
 
+#cfg
+file (GLOB WRAP_CFG
+    "${PROJECT_SOURCE_DIR}/../library_info.cfg"
+    )
+
 set (HEADERS
     ceammc_lib/ceammc_object.h 
     ceammc_lib/ceammc_message.h 
@@ -138,14 +143,14 @@ add_custom_command(
         OUTPUT
             ${CMAKE_CURRENT_SOURCE_DIR}/generated/generated.cpp
         DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/to_wrap/
-        COMMAND cd ${CMAKE_CURRENT_SOURCE_DIR}/scripts/ && ./run_scripts.sh ${CMAKE_CURRENT_BINARY_DIR}
+        COMMAND cd ${CMAKE_CURRENT_SOURCE_DIR}/scripts/ && ./run_scripts.sh ${CMAKE_CURRENT_BINARY_DIR} ${WRAP_CFG}
 
 )
 
 add_custom_command(
     TARGET wrapper_library
     POST_BUILD
-    COMMAND cp ${CMAKE_CURRENT_BINARY_DIR}/wrapper_library.pd_darwin ${CMAKE_CURRENT_BINARY_DIR}/help/wrapper_library.pd_darwin
+    COMMAND cd ${CMAKE_CURRENT_SOURCE_DIR}/scripts/ && ./post_build_script.sh ${CMAKE_CURRENT_BINARY_DIR}
     )
 
 ###
