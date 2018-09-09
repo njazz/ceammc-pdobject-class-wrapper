@@ -138,14 +138,14 @@ add_custom_command(
         OUTPUT
             ${CMAKE_CURRENT_SOURCE_DIR}/generated/generated.cpp
         DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/to_wrap/
-        COMMAND cd ${CMAKE_CURRENT_SOURCE_DIR}/scripts/ && ./run_scripts.sh ${CMAKE_BINARY_DIR}
+        COMMAND cd ${CMAKE_CURRENT_SOURCE_DIR}/scripts/ && ./run_scripts.sh ${CMAKE_CURRENT_BINARY_DIR}
 
 )
 
 add_custom_command(
     TARGET wrapper_library
     POST_BUILD
-    COMMAND cp ${CMAKE_BINARY_DIR}/wrapper_library.pd_darwin ${CMAKE_BINARY_DIR}/help/wrapper_library.pd_darwin
+    COMMAND cp ${CMAKE_CURRENT_BINARY_DIR}/wrapper_library.pd_darwin ${CMAKE_CURRENT_BINARY_DIR}/help/wrapper_library.pd_darwin
     )
 
 ###
