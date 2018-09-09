@@ -22,9 +22,10 @@ import converter_object_templates as objt
 
 def outputWriteHeader(file):
     file.write("#include \"Wrapper.hpp\"\n\n")
-    for filename in os.listdir("../to_wrap/"):
-        if filename.endswith(".hpp") or filename.endswith(".h"):
-            file.write("#include \""+filename+"\"\n")
+    # for filename in os.listdir("../to_wrap/"):
+    for fullFileName in gen.getHeaderFilesFullPath():
+        # if filename.endswith(".hpp") or filename.endswith(".h"):
+        file.write("#include \""+fullFileName+"\"\n")
 
     file.write("extern \"C\"{\n");
     file.write("void setup(){\n\n")

@@ -15,13 +15,15 @@ from argparse import ArgumentParser
 parser = ArgumentParser()
 parser.add_argument("-b", "--build-dir", dest="build_dir",
                     help="set CMAKE_BINARY_DIR value here")
-parser.add_argument("-n", "--library-name", dest="library_name",
-                    help="set library name")
+parser.add_argument("-s", "--source-dir", dest="source_dir",
+                    help="set CMAKE_SOURCE_DIR value here")
+# parser.add_argument("-n", "--library-name", dest="library_name",
+#                     help="set library name")
 parser.add_argument("-c", "--config-file", dest="config_file",
                     help="set library config file")
 args = parser.parse_args()
 buildDir = args.build_dir
-libraryName = args.library_name
+# libraryName = args.library_name
 
 # library_info.cfg
 
@@ -36,12 +38,15 @@ config["DEFAULT"] = {
 }
 
 if args.config_file:
-    configFile = open(args.config_file)
-    config.read(configFile)
+    if os.path.isfile(args.config_file):
+        print("using configuration file: {0}".format(args.config_file))
+        # configFile = open(args.config_file)
+        config.read(args.config_file)
 
 libraryNameFile = open("../generated/library_name.txt","w+")
 libraryNameFile.write(config["DEFAULT"]["library_name"])
 
+libraryName = config["DEFAULT"]["library_name"]
 docwrite.__libraryConfig__ = config["DEFAULT"]
 # ----------
 
@@ -69,10 +74,12 @@ dbFile = open(dbFileName,"w+")
 docwrite.__outputDir__ = buildDir + "/doc/" #setOutputDir(buildDir + "/doc")
 # ---------------
 
-for filename in gen.getHeaderFiles():#os.listdir("../to_wrap/"):
-    if filename.endswith(".hpp") or filename.endswith(".h"):
+# for filename in gen.getHeaderFiles():#os.listdir("../to_wrap/"):
+for fullFileName in gen.getHeaderFilesFullPath():
+    # if filename.endswith(".hpp") or filename.endswith(".h"):
+    if True:
         try:
-            cppHeader = CppHeaderParser.CppHeader("../to_wrap/"+filename)
+            cppHeader = CppHeaderParser.CppHeader(fullFileName)
         except CppHeaderParser.CppParseError as e:
             print(e)
             sys.exit(1)

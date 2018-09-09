@@ -15,21 +15,17 @@ def convertName(name):
     return re.sub('([a-z0-9])([A-Z])', r'\1\2', s1).lower()
 
 def getHeaderFiles():
-    ret = os.listdir("../to_wrap/")
+    ret = []
     try:
         ret = ret + os.listdir("../../to_wrap/")
     except:
-        print()
+        ret = os.listdir("../to_wrap/")
 
     return ret;
 
 # TODO: test this
 def getHeaderFilesFullPath():
     ret = []
-    files = os.listdir("../to_wrap/")
-    for filename in files:
-        if filename.endswith(".hpp") or filename.endswith(".h"):
-            ret += ["../to_wrap/"+filename]
 
     try:
         files = os.listdir("../../to_wrap/")
@@ -37,7 +33,10 @@ def getHeaderFilesFullPath():
             if filename.endswith(".hpp") or filename.endswith(".h"):
                 ret += ["../../to_wrap/"+filename]
     except:
-        print()
+        files = os.listdir("../to_wrap/")
+        for filename in files:
+            if filename.endswith(".hpp") or filename.endswith(".h"):
+                ret += ["../to_wrap/"+filename]
 
     return ret;
 

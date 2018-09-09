@@ -65,10 +65,15 @@ set (SOURCES
 )
 
 # exclude when it is submodule:
+if (WRAPPER_SUBMODULE=="YES")
+    set(WRAP_SOURCES_TEST)
+else()
 file (GLOB WRAP_SOURCES_TEST
     "${PROJECT_SOURCE_DIR}/to_build/*.c"
     "${PROJECT_SOURCE_DIR}/to_build/*.cpp"
     )
+endif()
+
 include_directories(./to_wrap/)
 include_directories(./to_include/)
 ###
@@ -143,14 +148,14 @@ add_custom_command(
         OUTPUT
             ${CMAKE_CURRENT_SOURCE_DIR}/generated/generated.cpp
         DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/to_wrap/
-        COMMAND cd ${CMAKE_CURRENT_SOURCE_DIR}/scripts/ && ./run_scripts.sh ${CMAKE_CURRENT_BINARY_DIR} ${WRAP_CFG}
+        COMMAND cd ${CMAKE_CURRENT_SOURCE_DIR}/scripts/ && ./run_scripts.sh ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_SOURCE_DIR} ${WRAP_CFG}
 
 )
 
 add_custom_command(
     TARGET wrapper_library
     POST_BUILD
-    COMMAND cd ${CMAKE_CURRENT_SOURCE_DIR}/scripts/ && ./post_build_script.sh ${CMAKE_CURRENT_BINARY_DIR}
+    COMMAND cd ${CMAKE_CURRENT_SOURCE_DIR}/scripts/ && ./post_build_script.sh ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_SOURCE_DIR}
     )
 
 ###
