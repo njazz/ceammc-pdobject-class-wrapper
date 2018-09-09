@@ -76,14 +76,16 @@ endif()
 
 include_directories(./to_wrap/)
 include_directories(./to_include/)
+include_directories(./to_build/)
 ###
 
 file (GLOB WRAP_SOURCES
     "${CMAKE_CURRENT_SOURCE_DIR}/../to_build/*.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/../to_build/*.cpp"
     )
-include_directories(../to_wrap/)
-include_directories(../to_include/)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../to_wrap/)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../to_include/)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../to_build/)
 
 #cfg
 file (GLOB WRAP_CFG

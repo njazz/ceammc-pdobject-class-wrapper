@@ -12,10 +12,10 @@ mkdir build
 
 git init
 
-git submodule add -b dev-submodule https://github.com/njazz/ceammc-pdobject-class-wrapper.git wrapper
+git submodule add -b master https://github.com/njazz/ceammc-pdobject-class-wrapper.git wrapper
 git submodule init
 
 cp ./wrapper/submodule/CMakeLists.txt .
-cp ./wrapper/submodule/library_info.cfg .
+cp -n ./wrapper/submodule/library_info.cfg .
 
 git add *
