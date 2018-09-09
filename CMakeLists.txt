@@ -52,7 +52,7 @@ set (SOURCES
 
     "src/Wrapper.hpp"
 
-    "to_wrap/_generated.cpp"
+    "generated/generated.cpp"
 
     "src/_ConvertToPdType.cpp"
     "src/_ConvertFromPdType.cpp"
@@ -64,9 +64,30 @@ set (SOURCES
 #    "ceammc-pd-0.6/data/datatype_dict.cpp"
 )
 
+# exclude when it is submodule:
+if (WRAPPER_SUBMODULE=="YES")
+    set(WRAP_SOURCES_TEST)
+else()
+file (GLOB WRAP_SOURCES_TEST
+    "${PROJECT_SOURCE_DIR}/to_build/*.c"
+    "${PROJECT_SOURCE_DIR}/to_build/*.cpp"
+    )
+endif()
+
+include_directories(./to_wrap/)
+include_directories(./to_include/)
+###
+
 file (GLOB WRAP_SOURCES
-    "${PROJECT_SOURCE_DIR}/to_wrap/*.c"
-    "${PROJECT_SOURCE_DIR}/to_wrap/*.cpp"
+    "${PROJECT_SOURCE_DIR}/../to_build/*.c"
+    "${PROJECT_SOURCE_DIR}/../to_build/*.cpp"
+    )
+include_directories(./to_wrap/)
+include_directories(./to_include/)
+
+#cfg
+file (GLOB WRAP_CFG
+    "${PROJECT_SOURCE_DIR}/../library_info.cfg"
     )
 
 set (HEADERS
@@ -76,8 +97,8 @@ set (HEADERS
     ceammc_lib/ceammc_log.h 
     ceammc_lib/ceammc_property.h 
 )
-#
 
+#
 set(CMAKE_C_FLAGS ${CMAKE_C_FLAGS} "-fblocks")
 
 #
@@ -94,14 +115,12 @@ include_directories(./ceammc-pd-0.6/string)
 
 include_directories(./pd_headers/)
 
-include_directories(./to_wrap/)
-include_directories(./to_include/)
-
 LINK_DIRECTORIES(${CMAKE_SOURCE_DIR}/to_link/)
 
 add_library(wrapper_library SHARED
     ${CEAMMC_LIB_SOURCES}
     ${WRAP_SOURCES}
+    ${WRAP_SOURCES_TEST}
     ${SOURCES} )
 
 file (GLOB WRAP_LINK_LIBS
@@ -122,22 +141,21 @@ set_target_properties(wrapper_library PROPERTIES SUFFIX ".pd_darwin")
 
 add_custom_target(
         generator_script ALL
-        DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/to_wrap/_generated.cpp
+        DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/generated/generated.cpp
 )
 
 add_custom_command(
         OUTPUT
-            ${CMAKE_CURRENT_SOURCE_DIR}/to_wrap/_generated.cpp
-#            ${CMAKE_CURRENT_SOURCE_DIR}/build/_generated.pd
+            ${CMAKE_CURRENT_SOURCE_DIR}/generated/generated.cpp
         DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/to_wrap/
-        COMMAND cd ${CMAKE_SOURCE_DIR}/gen/ && ./run_scripts.sh
-        #/usr/local/bin/python3 ${CMAKE_CURRENT_SOURCE_DIR}/gen/convert.py
+        COMMAND cd ${CMAKE_CURRENT_SOURCE_DIR}/scripts/ && ./run_scripts.sh ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_SOURCE_DIR} ${WRAP_CFG}
+
 )
 
 add_custom_command(
     TARGET wrapper_library
     POST_BUILD
-    COMMAND cp ${CMAKE_BINARY_DIR}/wrapper_library.pd_darwin ${CMAKE_BINARY_DIR}/help/wrapper_library.pd_darwin
+    COMMAND cd ${CMAKE_CURRENT_SOURCE_DIR}/scripts/ && ./post_build_script.sh ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_SOURCE_DIR}
     )
 
 ###
