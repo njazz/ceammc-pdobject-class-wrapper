@@ -29,13 +29,13 @@ def getHeaderFilesFullPath():
     files = os.listdir("../to_wrap/")
     for filename in files:
         if filename.endswith(".hpp") or filename.endswith(".h"):
-            ret += "../to_wrap/"+filename
+            ret += ["../to_wrap/"+filename]
 
     try:
         files = os.listdir("../../to_wrap/")
         for filename in files:
             if filename.endswith(".hpp") or filename.endswith(".h"):
-                ret += "../to_wrap/"+filename
+                ret += ["../../to_wrap/"+filename]
     except:
         print()
 
@@ -54,7 +54,7 @@ def getClassNameCXX(nameSpace, classNameSrc):
     if (nameSpace == ""):
         nameSpaceDivider = ""
     if len(nameSpace) > 0:
-        ret = nameSpace + "::" + classNameSrc 
+        ret = nameSpace + "::" + classNameSrc
     else:
         ret = classNameSrc
     return ret

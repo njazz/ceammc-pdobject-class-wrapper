@@ -138,7 +138,7 @@ add_custom_command(
         OUTPUT
             ${CMAKE_CURRENT_SOURCE_DIR}/generated/generated.cpp
         DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/to_wrap/
-        COMMAND cd ${CMAKE_SOURCE_DIR}/scripts/ && ./run_scripts.sh
+        COMMAND cd ${CMAKE_CURRENT_SOURCE_DIR}/scripts/ && ./run_scripts.sh ${CMAKE_BINARY_DIR}
 
 )
 

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name=".nestedparent.nestedparent.nestedstruct.new">
+        <title>.nestedparent.nestedparent.nestedstruct.new</title>
+        <info>
+            <par></par>
+        </info>
+        <meta>
+            <authors>
+                <author> Script </author>
+            </authors>
+            <description>Creates new instances of ::NestedParent::NestedParent::NestedStruct</description>
+            <license> N/A </license>
+            <library>wrapper_library</library>
+            <category>::NestedParent::NestedParent::NestedStruct</category>
+            <keywords> none </keywords>
+            <since> 1.0 </since>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">Outputs current instance of ::NestedParent::NestedParent::NestedStruct </xinfo>
+                <xinfo on="any">Creates new instance of ::NestedParent::NestedParent::NestedStruct and outputs it</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>Outputs DataAtom with ::NestedParent::NestedParent::NestedStruct object.</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[declare -lib wrapper_library]
+
+[B] [1.0( [symbol test( [1 2 3(
+|   |     |             |
+[.nestedparent.nestedparent.nestedstruct.new                        ]
+|
+[ui.display @display_type 1]
+
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
+    

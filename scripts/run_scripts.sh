@@ -1,11 +1,17 @@
 #!/bin/sh
 
-rm -R ../build/doc
-mkdir ../build/doc
-/usr/local/bin/python3 convert_headers.py
-/usr/local/bin/python3 create_pddoc.py
+echo build dir "$1"
 
-cd ../build/
+if [ $# -eq 0 ]
+  then exit 1
+fi
+
+rm -R $1/doc
+mkdir $1/doc
+/usr/local/bin/python3 convert_headers.py --build-dir $1
+/usr/local/bin/python3 create_pddoc.py --build-dir $1
+
+cd $1
 rm -R help
 mkdir help
 cd help

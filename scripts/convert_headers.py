@@ -11,6 +11,13 @@ import converter_object_templates as objt
 
 #TODO converter templates
 
+# from argparse import ArgumentParser
+# parser = ArgumentParser()
+# parser.add_argument("-b", "--build-dir", dest="build_dir",
+#                     help="set CMAKE_BINARY_DIR value here")
+# args = parser.parse_args()
+# buildDir = args["build_dir"]
+
 # ------------
 
 def outputWriteHeader(file):
@@ -28,12 +35,15 @@ outputFile = open("../generated/generated.cpp","w+")
 
 outputWriteHeader(outputFile)
 
-for filename in gen.getHeaderFiles(): #os.listdir("../to_wrap/"):
-    if filename.endswith(".hpp") or filename.endswith(".h"):
-        outputFile.write("// "+filename+"\n")
+# for filename in gen.getHeaderFiles(): #os.listdir("../to_wrap/"):
+for fullFileName in gen.getHeaderFilesFullPath():
+    # if filename.endswith(".hpp") or filename.endswith(".h"):
+    if True:
+        outputFile.write("// {0}\n".format(os.path.basename(fullFileName)))
 
         try:
-            cppHeader = CppHeaderParser.CppHeader("../to_wrap/"+filename)
+            print ("converting: {0}".format(fullFileName))
+            cppHeader = CppHeaderParser.CppHeader(fullFileName)#"../to_wrap/"+filename)
         except CppHeaderParser.CppParseError as e:
             print(e)
             sys.exit(1)
@@ -69,11 +79,6 @@ for filename in gen.getHeaderFiles(): #os.listdir("../to_wrap/"):
 
             if m["inline"] == True:
                 methodReturn = methodReturn.replace('inline ','')
-
-            # methodName = gen.getClassNameCXX(nameSpace, m["name"])
-            # pdObjectName = gen.getClassNamePD(nameSpace, m["name"]) #gen.convertName(m["name"])
-
-            # toWrite = objt.genFunc(methodName, nameSpace, pdObjectName, methodIndex, methodReturn, ",".join(methodType))
 
             toWrite = objt.genFunc(nameSpace, methodName, methodIndex, methodReturn, ",".join(methodType))
 
@@ -154,6 +159,7 @@ for filename in gen.getHeaderFiles(): #os.listdir("../to_wrap/"):
                 methodIndex+=1
 
                 # todo
+                # outputFile.write(objt.genField(nameSpace, className, methodIndex, methodName, methodReturn))
 
             # ----------
             # methods

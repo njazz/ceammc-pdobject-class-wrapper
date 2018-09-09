@@ -10,6 +10,13 @@ import common_functions as gen
 
 import write_pddoc as docwrite
 
+from argparse import ArgumentParser
+parser = ArgumentParser()
+parser.add_argument("-b", "--build-dir", dest="build_dir",
+                    help="set CMAKE_BINARY_DIR value here")
+args = parser.parse_args()
+buildDir = args.build_dir
+
 # ----------
 
 def hasDefaultConstructor(cls):
@@ -30,9 +37,10 @@ def hasDefaultConstructor(cls):
 
 # ---------------
 
-dbFileName = "../build/doc/wrapper_library.db"
+dbFileName = buildDir + "/doc/wrapper_library.db"
 dbFile = open(dbFileName,"w+")
 
+docwrite.__outputDir__ = buildDir + "/doc/" #setOutputDir(buildDir + "/doc")
 # ---------------
 
 for filename in gen.getHeaderFiles():#os.listdir("../to_wrap/"):

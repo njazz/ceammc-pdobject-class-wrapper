@@ -7,10 +7,20 @@ import re
 
 import common_functions as gen
 
-# ---------------
+global __outputDir__
+__outputDir__ = ""
 
+def escapeTypeString(typeString):
+    ret = typeString.replace("<","(")
+    ret = ret.replace(">",")")
+    ret = ret.replace("&","(reference)")
+    ret = ret.replace("*","(pointer)")
+    return ret
+
+# ---------------
 def classObject(name,description,objectType):
-    fileName = "../build/doc/"+objectType+".pddoc"
+    global __outputDir__
+    fileName = __outputDir__+objectType+".pddoc"
     outputFile = open(fileName,"w+")
     outputFile.write("""<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
@@ -60,15 +70,9 @@ def classObject(name,description,objectType):
 
 #----------
 
-def escapeTypeString(typeString):
-    ret = typeString.replace("<","(")
-    ret = ret.replace(">",")")
-    ret = ret.replace("&","(reference)")
-    ret = ret.replace("*","(pointer)")
-    return ret
-
 def classMethodObject(className,description,objectType,methodType,methodReturn, cppClassName):
-    fileName = "../build/doc/"+objectType+".pddoc"
+    global __outputDir__
+    fileName = __outputDir__+objectType+".pddoc"
     outputFile = open(fileName,"w+")
 
     methodTypeStr = ",".join(methodType)
@@ -154,7 +158,8 @@ def classMethodObject(className,description,objectType,methodType,methodReturn, 
 # ---------------
 
 def staticMethodObject(className,description,objectType, methodType,methodReturn, cppClassName):
-    fileName = "../build/doc/"+objectType+".pddoc"
+    global __outputDir__
+    fileName = __outputDir__+objectType+".pddoc"
     outputFile = open(fileName,"w+")
 
     methodTypeStr = ",".join(methodType)
@@ -242,7 +247,8 @@ def staticMethodObject(className,description,objectType, methodType,methodReturn
 # ----------
 
 def customClassObject(className,description,objectType, infoString):
-    fileName = "../build/doc/"+objectType+".pddoc"
+    global __outputDir__
+    fileName = __outputDir__+objectType+".pddoc"
     outputFile = open(fileName,"w+")
     outputFile.write("""<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
