@@ -8,3 +8,5 @@ unused/
 CMakeLists.txt.user
 
 *.pyc
+
+generated/*
