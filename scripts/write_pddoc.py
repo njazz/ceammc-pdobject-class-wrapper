@@ -54,57 +54,67 @@ def classObject(name,description,objectType):
         </example>
     </object>
 </pddoc>
-    """.format(CLASSNAME_CXX = name, DESCR = description, CLASSNAME_PD = objectType))
+    """.format(CLASSNAME_CXX = name, \
+    DESCR = description, \
+    CLASSNAME_PD = objectType))
 
 #----------
+
+def escapeTypeString(typeString):
+    ret = typeString.replace("<","(")
+    ret = ret.replace(">",")")
+    ret = ret.replace("&","(reference)")
+    ret = ret.replace("*","(pointer)")
+    return ret
 
 def classMethodObject(className,description,objectType,methodType,methodReturn, cppClassName):
     fileName = "../build/doc/"+objectType+".pddoc"
     outputFile = open(fileName,"w+")
 
     methodTypeStr = ",".join(methodType)
-    methodTypeStr.replace("<","(")
-    methodTypeStr.replace(">",")")
-    methodReturn.replace("<","(")
-    methodReturn.replace(">",")")
+    methodTypeStr = escapeTypeString(methodTypeStr)
 
-    if methodType == "[]":
+    methodReturnStr = escapeTypeString(str(methodReturn))
+
+    if methodType == []:
         methodTypeStr = "accepts bang"
     else:
         methodTypeStr = "accepts list: {0}".format(methodTypeStr)
 
-    if methodReturn =="[]":
-        methodReturn = "no output"
+    if methodReturn == []:
+        methodReturnStr = "no output"
     else:
-        methodReturn = "list: {0}".format(methodReturn)
+        methodReturnStr = "list: {0}".format(methodReturnStr)
+
+    # print("object {0} args [{1}] return [{2}]".format(objectType, methodTypeStr, methodReturnStr))
 
     outputFile.write("""<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
-    <object name="{2}">
-        <title>{2}</title>
+    <object name="{OBJECTNAME_PD}">
+        <title>{OBJECTNAME_PD}</title>
         <info>
-            <par>{1}</par>
+            <par>{DESCR}</par>
         </info>
         <meta>
             <authors>
                 <author> Script </author>
             </authors>
-            <description>Method of {5}</description>
+            <description>Method of {CLASSNAME_CXX}</description>
             <license> N/A </license>
             <library>wrapper_library</library>
-            <category>{0}</category>
+            <category>{CLASSNAME_PD}</category>
             <keywords> none </keywords>
             <since> 1.0 </since>
         </meta>
         <inlets>
             <inlet>
-                <xinfo on="any">{3} </xinfo>
+                <xinfo on="any">{METHOD_ARGS_STR} </xinfo>
                 <xinfo on="symbol">'func' outputs object's function as DataAtom at second outlet</xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>{4} </outlet>
-            <outlet>Outputs DataAtom with {2} function.</outlet>
+            <outlet>{METHOD_RETURN_STR}</outlet>
+            <outlet>Outputs DataAtom with {OBJECTNAME_PD} function.</outlet>
         </outlets>
         <example>
             <pdascii>
@@ -113,19 +123,19 @@ def classMethodObject(className,description,objectType,methodType,methodReturn, 
 
 [B]
 |
-[{0}]
+[{CLASSNAME_PD}]
 |  |
 |  [ui.display @display_type 1]
 |
 |  [B] [1.0( [symbol test( [1 2 3(
 |  |   |     |             |
-[{2}                        ]
+[{OBJECTNAME_PD}                        ]
 |
 [ui.display @display_type 1]
 
 [func(
 |
-[{2}]
+[{OBJECTNAME_PD}]
 ^|
 [ui.display @display_type 1]
 
@@ -134,7 +144,12 @@ def classMethodObject(className,description,objectType,methodType,methodReturn, 
         </example>
     </object>
 </pddoc>
-    """.format(className, description, objectType, methodTypeStr, methodReturn, cppClassName))
+    """.format(CLASSNAME_PD = className, \
+    DESCR = description, \
+    OBJECTNAME_PD = objectType, \
+    METHOD_ARGS_STR = methodTypeStr, \
+    METHOD_RETURN_STR = methodReturnStr,
+    CLASSNAME_CXX =cppClassName))
 
 # ---------------
 
@@ -143,49 +158,48 @@ def staticMethodObject(className,description,objectType, methodType,methodReturn
     outputFile = open(fileName,"w+")
 
     methodTypeStr = ",".join(methodType)
-    methodTypeStr.replace("<","(")
-    methodTypeStr.replace(">",")")
-    methodReturn.replace("<","(")
-    methodReturn.replace(">",")")
+    methodTypeStr = escapeTypeString(methodTypeStr)
 
-    if methodType == "[]":
+    methodReturnStr = escapeTypeString(str(methodReturn))
+
+    if methodType ==  []:
         methodTypeStr = "accepts bang"
     else:
         methodTypeStr = "accepts list: {0}".format(methodTypeStr)
 
-    if methodReturn =="[]":
+    if methodReturn == []:
         methodReturn = "no output"
     else:
         methodReturn = "list: {0}".format(methodReturn)
 
     outputFile.write("""<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
-    <object name="{2}">
-        <title>{2}</title>
+    <object name="{OBJECTNAME_PD}">
+        <title>{OBJECTNAME_PD}</title>
         <info>
-            <par>{1}</par>
+            <par>{DESCR}</par>
         </info>
         <meta>
             <authors>
                 <author> Script </author>
             </authors>
-            <description>Static method of {5}</description>
+            <description>Static method of {CLASSNAME_CXX}</description>
             <license>N/A</license>
             <library>wrapper_library</library>
-            <category>{0}</category>
+            <category>{CLASSNAME_PD}</category>
             <keywords>none</keywords>
             <since>1.0</since>
         </meta>
         <inlets>
             <inlet>
-                <xinfo on="any">{3} </xinfo>
+                <xinfo on="any">{METHOD_ARGS_STR} </xinfo>
                 <xinfo on="symbol">'thread 1' sets the object to perform it's action in separate thread</xinfo>
                 <xinfo on="symbol">'func' outputs object's function as DataAtom at second outlet</xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>{4} </outlet>
-            <outlet>Outputs DataAtom with {2} function.</outlet>
+            <outlet>{METHOD_RETURN_STR}</outlet>
+            <outlet>Outputs DataAtom with {OBJECTNAME_PD} function.</outlet>
         </outlets>
         <example>
             <pdascii>
@@ -194,7 +208,7 @@ def staticMethodObject(className,description,objectType, methodType,methodReturn
 
 [B] [1.0( [symbol test( [1 2 3(
 |   |     |             |
-[{2}                               ]
+[{OBJECTNAME_PD}                               ]
 |
 [ui.display @display_type 1]
 
@@ -204,13 +218,13 @@ def staticMethodObject(className,description,objectType, methodType,methodReturn
 |
 |  [B] [1.0( [symbol test( [1 2 3(
 |  |   |     |             |
-[{2}                               ]
+[{OBJECTNAME_PD}                               ]
 |
 [ui.display @display_type 1]
 
 [func(
 |
-[{2}]
+[{OBJECTNAME_PD}]
 ^|
 [ui.display @display_type 1]
 
@@ -219,7 +233,12 @@ def staticMethodObject(className,description,objectType, methodType,methodReturn
         </example>
     </object>
 </pddoc>
-    """.format(className,description,objectType, methodTypeStr,methodReturn, cppClassName))
+    """.format(CLASSNAME_PD = className, \
+    DESCR = description, \
+    OBJECTNAME_PD = objectType, \
+    METHOD_ARGS_STR = methodTypeStr, \
+    METHOD_RETURN_STR = methodReturnStr,
+    CLASSNAME_CXX =cppClassName))
 # ----------
 
 def customClassObject(className,description,objectType, infoString):
@@ -227,30 +246,30 @@ def customClassObject(className,description,objectType, infoString):
     outputFile = open(fileName,"w+")
     outputFile.write("""<?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
-    <object name="{2}">
-        <title>{2}</title>
+    <object name="{CLASSNAME_PD}">
+        <title>{CLASSNAME_PD}</title>
         <info>
-            <par>{1}</par>
+            <par>{DESCR}</par>
         </info>
         <meta>
             <authors>
                 <author> Script </author>
             </authors>
-            <description>Creates new instances of {0}</description>
+            <description>Creates new instances of {CLASSNAME_CXX}</description>
             <license> N/A </license>
             <library>wrapper_library</library>
-            <category>{0}</category>
+            <category>{CLASSNAME_CXX}</category>
             <keywords> none </keywords>
             <since> 1.0 </since>
         </meta>
         <inlets>
             <inlet>
-                <xinfo on="bang">Outputs current instance of {0} </xinfo>
-                <xinfo on="any">Creates new instance of {0} and outputs it</xinfo>
+                <xinfo on="bang">Outputs current instance of {CLASSNAME_CXX} </xinfo>
+                <xinfo on="any">Creates new instance of {CLASSNAME_CXX} and outputs it</xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>Outputs DataAtom with {0} object.</outlet>
+            <outlet>Outputs DataAtom with {CLASSNAME_CXX} object.</outlet>
         </outlets>
         <example>
             <pdascii>
@@ -259,7 +278,7 @@ def customClassObject(className,description,objectType, infoString):
 
 [B] [1.0( [symbol test( [1 2 3(
 |   |     |             |
-[{2}                        ]
+[{CLASSNAME_PD}                        ]
 |
 [ui.display @display_type 1]
 
@@ -268,4 +287,7 @@ def customClassObject(className,description,objectType, infoString):
         </example>
     </object>
 </pddoc>
-    """.format(className,description,objectType, infoString))
+    """.format(CLASSNAME_CXX = className, \
+    DESCR = description, \
+    CLASSNAME_PD = objectType, \
+    INFO_STRING = infoString))
