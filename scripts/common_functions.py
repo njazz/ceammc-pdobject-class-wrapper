@@ -62,3 +62,20 @@ def getClassNamePD(nameSpace, classNameSrc):
     ret = convertName(getClassNameCXX(nameSpace, classNameSrc))
     ret = ret.replace("::",".")
     return ret
+
+# -----
+def escapeTypeString(typeString):
+    ret = typeString.replace("<","(")
+    ret = ret.replace(">",")")
+    ret = ret.replace("&","(reference)")
+    ret = ret.replace("*","(pointer)")
+    return ret
+
+def escapeTypeStringForTypeName(typeString):
+    ret = typeString.replace("<","_lt_")
+    ret = ret.replace(">","_gt_")
+    ret = ret.replace("&","_ref_")
+    ret = ret.replace("*","_ptr_")
+    ret = ret.replace(".","_")
+    ret = ret.replace("::","__")
+    return ret

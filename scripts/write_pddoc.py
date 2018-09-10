@@ -76,6 +76,115 @@ def classObject(name,description,objectType):
     CFG_LIBRARY = __libraryConfig__["library_name"]))
 
 #----------
+def dataStorage(name,description,objectType):
+    global __outputDir__
+    global __libraryConfig__
+
+# 1 local
+    fileName = __outputDir__+"local."+objectType+".pddoc"
+    outputFile = open(fileName,"w+")
+    outputFile.write("""<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="local.{CLASSNAME_PD}">
+        <title>local.{CLASSNAME_PD}</title>
+        <info>
+            <par>{DESCR}</par>
+        </info>
+        <meta>
+            <authors>
+                <author>{CFG_AUTHORS}</author>
+            </authors>
+            <description>Local storage for {CLASSNAME_CXX} data.</description>
+            <license>{CFG_LICENSE}</license>
+            <library>{CFG_LIBRARY}</library>
+            <category>local</category>
+            <keywords>none</keywords>
+            <since>1.0</since>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">Outputs DataAtom with {CLASSNAME_CXX} object.</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>Outputs DataAtom with {CLASSNAME_CXX} object.</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[declare -lib {CFG_LIBRARY}]
+
+[B]
+|
+[local.{CLASSNAME_PD} storage-name]
+|
+[ui.display @display_type 1]
+
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
+    """.format(CLASSNAME_CXX = name, \
+    DESCR = description, \
+    CLASSNAME_PD = objectType, \
+    CFG_AUTHORS = __libraryConfig__["authors"], \
+    CFG_LICENSE = __libraryConfig__["license"], \
+    CFG_LIBRARY = __libraryConfig__["library_name"]))
+
+# 2 global
+    fileName = __outputDir__+"global."+objectType+".pddoc"
+    outputFile = open(fileName,"w+")
+    outputFile.write("""<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="global.{CLASSNAME_PD}">
+        <title>global.{CLASSNAME_PD}</title>
+        <info>
+            <par>{DESCR}</par>
+        </info>
+        <meta>
+            <authors>
+                <author>{CFG_AUTHORS}</author>
+            </authors>
+            <description>Global storage for {CLASSNAME_CXX} data.</description>
+            <license>{CFG_LICENSE}</license>
+            <library>{CFG_LIBRARY}</library>
+            <category>global</category>
+            <keywords>none</keywords>
+            <since>1.0</since>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">Outputs DataAtom with {CLASSNAME_CXX} object.</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>Outputs DataAtom with {CLASSNAME_CXX} object.</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[declare -lib {CFG_LIBRARY}]
+
+[B]
+|
+[global.{CLASSNAME_PD} storage-name]
+|
+[ui.display @display_type 1]
+
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
+    """.format(CLASSNAME_CXX = name, \
+    DESCR = description, \
+    CLASSNAME_PD = objectType, \
+    CFG_AUTHORS = __libraryConfig__["authors"], \
+    CFG_LICENSE = __libraryConfig__["license"], \
+    CFG_LIBRARY = __libraryConfig__["library_name"]))
+
+#----------
 
 def classMethodObject(className,description,objectType,methodType,methodReturn, cppClassName):
     global __outputDir__

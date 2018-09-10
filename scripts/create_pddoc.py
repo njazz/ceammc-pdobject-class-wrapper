@@ -115,6 +115,10 @@ for fullFileName in gen.getHeaderFilesFullPath():
                 docwrite.classObject(c, "no description", pdClassName)
                 dbFile.write("{0} . .\n".format(pdClassName))
 
+                docwrite.dataStorage(c, "no description", pdClassName)
+                dbFile.write("local.{0} . .\n".format(pdClassName))
+                dbFile.write("global.{0} . .\n".format(pdClassName))
+
             for m in cppHeader.classes[c]["methods"]["public"]:
                 if m["template"] != False:
                     continue
