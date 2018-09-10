@@ -85,7 +85,10 @@ Requires Boost 1.50+
 - doc cleanup for plain functions  
 - pass DOXYGEN comments to pddoc  
 - class object containing all methods  
-- local/global data objects  
+- local/global data objects
+- thread-safe data type wrap and [thread 1( messages to class methods
+- basic automatic tests for wrapped classes
+- arguments
 
 Tested in CEAMMC Pd 2018.08 (v0.6)
 
