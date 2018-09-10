@@ -3,8 +3,12 @@
 #include "ClassConstructor.hpp"
 #include "ClassMethod.hpp"
 
+#include "DataStorage.hpp"
+
 #include "global_base.h"
 #include "local_base.h"
+
+
 
 #define WRAP_CLASS(x, y) ObjectFactory<ClassConstructor<x> >(y);
 #define WRAP_CUSTOM_CLASS(x, y, z, m, n)                \
@@ -58,18 +62,18 @@
     ObjectFactory<M_##m>(z);
 
 #define WRAP_STORAGE(x,y, z)                \
-    class L_##y : public LocalBase<x> {  \
+    class L_##y : public WrapLocalData<x> {  \
     public:                               \
         L_##y(PdArgs& a)                 \
-            : LocalBase<x>(a)             \
+            : WrapLocalData<x>(a)             \
         {                                 \
         }                                 \
     };                                    \
                                           \
-    class G_##y : public GlobalBase<x> { \
+    class G_##y : public WrapGlobalData<x> { \
     public:                               \
         G_##y(PdArgs& a)                 \
-            : GlobalBase<x>(a)             \
+            : WrapGlobalData<x>(a)             \
         {                                 \
         }                                 \
     };                                    \

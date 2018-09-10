@@ -48,6 +48,8 @@ set (SOURCES
     "src/ClassMethod.hpp"
     "src/ClassStaticMethod.hpp"
 
+    "src/DataStorage.hpp"
+
     "src/Macros.hpp"
 
     "src/Wrapper.hpp"

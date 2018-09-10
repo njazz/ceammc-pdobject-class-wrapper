@@ -18,6 +18,13 @@ class DemoClass {
     DemoSubClass _subClass;
 
 public:
+    DemoClass(DemoClass& src)
+    {
+        _data = src._data;
+        _string = src._string;
+        _subClass = src._subClass;
+    }
+
     void set(float f)
     {
         _data = f;
