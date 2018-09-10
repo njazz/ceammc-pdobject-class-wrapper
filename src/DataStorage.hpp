@@ -38,19 +38,18 @@ public:
                 return;
             }
 
-            if (da.data().isNull())
-            {post("null pointer");
-            return;}
+            if (da.data().isNull()) {
+                post("null pointer");
+                return;
+            }
 
-
-            auto v = const_cast<AbstractDataWrapT<T>*>( da.as<AbstractDataWrapT<T> >());
-            ceammc::GlobalBase<AbstractDataWrapT<T> >::ref() =  *v ; //DataTPtr<AbstractDataWrapT<T> >(l.at(0));
+            auto v = const_cast<AbstractDataWrapT<T>*>(da.as<AbstractDataWrapT<T> >());
+            ceammc::GlobalBase<AbstractDataWrapT<T> >::ref() = *v; //DataTPtr<AbstractDataWrapT<T> >(l.at(0));
 
             return;
         }
     }
 };
-
 
 template <typename T>
 class WrapGlobalData : public ceammc::GlobalBase<AbstractDataWrapT<T> > {
@@ -83,13 +82,13 @@ public:
                 return;
             }
 
-            if (da.data().isNull())
-            {post("null pointer");
-            return;}
+            if (da.data().isNull()) {
+                post("null pointer");
+                return;
+            }
 
-
-            auto v = const_cast<AbstractDataWrapT<T>*>( da.as<AbstractDataWrapT<T> >());
-            ceammc::GlobalBase<AbstractDataWrapT<T> >::ref() =  *v ; //DataTPtr<AbstractDataWrapT<T> >(l.at(0));
+            auto v = const_cast<AbstractDataWrapT<T>*>(da.as<AbstractDataWrapT<T> >());
+            ceammc::GlobalBase<AbstractDataWrapT<T> >::ref() = *v; //DataTPtr<AbstractDataWrapT<T> >(l.at(0));
 
             return;
         }

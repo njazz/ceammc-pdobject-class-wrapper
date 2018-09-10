@@ -42,6 +42,7 @@ Requires Boost 1.50+
 - Converts lists <->vectors of strings/numbers
 - Supports CEAMMC Set and Dict data types
 - Can output functions, static and non-static methods as DataAtoms containing function pointer.
+- Creates [local.* ] and [global.* ] data storage objects for classes with default and copy constructors.
 
 ##### Current limitations
 
@@ -65,6 +66,7 @@ Requires Boost 1.50+
   * some types don't register as correct and output NULL DataAtom
   * objects report false "bad message format" error when function accepts vectors
   * messages with wrong arg count are truncated to last elements, this should be fixed
+  * doesn't check if class has copy constructor (for local.* and global.* objects)
 
 
 ---
@@ -85,7 +87,6 @@ Requires Boost 1.50+
 - doc cleanup for plain functions  
 - pass DOXYGEN comments to pddoc  
 - class object containing all methods  
-- local/global data objects
 - thread-safe data type wrap and [thread 1( messages to class methods
 - basic automatic tests for wrapped classes
 - arguments

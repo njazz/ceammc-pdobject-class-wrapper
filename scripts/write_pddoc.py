@@ -114,13 +114,15 @@ def dataStorage(name,description,objectType):
 <![CDATA[
 [declare -lib {CFG_LIBRARY}]
 
-[B]                 [B]
-|                    |
-[{CLASSNAME_PD}]    [{CLASSNAME_PD}    ]
-|                    |                |
-|                    [msg set]   [B]  [ui.display]
-|                    |            |
-[local.{CLASSNAME_PD} storage-name ]
+[B]
+|
+[{CLASSNAME_PD}]
+| |
+| [ui.display]
+|
+| [B]
+| |
+[local.{CLASSNAME_PD} storage-name]
 |
 [ui.display @display_type 1]
 
@@ -172,6 +174,12 @@ def dataStorage(name,description,objectType):
 
 [B]
 |
+[{CLASSNAME_PD}]
+| |
+| [ui.display]
+|
+| [B]
+| |
 [global.{CLASSNAME_PD} storage-name]
 |
 [ui.display @display_type 1]
