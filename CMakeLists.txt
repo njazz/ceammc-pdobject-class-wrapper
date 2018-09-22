@@ -129,6 +129,7 @@ add_library(wrapper_library SHARED
     ${SOURCES} )
 
 file (GLOB WRAP_LINK_LIBS
+    ${WRAP_LINK_LIBS}
     "${PROJECT_SOURCE_DIR}/to_link/*.a"
     "${PROJECT_SOURCE_DIR}/to_link/*.dylib"
     )
